@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.gencode.ColumnsMapper">
+
+	<resultMap id="ColumnsResultMap" type="com.ai.mnt.model.gencode.TableColumn">
+		<result column="table_schema" property="tableSchema" jdbcType="VARCHAR" />
+		<result column="table_name" property="tableName" jdbcType="VARCHAR" />
+		<result column="column_name" property="columnName" jdbcType="VARCHAR" />
+		<result column="data_type" property="dataType" jdbcType="VARCHAR" />
+		<result column="column_key" property="columnKey" jdbcType="VARCHAR" />
+		<result column="extra" property="extra" jdbcType="VARCHAR" />
+		<result column="column_comment" property="columnComment" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Columns">
+		table_schema,table_name,column_name,data_type,column_key,extra,column_comment
+	</sql>
+
+	<select id="findAll" resultMap="ColumnsResultMap">
+		select
+		<include refid="Base_Columns" />
+		from information_schema.COLUMNS 
+		where table_schema ='mnt' and table_name='sys_user'
+	</select>
+
+	<select id="findList" resultMap="ColumnsResultMap">
+		select
+		<include refid="Base_Columns" />
+		from information_schema.COLUMNS
+		<where>
+			<if test="columnName != null">
+				column_name = #{columnName}
+			</if>
+			<if test="tableSchema != null">
+				and table_schema = #{tableSchema}
+			</if>
+			<if test="tableName != null">
+				and table_name = #{tableName}
+			</if>
+			<if test="dataType != null">
+				and data_type = #{dataType}
+			</if>
+			<if test="columnKey != null">
+				and column_key = #{columnKey}
+			</if>
+			<if test="extra != null">
+				and extra = #{extra}
+			</if>
+			<if test="columnComment != null">
+				and column_comment = #{columnComment}
+			</if>
+		</where>
+	</select>
+
+</mapper>

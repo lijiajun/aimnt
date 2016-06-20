@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.sys.SysRoleMapper">
+
+    <resultMap id="SysRoleResultMap" type="com.ai.mnt.model.sys.SysRole">
+        <id column="role_id" property="roleId" />
+        <result column="role_name" property="roleName" />
+        <result column="role_sts" property="roleSts" />
+        <result column="remark" property="remark" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="SysRoleColumns">
+        role_id,
+        role_name,
+        role_sts,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="roleId">
+        insert into sys_role (
+        role_name,
+        role_sts,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{roleName},
+        #{roleSts},
+        #{remark},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into sys_role (
+        role_name,
+        role_sts,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.roleName},
+            #{item.roleSts},
+            #{item.remark},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from sys_role
+        where
+        role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from sys_role
+        where role_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update sys_role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName},
+            </if>
+            <if test="roleSts != null">
+                role_sts = #{roleSts},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        role_id = #{roleId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="SysRoleResultMap">
+        select
+        <include refid="SysRoleColumns" />
+        from sys_role
+        where role_id = #{roleId}
+    </select>
+
+    <select id="findList" resultMap="SysRoleResultMap">
+        select
+        <include refid="SysRoleColumns" />
+        from sys_role
+        <where>
+            <if test="roleId != null">
+                role_id = #{roleId}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name = #{roleName}
+            </if>
+            <if test="roleSts != null and roleSts != ''">
+                and role_sts = #{roleSts}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="SysRoleResultMap">
+        select
+        <include refid="SysRoleColumns" />
+        from sys_role
+    </select>
+    
+</mapper>

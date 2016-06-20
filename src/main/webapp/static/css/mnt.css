@@ -1,0 +1,87 @@
+body, .list-heading {
+    font-family: "Helvetica","sans-serif","Arial","Microsoft YaHei","黑体","宋体";
+}
+
+.color-darkblue{
+    background: #2b3643;
+}
+.color-grey{
+    background-color: #697380;
+}
+.color-light{
+    background-color: #F9FAFD;
+}
+.color-light2{
+    background-color: #F1F1F1;
+}
+
+.media-list.list-items>li>span {
+    text-transform: uppercase;
+    display: inline-block;
+    width: 80px;
+    font-size: 13px;
+    font-weight: 300;
+}
+.media-list.list-items>li>select.form-control {
+    display: inline;
+    width: 120px;
+    padding: 2px;
+    text-transform: lowercase;
+}
+
+.layui-layer-btn a {
+    height: 10px;
+    line-height: 10px;
+    margin: 0 6px;
+    padding: 0 15px;
+    border: 1px solid #dedede;
+    background-color: #f1f1f1;
+    color: #333;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.page-content-white .page-bar, .page-container-bg-solid .page-bar {
+    background-color: #ffffff;
+    position: relative;
+    padding: 0px 20px;
+    margin: 0px 0px 0px 0px;
+    height: 41px;
+    border-bottom: 1px solid #cfcfcf!important;
+}
+
+.page-content-wrapper .page-content {
+    margin-left: 206px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    min-height: 600px;
+    padding: 0px 0px 0px 0px;
+    background-color: #707b88;
+}
+
+.page-sidebar {
+    width: 206px;
+    float: left;
+    position: relative;
+    margin-right: -100%;
+}
+
+.page-content-white .page-bar .page-breadcrumb, .page-container-bg-solid .page-bar .page-breadcrumb {
+    padding: 9px 0;
+}
+
+.page-content-body {
+    padding: 0px 0px 0px 0px;
+    margin-bottom: -1px;
+}
+
+.page-header.navbar .page-logo {
+    float: left;
+    display: block;
+    width: 226px;
+    height: 46px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

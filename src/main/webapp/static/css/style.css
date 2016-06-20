@@ -1,0 +1,490 @@
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica", "sans-serif", "Arial", "Microsoft YaHei", "黑体", "宋体";
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 13px;
+}
+
+body {
+    background-color: #F2F2F2
+}
+
+a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, td, textarea, th, ul {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+/* select option { */
+/*     padding-top: 3px !important; */
+/*     margin: 0px !important; */
+/*     font-size: 14px; */
+/*     font-family: "Helvetica", "sans-serif", "Arial", "Microsoft YaHei", "黑体", "宋体"!important; */
+/* } */
+a:link {
+    text-decoration: none; /* 指正常的未被访问过的链接*/
+}
+
+a:visited {
+    text-decoration: none; /*指已经访问过的链接*/
+}
+
+a:hover {
+    text-decoration: none; /*指鼠标在链接*/
+}
+
+a:active {
+    text-decoration: none; /* 指正在点的链接*/
+}
+
+input, button, select, textarea, a {
+    border: 0;
+    outline: none;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 26px;
+    padding: 2px 2px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.form-horizontal .control-label {
+    padding-top: 0px;
+    margin-bottom: 0;
+    text-align: right;
+}
+
+.btn-mnt {
+    line-height: 1 !important;;
+}
+
+textarea {
+    resize: none
+}
+
+.popmodal {
+    background-color: #EBEBEB;
+}
+
+.wrapper-content {
+/*     border: 1px solid #e7ecf1 !important; */
+    border: 1px solid #cfcfcf!important; ;
+    padding: 6px 20px 40px !important;
+    background-color: #fff;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.wrapper-content>.portlet-title {
+    border-bottom: 1px solid #eef1f5;
+    padding: 0 !important;
+    min-height: 36px !important;
+    padding-top: 6px;
+}
+
+.wrapper {
+    padding: 10px 20px 10px;
+}
+
+.wrapper-content>.portlet-body {
+    padding-top: 5px;
+}
+
+.body-bg{
+    background-color: #F2F2F2;
+}
+.wrapper-box {
+    padding: 20px 50px 20px;
+    background-color: #F2F2F2;
+    font-size: 15px!important;
+}
+
+.wrapper-body {
+    border: 1px solid #e7ecf1 !important;
+    padding: 20px 20px 40px !important;
+    background-color: #fff;
+    box-shadow: 1px 1px 1px #A1A1A1;
+}
+
+.wrapper-body>.portlet-title {
+    border-bottom: 1px solid #eef1f5;
+    padding: 0 !important;
+    min-height: 36px !important;
+    padding-top: 6px;
+}
+
+.block-hidden>span {
+    dispaly: none !important;
+}
+
+.portlet.light>.portlet-title>.caption>i {
+    color: #777;
+    font-size: 15px;
+    font-weight: 300;
+    margin-top: 2px;
+}
+
+.portlet-title>.caption>i {
+    color: #32c5d2 !important;
+}
+
+.portlet.light {
+    padding: 1px 20px 1px;
+    background-color: #fff;
+}
+
+.portlet.light.bordered {
+  border: 1px solid #cfcfcf!important;
+/*   -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.1); */
+/*   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1); */
+/*   box-shadow: 0 1px 3px rgba(0,0,0,0.1); */
+}
+
+.portlet>.portlet-title {
+    margin-bottom: 1px;
+    padding-bottom: 1px !important;
+}
+
+.portlet {
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    border-radius: 4px;
+}
+
+span.caption-subject.bold.uppercase {
+    display: inline-block;
+    font-size: 15px !important;
+    line-height: 15px;
+    padding: 1px 0;
+    color: #32c5d2 !important;
+}
+
+.pagination .active>a, .pagination .active>a:hover, .pagination .active>a:visited, .pagination .active>a:link, .pagination .active>a:active {
+    background: #eee;
+    border-color: #ddd;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.dt-buttons {
+    float: right;
+    margin-right: 0.333em;
+}
+
+.checkbox-datatables {
+    text-align: center;
+}
+
+.form-actions {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.tr-selected {
+    background: #8B8378;
+}
+
+.dataTables_paginate {
+    float: right;
+    font-size: 12px;
+    bottom:0;
+}
+
+.dataTables_info {
+    float: left;
+    font-size: 12px;
+    bottom:0;
+}
+
+.dataTables_length {
+    float: left;
+    font-size: 12px;
+}
+
+.dataTables_length select {
+    height: 26px;
+    line-height: 26px;
+}
+
+.top {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.dataTables_filter {
+    float: right;
+}
+
+.div_right {
+    float: right;
+}
+
+table {
+    border-collapse: collapse; /* 关键属性：合并表格内外边框(其实表格边框有2px，外面1px，里面还有1px哦) */
+    border: 1px solid #999; /* 设置边框属性；样式(solid=实线)、颜色(#999=灰) */
+    border-width: 1px 0 0 1px; /* 设置边框状粗细：上 右 下 左 = 对应：1px 0 0 1px */
+}
+
+.table-condensed {
+    border: 1px solid #fff;
+}
+
+table.dataTable tbody tr.selected {
+    background-color: #fce6a2;
+}
+
+div.dataTables_scrollHead table.table-bordered {
+    border-bottom-width: 1px;
+}
+
+/* div.dataTables_scrollHead table{ */
+/*     -webkit-box-shadow: 1px 1px 1px;   */
+/*     -moz-box-shadow: 1px 1px 1px;   */
+/*     box-shadow: 2px 2px 2px;   */
+/* } */
+
+.table-bordered {
+    border-left: none;
+    border-right: none;
+}
+
+div.dataTables_scrollHead table.dataTable {
+    border-top: 1px solid #797979;
+    border-bottom: 1px solid #797979;
+}
+
+div.dataTables_scrollBody table.dataTable {
+    border-bottom: 1px solid #797979;
+}
+
+.noscoll.dataTable {
+    border-top: 1px solid #797979;
+    border-bottom: 1px solid #797979 !important;
+}
+.noscoll>thead>tr>td, .noscoll>thead>tr>th {
+    border-bottom: 1px solid #797979 !important;
+}
+
+.table>thead>tr>td, .table>thead>tr>th {
+    padding: 4px;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: center;
+    border-top: 1px solid #ddd;
+    border-left: 0px solid #ddd;
+    border-right: 0px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    background-color: #e7e7e7;
+/*     -moz-box-shadow: 1px 1px 1px #A1A1A1; 老的 Firefox */
+/*     box-shadow: 0px 1px 0px #A1A1A1; */
+}
+
+.table>thead>tr>td:hover, .table>thead>tr>th:hover {
+    background-color: #b9b9b9;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th {
+    padding: 3px;
+    height: 23px;
+    line-height: 23px;
+    vertical-align: center;
+    border-top: 0px solid #ddd;
+    border-width: 1px 0px;
+    font-size: 12px;
+/*     -moz-box-shadow: 1px 1px 1px #A1A1A1; 老的 Firefox */
+/*     box-shadow: 0px 1px 0px #A1A1A1; */
+}
+
+th, td {
+    white-space: nowrap;
+}
+
+.th-hover-td {
+    background-color: #E0EEEE;
+}
+
+.model-hidden {
+    dispaly: none !important;
+}
+
+.input-daterange .input-group-addon {
+    width: auto;
+    min-width: 16px;
+    padding: 4px 5px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    vertical-align: middle;
+    background-color: #eee;
+    border: solid #ccc;
+    border-width: 1px 0;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+/* 日历事件*/
+.external-event {
+    display: inline-block;
+    cursor: move;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.portlet.light.portlet-fit>.portlet-title {
+    padding: 10px 20px 1px;
+}
+
+.portlet.calendar.light .fc-button {
+    top: -60px !important;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 13px !important;
+    padding-bottom: 2px !important;
+}
+
+.fc-left>h2 {
+    top: -60px;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 15px !important;
+}
+
+/* 日历事件 end*/
+.portlet.light>.portlet-title>.actions .btn-icon-only {
+    height: 20px;
+    width: 20px;
+}
+
+.portlet>.portlet-title>.actions .btn-icon-only.btn-default {
+    padding: 1px 2px 9px;
+}
+
+.portlet>.portlet-title>.actions .btn-icon-only.btn-default.fullscreen {
+    font-family: FontAwesome;
+    color: #a0a0a0;
+    padding-top: 1px;
+}
+
+.box-refresh {
+    margin-top: 2px;
+    height: 20px;
+    width: 20px;
+    font-size: 20px !important;
+}
+
+.box-bordered {
+    border: 1px solid #e7ecf1 !important;
+}
+
+.box-content {
+    padding: 15px 10px 5px;
+}
+
+.btn-touchspin-bordered {
+    border: 0px !important;
+}
+
+.btn-touchspin-bordered:hover {
+    border: 0px !important;
+}
+
+.btn-touchspin-hover:hover {
+    background: #fff !important;
+}
+
+.btn-touchspin-hover {
+    top: -6px;
+}
+
+.btn.dropdown-toggle.btn-default {
+    color: #4d6b8a;
+    background-color: #fff;
+    border-color: #c2cad8;
+    height: 26px;
+    border-left: 1px !important;
+    border-top: 1px !important;
+    border-right: 1px !important;
+}
+
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 28px;
+    user-select: none;
+    -webkit-user-select: none;
+    border: 1px solid #ccc;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    padding-left: 8px;
+    padding-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-top: 5px;
+}
+
+.select2-results__option {
+    padding: 3px 6px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.select2-results__option:hover {
+    background-color: #EBEBEB;
+}
+
+.select2-dropdown {
+    background-color: white;
+    border: 1px solid #eee!important;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    left: -100000px;
+    width: 100%;
+    z-index: 1051;
+    top: 5px;
+/*     box-shadow: 1px 1px 1px #A1A1A1; */
+    box-shadow: 3px 3px rgba(102, 102, 102, 0.1);
+}
+
+.dataTables_processing {
+    z-index: 9999!important;
+}
+
+.border-txt {
+    border-bottom: 1px solid #eef1f5;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.baseModal {
+    top: 10%!important;
+}
+
+.select2-search--dropdown .select2-search__field {
+    padding: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eef1f5;
+}

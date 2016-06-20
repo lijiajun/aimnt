@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.product.MntProdProcMapper">
+
+    <resultMap id="MntProdProcResultMap" type="com.ai.mnt.model.product.MntProdProc">
+        <id column="proc_id" property="procId" />
+        <result column="proc_name_en" property="procNameEn" />
+        <result column="proc_name_cn" property="procNameCn" />
+        <result column="proc_desc" property="procDesc" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="MntProdProcColumns">
+        proc_id,
+        proc_name_en,
+        proc_name_cn,
+        proc_desc,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="procId">
+        insert into mnt_prod_proc (
+        proc_name_en,
+        proc_name_cn,
+        proc_desc,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{procNameEn},
+        #{procNameCn},
+        #{procDesc},
+        #{deleteFlag},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_prod_proc (
+        proc_name_en,
+        proc_name_cn,
+        proc_desc,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.procNameEn},
+            #{item.procNameCn},
+            #{item.procDesc},
+            #{item.deleteFlag},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_prod_proc
+        where
+        proc_id = #{procId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_prod_proc
+        where proc_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_prod_proc
+        <set>
+            <if test="procNameEn != null">
+                proc_name_en = #{procNameEn},
+            </if>
+            <if test="procNameCn != null">
+                proc_name_cn = #{procNameCn},
+            </if>
+            <if test="procDesc != null">
+                proc_desc = #{procDesc},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        proc_id = #{procId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntProdProcResultMap">
+        select
+        <include refid="MntProdProcColumns" />
+        from mnt_prod_proc
+        where proc_id = #{procId}
+    </select>
+
+    <select id="findList" resultMap="MntProdProcResultMap">
+        select
+        <include refid="MntProdProcColumns" />
+        from mnt_prod_proc
+        <where>
+            <if test="procId != null">
+                proc_id = #{procId}
+            </if>
+            <if test="procNameEn != null">
+                and proc_name_en = #{procNameEn}
+            </if>
+            <if test="procNameCn != null">
+                and proc_name_cn = #{procNameCn}
+            </if>
+            <if test="procDesc != null">
+                and proc_desc = #{procDesc}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntProdProcResultMap">
+        select
+        <include refid="MntProdProcColumns" />
+        from mnt_prod_proc
+    </select>
+    
+</mapper>

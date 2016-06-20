@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.sys.SysRoleResMapper">
+
+    <resultMap id="SysRoleResResultMap" type="com.ai.mnt.model.sys.SysRoleRes">
+        <id column="id" property="id" />
+        <result column="role_id" property="roleId" />
+        <result column="res_id" property="resId" />
+    </resultMap>
+
+    <sql id="SysRoleResColumns">
+        id,
+        role_id,
+        res_id
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_role_res (
+        role_id,
+        res_id
+        )
+        values (
+        #{roleId},
+        #{resId}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into sys_role_res (
+        role_id,
+        res_id
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.roleId},
+            #{item.resId}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from sys_role_res
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from sys_role_res
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update sys_role_res
+        <set>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="resId != null">
+                res_id = #{resId}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="SysRoleResResultMap">
+        select
+        <include refid="SysRoleResColumns" />
+        from sys_role_res
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="SysRoleResResultMap">
+        select
+        <include refid="SysRoleResColumns" />
+        from sys_role_res
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="roleId != null">
+                and role_id = #{roleId}
+            </if>
+            <if test="resId != null">
+                and res_id = #{resId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="SysRoleResResultMap">
+        select
+        <include refid="SysRoleResColumns" />
+        from sys_role_res
+    </select>
+    
+</mapper>

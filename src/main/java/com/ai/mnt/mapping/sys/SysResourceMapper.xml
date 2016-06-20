@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.sys.SysResourceMapper">
+
+    <resultMap id="SysResourceResultMap" type="com.ai.mnt.model.sys.SysResource">
+        <id column="res_id" property="resId" jdbcType="INTEGER" />
+        <result column="res_name" property="resName" jdbcType="VARCHAR" />
+        <result column="res_type" property="resType" jdbcType="INTEGER" />
+        <result column="res_url" property="resUrl" jdbcType="VARCHAR" />
+        <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+        <result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+        <result column="res_order" property="resOrder" jdbcType="INTEGER" />
+        <result column="res_icon" property="resIcon" jdbcType="VARCHAR" />
+        <result column="permission" property="permission" jdbcType="VARCHAR" />
+        <result column="res_sts" property="resSts" jdbcType="CHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="creator" property="creator" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="SysResourceColumns">
+        res_id, res_name, res_type, res_url,
+        parent_id, parent_ids, res_order, res_icon,
+        permission, res_sts, remark, creator, create_date, modifier, modify_date
+    </sql>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="resId">
+        insert
+        into sys_resource (
+        res_name,
+        res_type,
+        res_url,
+        parent_id,
+        parent_ids,
+        res_order,
+        res_icon,
+        permission,
+        res_sts,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{resName},
+        #{resType},
+        #{resUrl},
+        #{parentId},
+        #{parentIds},
+        #{resOrder},
+        #{resIcon},
+        #{permission},
+        #{resSts},
+        #{remark},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll" useGeneratedKeys="true" parameterType="java.util.List">
+        insert into sys_resource (
+        res_name,
+        res_type,
+        res_url,
+        parent_id,
+        parent_ids,
+        res_order,
+        res_icon,
+        permission,
+        res_sts,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.resName},
+            #{item.resType},
+            #{item.resUrl},
+            #{item.parentId},
+            #{item.parentIds},
+            #{item.resOrder},
+            #{item.resIcon},
+            #{item.permission},
+            #{item.resSts},
+            #{item.remark},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from sys_resource
+        where
+        RES_ID = #{resId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from sys_resource
+        where RES_ID in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- 批量更新   主要用于非物理批量删除 -->
+    <update id="updateByIdList">
+        update sys_resource
+        <set>
+            <if test="resName != null">
+                res_name = #{resName},
+            </if>
+            <if test="resType != null">
+                res_type = #{resType},
+            </if>
+            <if test="resUrl != null">
+                res_url = #{resUrl},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="parentIds != null">
+                parent_ids = #{parentIds},
+            </if>
+            <if test="resOrder != null">
+                res_order = #{resOrder},
+            </if>
+            <if test="resIcon != null">
+                res_icon = #{resIcon},
+            </if>
+            <if test="permission != null">
+                permission = #{permission},
+            </if>
+            <if test="resSts != null">
+                res_sts = #{resSts},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate},
+            </if>
+        </set>
+        where res_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="updateByPrimaryKey">
+        update sys_resource
+        <set>
+            <if test="resName != null">
+                res_name = #{resName},
+            </if>
+            <if test="resType != null">
+                res_type = #{resType},
+            </if>
+            <if test="resUrl != null">
+                res_url = #{resUrl},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="parentIds != null">
+                parent_ids = #{parentIds},
+            </if>
+            <if test="resOrder != null">
+                res_order = #{resOrder},
+            </if>
+            <if test="resIcon != null">
+                res_icon = #{resIcon},
+            </if>
+            <if test="permission != null">
+                permission = #{permission},
+            </if>
+            <if test="resSts != null">
+                res_sts = #{resSts},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate},
+            </if>
+        </set>
+        where
+        res_id = #{resId}
+    </update>
+
+
+    <select id="findByPrimaryKey" resultMap="SysResourceResultMap">
+        select
+        <include refid="SysResourceColumns" />
+        from sys_resource
+        where res_id = #{resId}
+    </select>
+
+    <select id="findList" resultMap="SysResourceResultMap">
+        select
+        <include refid="SysResourceColumns" />
+        from sys_resource
+        <where>
+            <if test="resId != null">
+                res_id = #{resId}
+            </if>
+            <if test="resName != null">
+                and res_name = #{resName}
+            </if>
+            <if test="resType != null">
+                and res_type = #{resType}
+            </if>
+            <if test="resUrl != null">
+                and res_url = #{resUrl}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="parentIds != null">
+                and parent_ids = #{parentIds}
+            </if>
+            <if test="resOrder != null">
+                and res_order = #{resOrder}
+            </if>
+            <if test="resIcon != null">
+                and res_icon = #{resIcon}
+            </if>
+            <if test="permission != null">
+                and permission = #{permission}
+            </if>
+            <if test="resSts != null">
+                and res_sts = #{resSts}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+        order by parent_id, res_order
+    </select>
+
+    <select id="findAll" resultMap="SysResourceResultMap">
+        select
+        <include refid="SysResourceColumns" />
+        from sys_resource
+    </select>
+
+    <sql id="SysRoleResourceColumns">
+        t1.res_id, res_name, res_type, res_url,
+        parent_id, parent_ids, res_order, res_icon,
+        permission, res_sts, remark, creator, create_date, modifier, modify_date
+    </sql>
+    
+    <select id="findResListByRoleId" resultMap="SysResourceResultMap">
+        select
+        <include refid="SysRoleResourceColumns" />
+        from sys_resource t1 join sys_role_res t2 
+        on t1.res_id = t2.res_id
+        where t2.role_id = #{role_id}
+    </select>
+
+    <sql id="SysUserResourceColumns">
+        t4.res_id, res_name, res_type, res_url,
+        parent_id, parent_ids, res_order, res_icon,
+        permission, res_sts, t4.remark, t4.creator, t4.create_date, t4.modifier, t4.modify_date
+    </sql>
+    
+    <select id="findResListByUserId" resultMap="SysResourceResultMap">
+        SELECT 
+        <include refid="SysUserResourceColumns" />
+        FROM 
+        sys_role t1 
+        JOIN sys_user_role t2 ON t1.role_id = t2.role_id
+        JOIN sys_role_res t3 on t1.role_id = t3.role_id
+        JOIN sys_resource t4 on t4.res_id = t3.res_id 
+        where t2.user_id = #{user_id} and t4.res_sts = '1'
+    </select>
+
+    <select id="findResMenuListByUserId" resultMap="SysResourceResultMap">
+        SELECT 
+        <include refid="SysUserResourceColumns" />
+        FROM 
+        sys_role t1 
+        JOIN sys_user_role t2 ON t1.role_id = t2.role_id
+        JOIN sys_role_res t3 on t1.role_id = t3.role_id
+        JOIN sys_resource t4 on t4.res_id = t3.res_id 
+        where 
+        t2.user_id = #{user_id} and t4.res_sts = '1' and t4.res_type = 1
+        order by parent_id, res_order
+    </select>
+    
+</mapper>

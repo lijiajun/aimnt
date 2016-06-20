@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.task.MntTaskInfoMapper">
+
+    <resultMap id="MntTaskInfoResultMap" type="com.ai.mnt.model.task.MntTaskInfo">
+        <id column="task_id" property="taskId" />
+        <result column="task_name" property="taskName" />
+        <result column="task_desc" property="taskDesc" />
+        <result column="creator" property="creator" />
+        <result column="deal_person" property="dealPerson" />
+        <result column="parent_task_id" property="parentTaskId" />
+        <result column="create_date" property="createDate" />
+        <result column="expect_date" property="expectDate" />
+        <result column="deal_date" property="dealDate" />
+        <result column="finish_date" property="finishDate" />
+        <result column="deal_sts" property="dealSts" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="task_remark" property="taskRemark" />
+    </resultMap>
+
+    <sql id="MntTaskInfoColumns">
+        task_id,
+        task_name,
+        task_desc,
+        creator,
+        deal_person,
+        parent_task_id,
+        create_date,
+        expect_date,
+        deal_date,
+        finish_date,
+        deal_sts,
+        delete_flag,
+        task_remark
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="taskId">
+        insert into mnt_task_info (
+        task_name,
+        task_desc,
+        creator,
+        deal_person,
+        parent_task_id,
+        create_date,
+        expect_date,
+        deal_date,
+        finish_date,
+        deal_sts,
+        delete_flag,
+        task_remark
+        )
+        values (
+        #{taskName},
+        #{taskDesc},
+        #{creator},
+        #{dealPerson},
+        #{parentTaskId},
+        #{createDate},
+        #{expectDate},
+        #{dealDate},
+        #{finishDate},
+        #{dealSts},
+        #{deleteFlag},
+        #{taskRemark}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_task_info (
+        task_name,
+        task_desc,
+        creator,
+        deal_person,
+        parent_task_id,
+        create_date,
+        expect_date,
+        deal_date,
+        finish_date,
+        deal_sts,
+        delete_flag,
+        task_remark
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.taskName},
+            #{item.taskDesc},
+            #{item.creator},
+            #{item.dealPerson},
+            #{item.parentTaskId},
+            #{item.createDate},
+            #{item.expectDate},
+            #{item.dealDate},
+            #{item.finishDate},
+            #{item.dealSts},
+            #{item.deleteFlag},
+            #{item.taskRemark}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_task_info
+        where
+        task_id = #{taskId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_task_info
+        where task_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_task_info
+        <set>
+            <if test="taskName != null">
+                task_name = #{taskName},
+            </if>
+            <if test="taskDesc != null">
+                task_desc = #{taskDesc},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="dealPerson != null">
+                deal_person = #{dealPerson},
+            </if>
+            <if test="parentTaskId != null">
+                parent_task_id = #{parentTaskId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="expectDate != null">
+                expect_date = #{expectDate},
+            </if>
+            <if test="dealDate != null">
+                deal_date = #{dealDate},
+            </if>
+            <if test="finishDate != null">
+                finish_date = #{finishDate},
+            </if>
+            <if test="dealSts != null">
+                deal_sts = #{dealSts},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="taskRemark != null">
+                task_remark = #{taskRemark}
+            </if>
+        </set>
+        where
+        task_id = #{taskId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntTaskInfoResultMap">
+        select
+        <include refid="MntTaskInfoColumns" />
+        from mnt_task_info
+        where task_id = #{taskId}
+    </select>
+
+    <select id="findList" resultMap="MntTaskInfoResultMap">
+        select
+        <include refid="MntTaskInfoColumns" />
+        from mnt_task_info
+        <where>
+            <if test="taskId != null">
+                task_id = #{taskId}
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and task_name = #{taskName}
+            </if>
+            <if test="taskDesc != null and taskDesc != ''">
+                and task_desc = #{taskDesc}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="dealPerson != null and dealPerson != ''">
+                and deal_person = #{dealPerson}
+            </if>
+            <if test="parentTaskId != null">
+                and parent_task_id = #{parentTaskId}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="expectDate != null">
+                and expect_date = #{expectDate}
+            </if>
+            <if test="dealDate != null">
+                and deal_date = #{dealDate}
+            </if>
+            <if test="finishDate != null">
+                and finish_date = #{finishDate}
+            </if>
+            <if test="dealSts != null and dealSts != ''">
+                and deal_sts = #{dealSts}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="taskRemark != null and taskRemark != ''">
+                and task_remark = #{taskRemark}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntTaskInfoResultMap">
+        select
+        <include refid="MntTaskInfoColumns" />
+        from mnt_task_info
+    </select>
+    
+</mapper>

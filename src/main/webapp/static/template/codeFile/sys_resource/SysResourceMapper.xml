@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.sys.SysResourceMapper">
+
+    <resultMap id="SysResourceResultMap" type="com.ai.mnt.model.sys.SysResource">
+        <id column="res_id" property="resId" />
+        <result column="res_name" property="resName" />
+        <result column="res_type" property="resType" />
+        <result column="res_url" property="resUrl" />
+        <result column="parent_id" property="parentId" />
+        <result column="parent_ids" property="parentIds" />
+        <result column="res_order" property="resOrder" />
+        <result column="res_icon" property="resIcon" />
+        <result column="permission" property="permission" />
+        <result column="res_sts" property="resSts" />
+        <result column="remark" property="remark" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="SysResourceColumns">
+        res_id,
+        res_name,
+        res_type,
+        res_url,
+        parent_id,
+        parent_ids,
+        res_order,
+        res_icon,
+        permission,
+        res_sts,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="resId">
+        insert into sys_resource (
+        res_name,
+        res_type,
+        res_url,
+        parent_id,
+        parent_ids,
+        res_order,
+        res_icon,
+        permission,
+        res_sts,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{resName},
+        #{resType},
+        #{resUrl},
+        #{parentId},
+        #{parentIds},
+        #{resOrder},
+        #{resIcon},
+        #{permission},
+        #{resSts},
+        #{remark},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into sys_resource (
+        res_name,
+        res_type,
+        res_url,
+        parent_id,
+        parent_ids,
+        res_order,
+        res_icon,
+        permission,
+        res_sts,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.resName},
+            #{item.resType},
+            #{item.resUrl},
+            #{item.parentId},
+            #{item.parentIds},
+            #{item.resOrder},
+            #{item.resIcon},
+            #{item.permission},
+            #{item.resSts},
+            #{item.remark},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from sys_resource
+        where
+        res_id = #{resId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from sys_resource
+        where res_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update sys_resource
+        <set>
+            <if test="resName != null">
+                res_name = #{resName},
+            </if>
+            <if test="resType != null">
+                res_type = #{resType},
+            </if>
+            <if test="resUrl != null">
+                res_url = #{resUrl},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="parentIds != null">
+                parent_ids = #{parentIds},
+            </if>
+            <if test="resOrder != null">
+                res_order = #{resOrder},
+            </if>
+            <if test="resIcon != null">
+                res_icon = #{resIcon},
+            </if>
+            <if test="permission != null">
+                permission = #{permission},
+            </if>
+            <if test="resSts != null">
+                res_sts = #{resSts},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        res_id = #{resId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="SysResourceResultMap">
+        select
+        <include refid="SysResourceColumns" />
+        from sys_resource
+        where res_id = #{resId}
+    </select>
+
+    <select id="findList" resultMap="SysResourceResultMap">
+        select
+        <include refid="SysResourceColumns" />
+        from sys_resource
+        <where>
+            <if test="resId != null">
+                res_id = #{resId}
+            </if>
+            <if test="resName != null">
+                and res_name = #{resName}
+            </if>
+            <if test="resType != null">
+                and res_type = #{resType}
+            </if>
+            <if test="resUrl != null">
+                and res_url = #{resUrl}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="parentIds != null">
+                and parent_ids = #{parentIds}
+            </if>
+            <if test="resOrder != null">
+                and res_order = #{resOrder}
+            </if>
+            <if test="resIcon != null">
+                and res_icon = #{resIcon}
+            </if>
+            <if test="permission != null">
+                and permission = #{permission}
+            </if>
+            <if test="resSts != null">
+                and res_sts = #{resSts}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="SysResourceResultMap">
+        select
+        <include refid="SysResourceColumns" />
+        from sys_resource
+    </select>
+    
+</mapper>

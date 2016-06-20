@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.gencode.TablesMapper">
+
+    <resultMap id="TablesResultMap" type="com.ai.mnt.model.gencode.Tables">
+        <result column="table_catalog" property="tableCatalog" />
+        <result column="table_schema" property="tableSchema" />
+        <result column="table_name" property="tableName" />
+        <result column="table_type" property="tableType" />
+        <result column="engine" property="engine" />
+        <result column="version" property="version" />
+        <result column="row_format" property="rowFormat" />
+        <result column="table_rows" property="tableRows" />
+        <result column="avg_row_length" property="avgRowLength" />
+        <result column="data_length" property="dataLength" />
+        <result column="max_data_length" property="maxDataLength" />
+        <result column="index_length" property="indexLength" />
+        <result column="data_free" property="dataFree" />
+        <result column="auto_increment" property="autoIncrement" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="check_time" property="checkTime" />
+        <result column="table_collation" property="tableCollation" />
+        <result column="checksum" property="checksum" />
+        <result column="create_options" property="createOptions" />
+        <result column="table_comment" property="tableComment" />
+    </resultMap>
+
+    <sql id="TablesColumns">
+        table_catalog,
+        table_schema,
+        table_name,
+        table_type,
+        engine,
+        version,
+        row_format,
+        table_rows,
+        avg_row_length,
+        data_length,
+        max_data_length,
+        index_length,
+        data_free,
+        auto_increment,
+        create_time,
+        update_time,
+        check_time,
+        table_collation,
+        checksum,
+        create_options,
+        table_comment
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="tableCatalog">
+        insert into tables (
+        table_catalog,
+        table_schema,
+        table_name,
+        table_type,
+        engine,
+        version,
+        row_format,
+        table_rows,
+        avg_row_length,
+        data_length,
+        max_data_length,
+        index_length,
+        data_free,
+        auto_increment,
+        create_time,
+        update_time,
+        check_time,
+        table_collation,
+        checksum,
+        create_options,
+        table_comment
+        )
+        values (
+        #{tableCatalog},
+        #{tableSchema},
+        #{tableName},
+        #{tableType},
+        #{engine},
+        #{version},
+        #{rowFormat},
+        #{tableRows},
+        #{avgRowLength},
+        #{dataLength},
+        #{maxDataLength},
+        #{indexLength},
+        #{dataFree},
+        #{autoIncrement},
+        #{createTime},
+        #{updateTime},
+        #{checkTime},
+        #{tableCollation},
+        #{checksum},
+        #{createOptions},
+        #{tableComment}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into tables (
+        table_catalog,
+        table_schema,
+        table_name,
+        table_type,
+        engine,
+        version,
+        row_format,
+        table_rows,
+        avg_row_length,
+        data_length,
+        max_data_length,
+        index_length,
+        data_free,
+        auto_increment,
+        create_time,
+        update_time,
+        check_time,
+        table_collation,
+        checksum,
+        create_options,
+        table_comment
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.tableCatalog},
+            #{item.tableSchema},
+            #{item.tableName},
+            #{item.tableType},
+            #{item.engine},
+            #{item.version},
+            #{item.rowFormat},
+            #{item.tableRows},
+            #{item.avgRowLength},
+            #{item.dataLength},
+            #{item.maxDataLength},
+            #{item.indexLength},
+            #{item.dataFree},
+            #{item.autoIncrement},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.checkTime},
+            #{item.tableCollation},
+            #{item.checksum},
+            #{item.createOptions},
+            #{item.tableComment}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from tables
+        where
+        table_catalog = #{tableCatalog}
+    </delete>
+
+    <delete id="deleteList">
+        delete from tables
+        where table_catalog in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update tables
+        <set>
+            <if test="tableCatalog != null">
+                table_catalog = #{tableCatalog},
+            </if>
+            <if test="tableSchema != null">
+                table_schema = #{tableSchema},
+            </if>
+            <if test="tableName != null">
+                table_name = #{tableName},
+            </if>
+            <if test="tableType != null">
+                table_type = #{tableType},
+            </if>
+            <if test="engine != null">
+                engine = #{engine},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="rowFormat != null">
+                row_format = #{rowFormat},
+            </if>
+            <if test="tableRows != null">
+                table_rows = #{tableRows},
+            </if>
+            <if test="avgRowLength != null">
+                avg_row_length = #{avgRowLength},
+            </if>
+            <if test="dataLength != null">
+                data_length = #{dataLength},
+            </if>
+            <if test="maxDataLength != null">
+                max_data_length = #{maxDataLength},
+            </if>
+            <if test="indexLength != null">
+                index_length = #{indexLength},
+            </if>
+            <if test="dataFree != null">
+                data_free = #{dataFree},
+            </if>
+            <if test="autoIncrement != null">
+                auto_increment = #{autoIncrement},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="checkTime != null">
+                check_time = #{checkTime},
+            </if>
+            <if test="tableCollation != null">
+                table_collation = #{tableCollation},
+            </if>
+            <if test="checksum != null">
+                checksum = #{checksum},
+            </if>
+            <if test="createOptions != null">
+                create_options = #{createOptions},
+            </if>
+            <if test="tableComment != null">
+                table_comment = #{tableComment}
+            </if>
+        </set>
+        where
+        table_catalog = #{tableCatalog}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="TablesResultMap">
+        select
+        <include refid="TablesColumns" />
+        from tables
+        where table_catalog = #{tableCatalog}
+    </select>
+
+    <select id="findList" resultMap="TablesResultMap">
+        select
+        <include refid="TablesColumns" />
+        from tables
+        <where>
+            <if test="tableCatalog != null">
+                table_catalog = #{tableCatalog}
+            </if>
+            <if test="tableSchema != null">
+                and table_schema = #{tableSchema}
+            </if>
+            <if test="tableName != null">
+                and table_name = #{tableName}
+            </if>
+            <if test="tableType != null">
+                and table_type = #{tableType}
+            </if>
+            <if test="engine != null">
+                and engine = #{engine}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="rowFormat != null">
+                and row_format = #{rowFormat}
+            </if>
+            <if test="tableRows != null">
+                and table_rows = #{tableRows}
+            </if>
+            <if test="avgRowLength != null">
+                and avg_row_length = #{avgRowLength}
+            </if>
+            <if test="dataLength != null">
+                and data_length = #{dataLength}
+            </if>
+            <if test="maxDataLength != null">
+                and max_data_length = #{maxDataLength}
+            </if>
+            <if test="indexLength != null">
+                and index_length = #{indexLength}
+            </if>
+            <if test="dataFree != null">
+                and data_free = #{dataFree}
+            </if>
+            <if test="autoIncrement != null">
+                and auto_increment = #{autoIncrement}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="checkTime != null">
+                and check_time = #{checkTime}
+            </if>
+            <if test="tableCollation != null">
+                and table_collation = #{tableCollation}
+            </if>
+            <if test="checksum != null">
+                and checksum = #{checksum}
+            </if>
+            <if test="createOptions != null">
+                and create_options = #{createOptions}
+            </if>
+            <if test="tableComment != null">
+                and table_comment = #{tableComment}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="TablesResultMap">
+        select
+        <include refid="TablesColumns" />
+        from tables
+    </select>
+    
+</mapper>

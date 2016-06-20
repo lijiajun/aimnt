@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ehcache.xsd">
+    <diskStore path="E:/project/github/aimnt/ehcache" />
+    <defaultCache 
+        maxEntriesLocalHeap="10000" 
+        maxEntriesLocalDisk="10000000"
+        eternal="false" 
+        overflowToDisk="false" 
+        diskPersistent="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120" 
+        diskExpiryThreadIntervalSeconds="120"
+        memoryStoreEvictionPolicy="LRU">
+    </defaultCache>
+    
+    <cache name="baseDataCache"
+        maxEntriesLocalHeap="10000" 
+        maxEntriesLocalDisk="10000000"
+        eternal="true" 
+        overflowToDisk="true" 
+        diskPersistent="false"
+        memoryStoreEvictionPolicy="LRU">
+    </cache>
+    
+    <!-- 登录记录缓存 锁定60分钟 -->
+    <cache name="passwdRetryLimitCache"
+           maxEntriesLocalHeap="20000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="false"
+           memoryStoreEvictionPolicy="LRU">
+    </cache>
+    
+</ehcache>
