@@ -90,6 +90,8 @@ public class GenUtil {
             javaDataType = "Date";
         }else if("char".equalsIgnoreCase(jdbcDataType)) {
             javaDataType = "String";
+        }else if("text".equalsIgnoreCase(jdbcDataType)) {
+            javaDataType = "String";
         }else if("bigint".equalsIgnoreCase(jdbcDataType)) {
             javaDataType = "Long";
         }else {
@@ -447,7 +449,8 @@ public class GenUtil {
 //        generateCodeFile("mnt", "sys_para", "product", "sys_para");
 //        generateCodeFile("mnt", "mnt_lib_base_rel", "product", "lib_base");
 //        generateCodeFile("mnt", "mnt_lib_relation", "product", "lib_relation");
-        generateCodeFile("mnt", "mnt_install_online_info", "inst", "online");
+//        generateCodeFile("mnt_dev", "mnt_article", "article", "posts");
+        generateCodeFile("mnt_dev", "mnt_article_type", "article", "type");
         
         
         System.exit(0);

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.article.MntArticleMapper">
+
+    <resultMap id="MntArticleResultMap" type="com.ai.mnt.model.article.MntArticle">
+        <id column="id" property="id" />
+        <result column="type_id" property="typeId" />
+        <result column="title" property="title" />
+        <result column="keyword" property="keyword" />
+        <result column="summary" property="summary" />
+        <result column="content" property="content" />
+        <result column="author" property="author" />
+        <result column="read_count" property="readCount" />
+        <result column="comment_count" property="commentCount" />
+        <result column="allow_comment" property="allowComment" />
+        <result column="is_top" property="isTop" />
+        <result column="is_show" property="isShow" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="MntArticleColumns">
+        id,
+        type_id,
+        title,
+        keyword,
+        summary,
+        content,
+        author,
+        read_count,
+        comment_count,
+        allow_comment,
+        is_top,
+        is_show,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into mnt_article (
+        type_id,
+        title,
+        keyword,
+        summary,
+        content,
+        author,
+        read_count,
+        comment_count,
+        allow_comment,
+        is_top,
+        is_show,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{typeId},
+        #{title},
+        #{keyword},
+        #{summary},
+        #{content},
+        #{author},
+        #{readCount},
+        #{commentCount},
+        #{allowComment},
+        #{isTop},
+        #{isShow},
+        #{deleteFlag},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_article (
+        type_id,
+        title,
+        keyword,
+        summary,
+        content,
+        author,
+        read_count,
+        comment_count,
+        allow_comment,
+        is_top,
+        is_show,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.typeId},
+            #{item.title},
+            #{item.keyword},
+            #{item.summary},
+            #{item.content},
+            #{item.author},
+            #{item.readCount},
+            #{item.commentCount},
+            #{item.allowComment},
+            #{item.isTop},
+            #{item.isShow},
+            #{item.deleteFlag},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_article
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_article
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_article
+        <set>
+            <if test="typeId != null">
+                type_id = #{typeId},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="keyword != null">
+                keyword = #{keyword},
+            </if>
+            <if test="summary != null">
+                summary = #{summary},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="author != null">
+                author = #{author},
+            </if>
+            <if test="readCount != null">
+                read_count = #{readCount},
+            </if>
+            <if test="commentCount != null">
+                comment_count = #{commentCount},
+            </if>
+            <if test="allowComment != null">
+                allow_comment = #{allowComment},
+            </if>
+            <if test="isTop != null">
+                is_top = #{isTop},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntArticleResultMap">
+        select
+        <include refid="MntArticleColumns" />
+        from mnt_article
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="MntArticleResultMap">
+        select
+        <include refid="MntArticleColumns" />
+        from mnt_article
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and keyword = #{keyword}
+            </if>
+            <if test="summary != null and summary != ''">
+                and summary = #{summary}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="author != null and author != ''">
+                and author = #{author}
+            </if>
+            <if test="readCount != null">
+                and read_count = #{readCount}
+            </if>
+            <if test="commentCount != null">
+                and comment_count = #{commentCount}
+            </if>
+            <if test="allowComment != null and allowComment != ''">
+                and allow_comment = #{allowComment}
+            </if>
+            <if test="isTop != null and isTop != ''">
+                and is_top = #{isTop}
+            </if>
+            <if test="isShow != null and isShow != ''">
+                and is_show = #{isShow}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntArticleResultMap">
+        select
+        <include refid="MntArticleColumns" />
+        from mnt_article
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

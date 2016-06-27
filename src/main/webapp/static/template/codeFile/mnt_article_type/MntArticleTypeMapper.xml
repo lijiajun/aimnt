@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.article.MntArticleTypeMapper">
+
+    <resultMap id="MntArticleTypeResultMap" type="com.ai.mnt.model.article.MntArticleType">
+        <id column="type_id" property="typeId" />
+        <result column="type_cn" property="typeCn" />
+        <result column="parent_type_id" property="parentTypeId" />
+    </resultMap>
+
+    <sql id="MntArticleTypeColumns">
+        type_id,
+        type_cn,
+        parent_type_id
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="typeId">
+        insert into mnt_article_type (
+        type_cn,
+        parent_type_id
+        )
+        values (
+        #{typeCn},
+        #{parentTypeId}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_article_type (
+        type_cn,
+        parent_type_id
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.typeCn},
+            #{item.parentTypeId}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_article_type
+        where
+        type_id = #{typeId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_article_type
+        where type_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_article_type
+        <set>
+            <if test="typeCn != null">
+                type_cn = #{typeCn},
+            </if>
+            <if test="parentTypeId != null">
+                parent_type_id = #{parentTypeId}
+            </if>
+        </set>
+        where
+        type_id = #{typeId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntArticleTypeResultMap">
+        select
+        <include refid="MntArticleTypeColumns" />
+        from mnt_article_type
+        where type_id = #{typeId}
+    </select>
+
+    <select id="findList" resultMap="MntArticleTypeResultMap">
+        select
+        <include refid="MntArticleTypeColumns" />
+        from mnt_article_type
+        <where>
+            <if test="typeId != null">
+                type_id = #{typeId}
+            </if>
+            <if test="typeCn != null and typeCn != ''">
+                and type_cn = #{typeCn}
+            </if>
+            <if test="parentTypeId != null">
+                and parent_type_id = #{parentTypeId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntArticleTypeResultMap">
+        select
+        <include refid="MntArticleTypeColumns" />
+        from mnt_article_type
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>
