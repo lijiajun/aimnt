@@ -241,6 +241,15 @@ public class MntModuleLibServiceImpl implements MntModuleLibService{
             }
             mntModuleLib.setLibDesc(libDesc);
             mntModuleLib.setModuleId(mntProdModuleList.get(0).getModuleId());
+            
+            SysUser currentUser = userRealm.getCurrentUser();
+            mntModuleLib.setIsUsed("1");
+            mntModuleLib.setDeleteFlag("0");
+            mntModuleLib.setCreator(currentUser.getUserName());
+            mntModuleLib.setModifier(currentUser.getUserName());
+            mntModuleLib.setCreateDate(new Date());
+            mntModuleLib.setModifyDate(new Date());
+            
             mntModuleLibList.add(mntModuleLib);
         }
         mntModuleLibMapper.saveAll(mntModuleLibList);

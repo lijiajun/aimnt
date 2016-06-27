@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="ehcache.xsd">
-    <diskStore path="E:/project/github/aimnt/ehcache" />
+<!--     <diskStore path="java.io.tmpdir" /> -->
+    <diskStore path="/data/ecache" />
     <defaultCache 
         maxEntriesLocalHeap="10000" 
         maxEntriesLocalDisk="10000000"
