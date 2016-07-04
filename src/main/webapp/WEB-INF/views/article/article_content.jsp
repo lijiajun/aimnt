@@ -20,7 +20,7 @@
                     <div class="full-article-rel">
                         作者：${mntArticle.creator} &nbsp;&nbsp;&nbsp;&nbsp; <fmt:formatDate value="${mntArticle.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                         <c:if test="${mntArticle.creator == mntArticle.creator}">
-                        &nbsp;&nbsp;<a href="article/update_page/${mntArticle.id}">编辑</a>&nbsp;&nbsp;<a href="article/delete/${mntArticle.id}">删除</a>
+                        &nbsp;&nbsp;<a href="article/update_page/${mntArticle.id}">编辑</a>&nbsp;&nbsp;<a id="article-delete" href="javascript:void(0);">删除</a>
                         </c:if>
                     </div>
                     <div class="full-article-body">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="portlet-title" style="padding:10px 0px;">
                         <div class="caption">
-                            <span id="ctitle" class="caption-subject bold">阅读排行</span>
+                            <span id="ctitle" class="caption-subject bold">热门阅读</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -74,6 +74,22 @@
         	
         });
         
+        $('#article-delete').click(function(){
+        	$.ajax({
+                url:"article/delete/" + ${mntArticle.id},
+                dataType: "json",
+                async:false,
+                success:function (data) {
+                    showMsg("删除成功！");
+                    //tableObj.ajax.reload(null,false);
+                    window.location.href = "article/page";
+                },
+                error:function() {
+                    showMsg("修改操作发生错误！");
+                }
+            });
+            
+        });
     });
 
 

@@ -99,11 +99,25 @@
             },{
                 "targets": [3],
                 "data": "id",
-                "render": function (data, type, full) {
-                    return '<a href="javascript:;" style="padding-right: 3px" onclick="updateArticle(' + data + ')"><span class="label label-sm label-info"> 编辑 </span></a>&nbsp;' + 
-                    '<a href="javascript:;" onclick="showHisRelDetail(' + data + ')"><span class="label label-sm label-success"> 置顶 </span></a> &nbsp;' + 
-                    '<a href="javascript:;" onclick="deleteArticle(' + data + ')"><span class="label label-sm label-warning"> 删除 </span></a>';
-                 }
+                "createdCell": function (td, cellData, rowData, row, col) {
+                	var htmlTxt = "";
+                	if(rowData.isTop == '1') {
+                		htmlTxt = '<a href="javascript:;" style="padding-right: 3px" onclick="updateArticle(' + rowData.id + ')"><span class="label label-sm label-info"> 编辑 </span></a>&nbsp;' + 
+                        '<a href="javascript:;" onclick="deleteArticle(' + rowData.id + ')"><span class="label label-sm label-warning"> 删除 </span></a>&nbsp;' + 
+                        '<a href="javascript:;" onclick="btnSetTopArticle(' + rowData.id + ',' + rowData.isTop + ')"><span class="label label-sm label-danger"> 取消置顶 </span></a>';
+                	}else {
+                		htmlTxt = '<a href="javascript:;" style="padding-right: 3px" onclick="updateArticle(' + rowData.id + ')"><span class="label label-sm label-info"> 编辑 </span></a>&nbsp;' + 
+                        '<a href="javascript:;" onclick="deleteArticle(' + rowData.id + ')"><span class="label label-sm label-warning"> 删除 </span></a>&nbsp;' + 
+                        '<a href="javascript:;" onclick="btnSetTopArticle(' + rowData.id + ',' + rowData.isTop + ')"><span class="label label-sm label-success"> 置&nbsp;&nbsp;&nbsp;顶 </span></a>';
+                	}
+//                 	console.log(htmlTxt);
+                	$(td).html(htmlTxt);
+                }
+//                 "render": function (data, type, full) {
+//                     return '<a href="javascript:;" style="padding-right: 3px" onclick="updateArticle(' + data + ')"><span class="label label-sm label-info"> 编辑 </span></a>&nbsp;' + 
+//                     '<a href="javascript:;" onclick="btnSetTopArticle(' + data + ')"><span class="label label-sm label-success"> 置顶 </span></a> &nbsp;' + 
+//                     '<a href="javascript:;" onclick="deleteArticle(' + data + ')"><span class="label label-sm label-warning"> 删除 </span></a>';
+//                  }
             }],
             "sScrollX": "2000px",
             "dom" : '<"top"<"div_right">>rt<"bottom"ip><"clear">',
@@ -144,6 +158,30 @@
     
     function updateArticle(aId) {
     	window.location.href = "article/update_page/" + aId;
+    }
+    
+    function btnSetTopArticle(aId, topFlag) {
+    	var surl = 'article/update_article?id=' + aId;
+    	if(topFlag == 1) {
+    		surl += "&isTop=0";
+    	}else {
+    		surl += "&isTop=1";
+    	}
+        $.ajax({
+            url: surl,
+            type: 'POST',
+            dataType: "json",
+            success:function (data) {
+                //showMsg("更新成功！");
+                tableObj.ajax.reload(null,false);
+                return;
+            },
+            error:function(xhr, ajaxOptions, thrownError) {
+                console.log(thrownError);
+                showMsg("出现错误，请稍后重试！");
+                return false;
+            }
+        });
     }
 </script>
 </body>

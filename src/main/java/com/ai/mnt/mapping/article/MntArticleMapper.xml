@@ -316,7 +316,7 @@
                 and modify_date = #{modifyDate}
             </if>
         </where>
-        order by create_date desc
+        order by is_top desc, create_date desc
         limit #{start}, #{pageSize}
     </select>
     

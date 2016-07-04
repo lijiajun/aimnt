@@ -57,7 +57,7 @@ a:visited { text-decoration: none;color: #00688B}
                     </div>
                     <div class="portlet-title" style="padding:10px 0px;">
                         <div class="caption">
-                            <span id="ctitle" class="caption-subject bold">阅读排行</span>
+                            <span id="ctitle" class="caption-subject bold">热门阅读</span>
                         </div>
                     </div>
                     <div class="portlet-body">
