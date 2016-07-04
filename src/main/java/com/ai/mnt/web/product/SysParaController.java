@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ai.mnt.common.cache.BaseDataCache;
+import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.product.SysPara;
 import com.ai.mnt.service.product.SysParaService;
 
@@ -54,13 +56,32 @@ public class SysParaController {
     }
     
     /**
-     * 系统参数表XG.SYSPARA新增界面跳转
+     * 系统参数表XG.SYSPARA新增界面跳转   增加时添加数据
      * @param  model
      * @return String
      */
     @RequestMapping("/sys_para/add_page")
     public String showSysParaAddPage(Model model) {
+       
+       List<EnumObject> paramSystemEnums=BaseDataCache
+                .getDataList("PARA_SYSTEM");
+       List<EnumObject> paramTypeEnums= BaseDataCache
+               .getDataList("PARA_TYPE");
+       List<EnumObject> verEnums = BaseDataCache
+               .getDataList("PROD_VER");
+       List<EnumObject> prodEnums = BaseDataCache
+               .getDataList("PROD_INFO");
+       List<EnumObject> baseIdEnums = BaseDataCache
+               .getDataList("BASE_NAME_ENUM");
+       
+       model.addAttribute("paramSystemEnums", paramSystemEnums);
+       model.addAttribute("paramTypeEnums", paramTypeEnums);
+       model.addAttribute("verEnums", verEnums);
+       model.addAttribute("prodEnums", prodEnums);
+       model.addAttribute("baseIdEnums", baseIdEnums);
+       
         return "product/sys_para/sys_para_add";
+        
     }
     
     /**
@@ -78,7 +99,7 @@ public class SysParaController {
     }
     
     /**
-     * 系统参数表XG.SYSPARA更新界面跳转
+     * 系统参数表XG.SYSPARA更新界面跳转   修改时获取数据
      * @param  model
      * @param  paraId
      * @return
@@ -87,6 +108,25 @@ public class SysParaController {
     public String showSysParaUpdatePage(Model model, @PathVariable String paraId) {
         SysPara sysPara = sysParaService.findSysParaByParaId(Integer.parseInt(paraId));
         model.addAttribute("sysPara", sysPara);
+        
+        List<EnumObject> paramSystemEnums=BaseDataCache
+                .getDataList("PARA_SYSTEM");
+       List<EnumObject> paramTypeEnums= BaseDataCache
+               .getDataList("PARA_TYPE");
+       List<EnumObject> verEnums = BaseDataCache
+               .getDataList("PROD_VER");
+       List<EnumObject> prodEnums = BaseDataCache
+               .getDataList("PROD_INFO");
+       List<EnumObject> baseIdEnums = BaseDataCache
+               .getDataList("BASE_NAME_ENUM");
+       
+       model.addAttribute("paramSystemEnums", paramSystemEnums);
+       model.addAttribute("paramTypeEnums", paramTypeEnums);
+       model.addAttribute("verEnums", verEnums);
+       model.addAttribute("prodEnums", prodEnums);
+       model.addAttribute("baseIdEnums", baseIdEnums);
+        
+        
         return "product/sys_para/sys_para_update";
     }
     
