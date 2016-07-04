@@ -142,7 +142,20 @@
                                             是否在用 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${sysBaseType.isUsed}" name="isUsed" id="isUsed">
+                                           <%--  <input type="text" class="form-control" placeholder="" value="${sysBaseType.isUsed}" name="isUsed" id="isUsed"> --%>
+                                           <%-- <select id="isUsed" name="isUsed" class="form-contorl">
+                                            <c:forEach items="${isUsedEnums }" var="isUsedEnum">
+                                                <option value="${isUsedEnum.key }">${isUsedEnum.value }</option>
+                                            </c:forEach>
+                                           </select> --%>
+                                           
+                                           
+                                             <select name="isUsed" class="selectpicker form-control" id="isUsed">
+                                                <c:forEach items="${isUsedEnums}" var="isUsedEnum">
+                                                    <option value="${isUsedEnum.key}">${isUsedEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                           
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入是否在用</span>
                                         </div>
@@ -168,7 +181,20 @@
                                             所属产品 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${sysBaseType.prodId}" name="prodId" id="prodId">
+                                            <%-- <input type="text" class="form-control" placeholder="" value="${sysBaseType.prodId}" name="prodId" id="prodId"> --%>
+                                            <select id="prodId" name="prodId" class="form-control">
+                                            
+                                               
+                                               <c:forEach items="${prodEnums}" var="prodEnum">
+                                                    <c:if test="${prodEnum.key == sysPara.prodId}">
+                                                        <option value="${prodEnum.key}" selected>${prodEnum.value}</option>
+                                                    </c:if>
+                                                    <c:if test="${prodEnum.key != sysPara.prodId}">
+                                                        <option value="${prodEnum.key}">${prodEnum.value}</option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+                                       
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入所属产品</span>
                                         </div>
@@ -182,7 +208,12 @@
                                             产品版本 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${sysBaseType.verCode}" name="verCode" id="verCode">
+                                           <%--  <input type="text" class="form-control" placeholder="" value="${sysBaseType.verCode}" name="verCode" id="verCode"> --%>
+                                           <select id="verCode" name="verCode" class="form-control">
+                                                <c:forEach items="${verEnums }" var="verEnum">
+                                                    <option value="${verEnum.key }">${verEnum.value }</option>
+                                                </c:forEach>
+                                           </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入产品版本</span>
                                         </div>
@@ -194,7 +225,9 @@
                                             发布版本 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${sysBaseType.relCode}" name="relCode" id="relCode">
+                                            <%-- <input type="text" class="form-control" placeholder="" value="${sysBaseType.relCode}" name="relCode" id="relCode"> --%>
+                                          <select name="relId" class="selectpicker form-control" data-live-search="true" id="relId">
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入发布版本</span>
                                         </div>
@@ -206,7 +239,7 @@
                                     <div class="col-md-9 model-hidden">
                                         <input type="hidden" value="${sysBaseType.id}" name="id" id="id">
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                             <div class="form-actions">
                                 <div class="row">
@@ -227,7 +260,27 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function() {
-    
+	   loadVerCodeSelect(); 
+	 var _verCode = '${mntLibRelHis.mntModuleLib.mntProdModule.verCode}';
+     $('#verCode').val(_verCode);
+     $('#verCode').selectpicker('refresh');
+	
+     loadRelSelect();
+     var _relId = '${mntLibRelHis.mntReleaseRec.relId}';
+     $('#relId').val(_relId);
+     $('#relId').selectpicker('refresh');
+     
+     
+	 $('#prodId').change(function(){
+         loadVerCodeSelect();
+         /* loadParentModuleSelect(); */
+         loadRelSelect();
+     });
+     
+     $('#verCode').change(function(){
+        /*  loadParentModuleSelect(); */
+         loadRelSelect();
+     });
     //表单校验提交
     //[1]自定义校验规则
     var rules = {
@@ -242,12 +295,12 @@ jQuery(document).ready(function() {
             systemId:"required",
             isUsed:"required",
             remark:"required",
-            prodId:"required",
+            /* prodId:"required",
             verCode:"required",
-            relCode:"required"
+            relCode:"required" */
     };
     //[2]表单校验初始化
-    initFormValidate('form-update', rules, 'product/sys_base_type/update', 'update');
+    initFormValidate('form-update', rules, 'prod/sys_base_type/update', 'update');
     
 });
 
