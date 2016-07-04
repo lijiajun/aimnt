@@ -3,13 +3,15 @@ package com.ai.mnt.model.article;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.ai.mnt.model.common.Pagination;
+
 /**
  * @Title: MntArticle 
  * @Description: MntArticle Model
  * @Author: Auto Generate.
  * @Date: 2016-6-27
  */
-public class MntArticle implements Serializable{
+public class MntArticle extends Pagination implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

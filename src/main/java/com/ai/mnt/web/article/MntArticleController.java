@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.article.MntArticle;
+import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.service.article.MntArticleService;
 
 /**
@@ -28,13 +30,39 @@ public class MntArticleController {
     @Autowired
     MntArticleService mntArticleService;
     
+    @Autowired
+    UserRealm userRealm;
+    
     /**
      * 运维文章界面跳转
      * @param  model
      * @return String
      */
     @RequestMapping("/page")
-    public String showMntArticlePage(Model model) {
+    public String showMntArticlePage(Model model, MntArticle mntArticle) {
+        
+        if(mntArticle.getCurrentPage() != 1) {
+            int start = (mntArticle.getCurrentPage() -1) * mntArticle.getPageSize();
+            mntArticle.setStart(start);
+        }
+        
+        mntArticle.setDeleteFlag("0");
+        List<MntArticle> mntArticleList = mntArticleService.findMntArticleListPagination(mntArticle);
+        long totalCount = mntArticleService.getMntArticleTotalCount(mntArticle);
+        mntArticle.setTotalCount(totalCount);
+        
+        //总页数
+        long totalPage = totalCount / mntArticle.getPageSize();
+        int mod = (int) (totalCount % mntArticle.getPageSize());
+        totalPage = mod == 0 ? totalPage : totalPage + 1;
+        mntArticle.setTotalPage(totalPage);
+        
+        model.addAttribute("articleList", mntArticleList);
+        model.addAttribute("mntArticle", mntArticle);
+        
+        List<MntArticle> artiTopTenList = mntArticleService.getArticleListReadTopTen(mntArticle);
+        model.addAttribute("artiTopTenList", artiTopTenList);
+        
         return "article/article_list";
     }
     
@@ -46,9 +74,14 @@ public class MntArticleController {
     @RequestMapping("/query")
     @ResponseBody
     public Map<String, Object> getMntArticleList(MntArticle mntArticle) {
-        List<MntArticle> mntArticleList = mntArticleService.findMntArticleList(mntArticle);
+        mntArticle.setDeleteFlag("0");
+        List<MntArticle> mntArticleList = mntArticleService.findMntArticleListPagination(mntArticle);
+        long totalCount = mntArticleService.getMntArticleTotalCount(mntArticle);
+        mntArticle.setTotalCount(totalCount);
+        
         Map<String, Object> map = new HashMap<>();
         map.put("data", mntArticleList);
+        map.put("mntArticle", mntArticle);
         map.put("status", "1");
         return map;
     }
@@ -60,7 +93,7 @@ public class MntArticleController {
      */
     @RequestMapping("/add_page")
     public String showMntArticleAddPage(Model model) {
-        return "article/posts/article_add";
+        return "article/article_add";
     }
     
     /**
@@ -68,7 +101,7 @@ public class MntArticleController {
      * @param mntArticle
      * @return Map<String, Object>
      */
-    @RequestMapping("/add")
+    @RequestMapping("/add_article")
     @ResponseBody
     public Map<String, Object> saveMntArticle(MntArticle mntArticle) {
         mntArticleService.saveMntArticle(mntArticle);
@@ -87,7 +120,7 @@ public class MntArticleController {
     public String showMntArticleUpdatePage(Model model, @PathVariable String id) {
         MntArticle mntArticle = mntArticleService.findMntArticleById(Integer.parseInt(id));
         model.addAttribute("mntArticle", mntArticle);
-        return "article/article_update";
+        return "article/article_edit";
     }
     
     /**
@@ -95,7 +128,7 @@ public class MntArticleController {
      * @param mntArticle
      * @return
      */
-    @RequestMapping("/update")
+    @RequestMapping("/update_article")
     @ResponseBody
     public Map<String, Object> updateMntArticle(MntArticle mntArticle) {
         mntArticleService.updateMntArticleById(mntArticle);
@@ -123,14 +156,65 @@ public class MntArticleController {
      * @param model
      * @return
      */
-    @RequestMapping("/{id}/page")
+    @RequestMapping("/full_content/{id}")
     public String queryMntArticleById(Model model, @PathVariable String id) {
         MntArticle mntArticle = new MntArticle();
-        mntArticle.setId(Integer.parseInt(id));
+        mntArticle = mntArticleService.findMntArticleById(Integer.parseInt(id));
+        model.addAttribute("mntArticle", mntArticle);
+        
+        //增加阅读次数
+        MntArticle mntArticle2 = new MntArticle();
+        mntArticle2.setId(mntArticle.getId());
+        mntArticle2.setReadCount(mntArticle.getReadCount() + 1);
+        mntArticleService.updateMntArticleById(mntArticle2);
+        
+        //热门
+        List<MntArticle> artiTopTenList = mntArticleService.getArticleListReadTopTen(mntArticle);
+        model.addAttribute("artiTopTenList", artiTopTenList);
+        
+        return "article/article_content";
+    }
+    
+    /**
+     * 根据主键查询运维文章详细信息
+     * @param model
+     * @return
+     */
+    @RequestMapping("/my_articles")
+    public String queryMyArticles(Model model) {
+        return "article/article_my_list";
+    }
+    
+    /**
+     * 运维文章
+     * @param ids
+     * @return Map<String, Object>
+     */
+    @RequestMapping("/my_articles/query")
+    @ResponseBody
+    public Map<String, Object> findUserArticles() {
+        SysUser currentUser = userRealm.getCurrentUser();
+        MntArticle mntArticle = new MntArticle();
+        mntArticle.setCreator(currentUser.getUserName());
+        mntArticle.setDeleteFlag("0");
         List<MntArticle> mntArticleList = mntArticleService.findMntArticleList(mntArticle);
-        if(mntArticleList != null && mntArticleList.size() > 0) { //只会有一条数据
-            model.addAttribute("mntArticle", mntArticleList.get(0));
-        }
-        return "article/article_info";
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", mntArticleList);
+        map.put("status", "1");
+        return map;
+    }
+    
+    /**
+     * 文章图片上传
+     * @param mntArticle
+     * @return
+     */
+    @RequestMapping("/upload_pic")
+    @ResponseBody
+    public Map<String, Object> uploadPic(MntArticle mntArticle) {
+        mntArticleService.updateMntArticleById(mntArticle);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", "1");
+        return map;
     }
 }

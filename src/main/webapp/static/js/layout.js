@@ -289,7 +289,7 @@ var Layout = function () {
                 url: "menu/location/" + _menuId,
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     if(data.locTxt === "") {
                         $("#title-txt").html($(this).children(".title").html());
                     }else {
@@ -297,7 +297,7 @@ var Layout = function () {
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(thrownError);
+                    //console.log(thrownError);
                     $("#title-txt").html($(this).children(".title").html());
                 }
             });

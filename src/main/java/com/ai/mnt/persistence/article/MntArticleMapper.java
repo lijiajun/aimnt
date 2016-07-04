@@ -1,6 +1,8 @@
 package com.ai.mnt.persistence.article;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.ai.mnt.model.article.MntArticle;
@@ -14,6 +16,12 @@ import com.ai.mnt.persistence.base.CrudMapper;
  */
 @Repository
 public interface MntArticleMapper extends CrudMapper<MntArticle, Integer>{
+
+    public List<MntArticle> findMntArticleListPagination(MntArticle mntArticle);
+
+    public long getMntArticleTotalCount(MntArticle mntArticle);
+
+    public List<MntArticle> getArticleListReadTopTen(MntArticle mntArticle);
     
     
 }

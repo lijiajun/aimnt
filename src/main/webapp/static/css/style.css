@@ -413,7 +413,7 @@ th, td {
     top: -6px;
 }
 
-.btn.dropdown-toggle.btn-default {
+.bootstrap-select>.btn.dropdown-toggle.btn-default {
     color: #4d6b8a;
     background-color: #fff;
     border-color: #c2cad8;
@@ -487,4 +487,64 @@ th, td {
     width: 100%;
     box-sizing: border-box;
     border-bottom: 1px solid #eef1f5;
+}
+
+.pub-article {
+    padding:10px 1px 6px 1px;
+    border-bottom: 1px solid #eee;
+    text-align: right;
+}
+.dis_article {
+    padding:15px 1px 3px 1px;
+    border-bottom: 1px solid #eee;
+}
+
+._title {
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom: 3px;
+}
+
+._article-rel {
+    font-size:12px;
+    color:grey;
+    padding: 1px 0px;
+}
+
+._summary {
+    font-size:13px;
+    margin-bottom: 3px;
+}
+
+.full-article-title {
+    font-size:18px;
+    font-weight:bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 3px;
+}
+
+.full-article-rel {
+    font-size:13px;
+    text-align: center;
+    color:grey;
+    margin-bottom: 7px;
+}
+
+.full-article-body {
+    font-size:14px;
+}
+
+ul.pagination.bootpag>li>a {
+    margin-right: 3px;
+    width: 30px;
+    height: 30px
+}
+
+.full-article-up {
+    cursor:pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size:50px;
+    text-align: center;
 }

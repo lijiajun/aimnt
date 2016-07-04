@@ -259,6 +259,136 @@
         </where>
     </select>
 
+    <select id="findMntArticleListPagination" resultMap="MntArticleResultMap">
+        select
+        <include refid="MntArticleColumns" />
+        from mnt_article
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="title != null and title != ''">
+                and (title like '%${title}%' or keyword like '%${title}%' or summary like '%${title}%')
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and keyword = #{keyword}
+            </if>
+            <if test="summary != null and summary != ''">
+                and summary = #{summary}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="author != null and author != ''">
+                and author = #{author}
+            </if>
+            <if test="readCount != null">
+                and read_count = #{readCount}
+            </if>
+            <if test="commentCount != null">
+                and comment_count = #{commentCount}
+            </if>
+            <if test="allowComment != null and allowComment != ''">
+                and allow_comment = #{allowComment}
+            </if>
+            <if test="isTop != null and isTop != ''">
+                and is_top = #{isTop}
+            </if>
+            <if test="isShow != null and isShow != ''">
+                and is_show = #{isShow}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+        order by create_date desc
+        limit #{start}, #{pageSize}
+    </select>
+    
+    <select id="getMntArticleTotalCount" resultType="java.lang.Long">
+        select
+        count(1)
+        from mnt_article
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="title != null and title != ''">
+                and (title like '%${title}%' or keyword like '%${title}%' or summary like '%${title}%')
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and keyword = #{keyword}
+            </if>
+            <if test="summary != null and summary != ''">
+                and summary = #{summary}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="author != null and author != ''">
+                and author = #{author}
+            </if>
+            <if test="readCount != null">
+                and read_count = #{readCount}
+            </if>
+            <if test="commentCount != null">
+                and comment_count = #{commentCount}
+            </if>
+            <if test="allowComment != null and allowComment != ''">
+                and allow_comment = #{allowComment}
+            </if>
+            <if test="isTop != null and isTop != ''">
+                and is_top = #{isTop}
+            </if>
+            <if test="isShow != null and isShow != ''">
+                and is_show = #{isShow}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+    
+    <select id="getArticleListReadTopTen" resultMap="MntArticleResultMap">
+        select
+        <include refid="MntArticleColumns" />
+        from mnt_article
+        where delete_flag = '0' 
+        order by read_count desc
+        limit 0, 10
+    </select>
+    
+    
     <select id="findAll" resultMap="MntArticleResultMap">
         select
         <include refid="MntArticleColumns" />

@@ -1,9 +1,10 @@
 package com.ai.mnt.service.article.impl;
 
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,18 @@ public class MntArticleServiceImpl implements MntArticleService{
     }
 
     /**
+     * 获取分页运维文章列表
+     * @param article
+     * @return List<MntArticle>
+     */
+    @Override
+    public List<MntArticle> findMntArticleListPagination(MntArticle mntArticle) {
+        List<MntArticle> mntArticleList = mntArticleMapper.findMntArticleListPagination(mntArticle);
+        //cvtContentList(mntArticleList);
+        return mntArticleList;
+    }
+    
+    /**
      * 通过主键ID获取运维文章
      * @param id Primary key
      * @return MntArticle
@@ -69,6 +82,17 @@ public class MntArticleServiceImpl implements MntArticleService{
     @Override
     public void saveMntArticle(MntArticle mntArticle) {
         SysUser currentUser = userRealm.getCurrentUser();
+        
+        if(StringUtils.isEmpty(mntArticle.getSummary())) {
+            if(!StringUtils.isEmpty(mntArticle.getContent())) {
+                if(mntArticle.getContent().length() > 100) {
+                    mntArticle.setSummary(mntArticle.getContent().substring(0, 100));
+                }else {
+                    mntArticle.setSummary(mntArticle.getContent());
+                }
+            }
+        }
+        
         mntArticle.setDeleteFlag("0");
         mntArticle.setCreator(currentUser.getUserName());
         mntArticle.setModifier(currentUser.getUserName());
@@ -109,6 +133,17 @@ public class MntArticleServiceImpl implements MntArticleService{
             mntArticle.setId(Integer.parseInt(id));
             mntArticleMapper.updateByPrimaryKey(mntArticle);
         }
+    }
+
+    @Override
+    public long getMntArticleTotalCount(MntArticle mntArticle) {
+        return mntArticleMapper.getMntArticleTotalCount(mntArticle);
+    }
+
+    @Override
+    public List<MntArticle> getArticleListReadTopTen(MntArticle mntArticle) {
+        List<MntArticle> topTenList = mntArticleMapper.getArticleListReadTopTen(mntArticle);
+        return topTenList;
     }
     
     //private void cvtContentList(List<MntArticle> MntArticleList) {

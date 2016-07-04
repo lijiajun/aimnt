@@ -1,6 +1,7 @@
 package com.ai.mnt.service.article;
 
 import java.util.List;
+
 import com.ai.mnt.model.article.MntArticle;
 
 /**
@@ -25,6 +26,17 @@ public interface MntArticleService {
      * @return List<MntArticle>
      */
     public List<MntArticle> findMntArticleList(MntArticle mntArticle);
+    
+    /**
+     * 获取分页运维文章列表
+     * @param article
+     * @return List<MntArticle>
+     */
+    public List<MntArticle> findMntArticleListPagination(MntArticle mntArticle);
+    
+    public List<MntArticle> getArticleListReadTopTen(MntArticle mntArticle);
+    
+    public long getMntArticleTotalCount(MntArticle mntArticle);
     
     /**
      * 通过主键ID获取运维文章

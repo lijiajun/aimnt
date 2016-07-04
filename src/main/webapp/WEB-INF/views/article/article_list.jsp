@@ -7,447 +7,103 @@
 <head>
 <title>运维文章</title>
 <%@include file="../included/includedStyle.jsp" %>
+
+<style type="text/css"> 
+
+a:link { text-decoration: none;color: #00688B} 
+a:active { text-decoration:blink} 
+a:hover { text-decoration:underline;color: #00688B} 
+a:visited { text-decoration: none;color: #00688B} 
+
+</style>
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-search"></i>
-                    <span class="caption-subject font-blue-hoki bold uppercase">查询条件</span>
-                </div>
-                <div class="tools">
-                    <a href="" class="collapse"></a>
-                    <a href="" class="reload"></a>
-                </div>
-            </div>
-            <div class="portlet-body form">
-                <form action="#" class="form-horizontal">
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">文章编号</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="id">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">文章类型</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="typeId">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">文章标题</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="title">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">关键字</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="keyword">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">摘要</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="summary">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">文章内容</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="content">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">作者</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="author">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">阅读次数</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="readCount">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">评论次数</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="commentCount">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">是否允许评论 ： 1允许 0不允许 默认1</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="allowComment">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">是否置顶  1是 0否 默认0</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="isTop">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">是否显示  1显示 0不显示 默认1</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="isShow">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">删除标识，1删除，0未删除</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="deleteFlag">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">创建人</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="creator">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">创建时间</label>
-                                    <div class="col-md-8">
-                                        <div class="input-group date-picker input-daterange" data-date="2012-12-12" data-date-format="yyyy-mm-dd">
-                                            <input type="text" class="form-control" name="from" id="beginDate" readonly AUTOCOMPLETE="off">
-                                            <span class="input-group-addon"> 到 </span>
-                                            <input type="text" class="form-control" name="to" id="endDate" readonly AUTOCOMPLETE="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">修改人</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="modifier">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">修改时间</label>
-                                    <div class="col-md-8">
-                                        <div class="input-group date-picker input-daterange" data-date="2012-12-12" data-date-format="yyyy-mm-dd">
-                                            <input type="text" class="form-control" name="from" id="beginDate" readonly AUTOCOMPLETE="off">
-                                            <span class="input-group-addon"> 到 </span>
-                                            <input type="text" class="form-control" name="to" id="endDate" readonly AUTOCOMPLETE="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"></label>
-                                    <div class="col-md-4">
-                                        <button type="button" id="btnQuery" class="btn green btn-mnt">查询</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
         <div class="row">
-            <div class="col-md-12">
-                <div class="wrapper-content">
-<!--                     <div class="portlet-title"> -->
-<!--                         <div class="caption font-dark"> -->
-<!--                             <i class=" icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 产品发布信息 </span> -->
-<!--                         </div> -->
-<!--                     </div> -->
+            <div class="col-md-9 col-sm-12">
+                <div class="portlet light">
+                    <div class="pub-article">
+                        <span class="publish"><a href="article/add_page">+发布新文章</a></span>&nbsp;&nbsp;
+                        <span class="publish"><a href="article/my_articles">我的文章</a></span> 
+                    </div>
                     <div class="portlet-body">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tabMntArticle" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th class="checkbox-datatables"><input type="checkbox" id="tab-th-chk" /></th>
-                                    <th>文章类型</th>
-                                    <th>文章标题</th>
-                                    <th>关键字</th>
-                                    <th>摘要</th>
-                                    <th>文章内容</th>
-                                    <th>作者</th>
-                                    <th>阅读次数</th>
-                                    <th>评论次数</th>
-                                    <th>是否允许评论 ： 1允许 0不允许 默认1</th>
-                                    <th>是否置顶  1是 0否 默认0</th>
-                                    <th>是否显示  1显示 0不显示 默认1</th>
-                                    <th>删除标识，1删除，0未删除</th>
-                                    <th>创建人</th>
-                                    <th>创建时间</th>
-                                    <th>修改人</th>
-                                    <th>修改时间</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                        <c:forEach items="${articleList}" var="article">
+                        <div class="dis_article">
+                            <div class="_title">
+                                <a href="article/full_content/${article.id}">${article.title}</a>
+                            </div>
+                            <div class="_summary">
+                                ${article.summary}
+                            </div>
+                            <div class="_article-rel">
+                                ${article.creator} 发布于 <fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                            </div>
+                        </div>
+                        </c:forEach>
+                    </div>
+                    <div class="portlet-foot" style="text-align: center;margin-top:30px">
+                        <div id="page-selection"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="portlet light cale">
+                    <div class="portlet-title" style="padding:10px 0px;">
+                            <div style="padding:2px 0px">
+                            <input id="sContent" type="text" style="width:85%;height:30px;float:left;border-left:0px;border-top:0px;border-right:0px;border-bottom:1px" class="form-control" placeholder="Search...">
+                            <i id="articleSearch" class="fa fa-search" style="cursor:pointer;padding:7px 0px;font-size:17px;width:30px;height:30px;float:right"></i>
+                            </div>
+                    </div>
+                    <div class="portlet-title" style="padding:10px 0px;">
+                        <div class="caption">
+                            <span id="ctitle" class="caption-subject bold">阅读排行</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <c:forEach items="${artiTopTenList}" var="topTen">
+                            <div class="_summary">
+                                <a href="article/full_content/${topTen.id}">${topTen.title}</a>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div style="display:none" id="btn-data-tools">
-        <shiro:hasPermission name="prod:delete">
-        <span class="dt-buttons">
-            <a class="dt-button btn red btn-outline btn-mnt" id="btnDelete" >
-                <span>删除</span>
-            </a>
-        </span>
-        <span class="dt-buttons">
-            <a class="dt-button btn yellow btn-outline btn-mnt" id="btnUpdate">
-                <span>修改</span>
-            </a>
-         </span>
-        <span class="dt-buttons">
-            <a class="dt-button btn dark btn-outline btn-mnt btnAdd" id="btnAdd">
-                <span>添加</span>
-            </a>
-         </span>
-         </shiro:hasPermission>
-    </div>
+
 
 <%@include file="../included/includedJs.jsp" %>
-
+<script src="static/plugins/bootpag/jquery.bootpag.min.js" type="text/javascript"></script>
 <script>
     $(function() {
-
-        var tableObj = $('#tabMntArticle').DataTable(getConfig());
-        $('#btnQuery').click(function(e) {
-            var strId = $("#id").val();
-            var strTypeId = $("#typeId").val();
-            var strTitle = $("#title").val();
-            var strKeyword = $("#keyword").val();
-            var strSummary = $("#summary").val();
-            var strContent = $("#content").val();
-            var strAuthor = $("#author").val();
-            var strReadCount = $("#readCount").val();
-            var strCommentCount = $("#commentCount").val();
-            var strAllowComment = $("#allowComment").val();
-            var strIsTop = $("#isTop").val();
-            var strIsShow = $("#isShow").val();
-            var strDeleteFlag = $("#deleteFlag").val();
-            var strCreator = $("#creator").val();
-            var strCreateDate = $("#createDate").val();
-            var strModifier = $("#modifier").val();
-            var strModifyDate = $("#modifyDate").val();
-            var sUrl = "article/posts/query?";
-            sUrl += 
-                "&id=" + strId +
-                "&typeId=" + strTypeId +
-                "&title=" + strTitle +
-                "&keyword=" + strKeyword +
-                "&summary=" + strSummary +
-                "&content=" + strContent +
-                "&author=" + strAuthor +
-                "&readCount=" + strReadCount +
-                "&commentCount=" + strCommentCount +
-                "&allowComment=" + strAllowComment +
-                "&isTop=" + strIsTop +
-                "&isShow=" + strIsShow +
-                "&deleteFlag=" + strDeleteFlag +
-                "&creator=" + strCreator +
-                "&createDate=" + strCreateDate +
-                "&modifier=" + strModifier +
-                "&modifyDate=" + strModifyDate;
-            tableObj.ajax.url(sUrl).load();
+        
+        $('#articleSearch').click(function(){
+        	var _searchContent = $('#sContent').val();
+            window.location.href = "article/page?title=" + _searchContent;
         });
         
-        $('.reload').on('click', function() {
-            $('#id').val('');
-            $('#typeId').val('');
-            $('#title').val('');
-            $('#keyword').val('');
-            $('#summary').val('');
-            $('#content').val('');
-            $('#author').val('');
-            $('#readCount').val('');
-            $('#commentCount').val('');
-            $('#allowComment').val('');
-            $('#isTop').val('');
-            $('#isShow').val('');
-            $('#deleteFlag').val('');
-            $('#creator').val('');
-            $('#createDate').val('');
-            $('#modifier').val('');
-            $('#modifyDate').val('');
-            tableObj.ajax.url('article/posts/query?id=-1').load();
-        });
-        
-        //修改按钮
-        $('.div_right').on('click', '.dt-buttons>#btnUpdate',function() {
-            var checkedBox = $("#tabMntArticle tbody tr td .checked");
-            var checkedLength = checkedBox.length;
-            if(checkedLength == 0) {
-                showMsg("请选择需要修改的数据！");
-                return;
-            }
-            if(checkedLength > 1) {
-                showMsg("只能选择一条数据进行修改操作！");
-                return;
-            }
-            var strId = checkedBox.find('input:checkbox').val();
-            showModal(2, " ", [ '1000px', '500px' ], "article/posts/update_page/" + strId, tableObj);
-        });
-        
-        //新增
-        $('.div_right').on('click', '.dt-buttons>#btnAdd', function(){
-            showModal(2, " ", ['1000px', '500px'], "article/posts/add_page", tableObj);
-        });
-        
-        //删除按钮
-        $('.div_right').on('click', '.dt-buttons>#btnDelete',function() {
-            var checkedBox = $("#tabMntArticle tbody tr td .checked");
-            comfirmDeleteData(tableObj, checkedBox, 'article/posts/delete/');
+        $('#page-selection').bootpag({
+            total: ${mntArticle.totalPage}, //总页数
+            page: ${mntArticle.currentPage}, //当前页
+            maxVisible: 10,
+            //href: "#pro-page-{{number}}",
+            leaps: false,
+            next: ' > ',
+            prev: ' < '
+        }).on("page", function(event, num){
+             $("#content").html("Insert content"); // some ajax content loading...
+             var searchTopic = '${mntArticle.title}';
+             if(searchTopic == '' || searchTopic == 'null') {
+            	 
+             }
+             var _searchContent = $('#sContent').val();
+             window.location.href = "article/page?title=" + _searchContent + "&currentPage=" + num;
         });
         
     });
 
-    function getConfig() {
-        return config = {
-            "processing" : true,
-            "pageLength" : 5,
-            //"destroy": true,
-            "lengthMenu" : [ [ 5, 10, 20, -1 ], [ 5, 10, 20, "All" ] ],
-            "order" : [ [ 1, "asc" ] ],
-            "serverSide" : false,
-            "ajax" : {
-                "url" : "article/query?id=-1"
-            //    "async": false
-            },
-            "columns" : [ {
-                "data" : "id"
-            }, {
-                "data" : "typeId"
-            }, {
-                "data" : "title"
-            }, {
-                "data" : "keyword"
-            }, {
-                "data" : "summary"
-            }, {
-                "data" : "content"
-            }, {
-                "data" : "author"
-            }, {
-                "data" : "readCount"
-            }, {
-                "data" : "commentCount"
-            }, {
-                "data" : "allowComment"
-            }, {
-                "data" : "isTop"
-            }, {
-                "data" : "isShow"
-            }, {
-                "data" : "deleteFlag"
-            }, {
-                "data" : "creator"
-            }, {
-                "data" : "createDate"
-            }, {
-                "data" : "modifier"
-            }, {
-                "data" : "modifyDate"
-            }],
-            "columnDefs": [{
-                "orderable" : false,
-                "searchable" : false,
-                "targets": [0],
-                "data": "id",
-                "render": function (data, type, full) {
-                    return '<input type="checkbox" name="data-checkbox" value="' + data + '" />';
-                 }
-            },
-            {
-                "targets": [14],
-                "data": "createDate",
-                "render": function (data, type, full) {
-                    if(data == null || data == "") {
-                        return "";
-                    }
-                    return new Date(data).format("yyyy-MM-dd hh:mm:ss");
-                 }
-            },
-            {
-                "targets": [16],
-                "data": "modifyDate",
-                "render": function (data, type, full) {
-                    if(data == null || data == "") {
-                        return "";
-                    }
-                    return new Date(data).format("yyyy-MM-dd hh:mm:ss");
-                 }
-            }
-            ],
-            "sScrollX": "2000px",
-            "dom" : '<"top"l<"div_right">>rt<"bottom"ip><"clear">',
-            "initComplete" : initTab,
-            "createdRow": function ( row, data, index ) {
-                $('td', row).eq(0).addClass('checkbox-datatables');
-             },
-            "language" : {
-                "processing" : "努力加载数据中...",
-                "lengthMenu" : "_MENU_ 条记录每页",
-                "zeroRecords" : "没有查询到数据",
-                "info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-                "infoEmpty" : "无记录",
-                "infoFiltered" : "(从 _MAX_ 条记录过滤)",
-                "paginate" : {
-                    "previous" : "上一页",
-                    "next" : "下一页"
-                }
-            }
-        };
-    }
+
 </script>
 </body>
 </html>

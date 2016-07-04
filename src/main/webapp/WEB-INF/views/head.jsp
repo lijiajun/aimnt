@@ -111,11 +111,11 @@
                             </a>
                         </li>
                         <li class="divider"></li>
-                        <li>
-                            <a href="page_user_lock_1.html">
-                                <i class="icon-lock"></i> 锁屏
-                            </a>
-                        </li>
+<!--                         <li> -->
+<!--                             <a href="page_user_lock_1.html"> -->
+<!--                                 <i class="icon-lock"></i> 锁屏 -->
+<!--                             </a> -->
+<!--                         </li> -->
                         <li>
                             <a href="logout">
                             <i class="icon-key"></i> 退出
@@ -123,11 +123,11 @@
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <i class="icon-logout"></i>
-                    </a>
-                </li>
+<!--                 <li class="dropdown dropdown-quick-sidebar-toggler"> -->
+<!--                     <a href="javascript:;" class="dropdown-toggle"> -->
+<!--                         <i class="icon-logout"></i> -->
+<!--                     </a> -->
+<!--                 </li> -->
             </ul>
         </div>
     </div>
