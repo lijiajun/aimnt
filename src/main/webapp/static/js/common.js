@@ -83,7 +83,7 @@ function getInitConfig() {
         'columnDefs': [{
             'orderable' : false,
             "searchable" : false,
-            "targets": [0],
+            "targets": [0]
         }],
         "order" : [ [ 1, "asc" ] ],
         'initComplete' : initTab,
@@ -117,7 +117,7 @@ function renderCalendar(cid, url) {
 //            right: 'prev,next,today,month,agendaWeek,agendaDay'
         },
         titleFormat: {
-            month: 'YYYY年MM月',
+            month: 'YYYY年MM月'
         },
         defaultView: 'month',
         contentHeight: 200,
