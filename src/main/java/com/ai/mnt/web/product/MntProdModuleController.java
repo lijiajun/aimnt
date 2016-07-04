@@ -110,10 +110,12 @@ public class MntProdModuleController {
                 .getDataList("MODULE_IS_USED");
         List<EnumObject> outPutEnums = BaseDataCache
                 .getDataList("MODULE_OUTPUT_TYPE");
+        
         model.addAttribute("prodEnums", prodEnums);
         model.addAttribute("verEnums", verEnums);
         model.addAttribute("isUsedEnums", isUsedEnums);
         model.addAttribute("outPutEnums", outPutEnums);
+        
 
         return "product/module/prod_module_add";
     }
