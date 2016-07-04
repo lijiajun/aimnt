@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>新增系统参数模块</title>
 <%@include file="../../included/includedStyle.jsp" %>
 </head>
 
@@ -14,7 +15,7 @@
                 <div class="wrapper-body">
                     <div class="portlet-title">
                         <div class="caption font-dark">
-                            <i class="icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 新增系统参数表XG.SYSPARA </span>
+                            <i class="icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 新增系统参数表 </span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -23,19 +24,26 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                             <span class="required">*</span>
+                                      安装点                     <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="paraId" id="paraId">
+                                           <!--  <input type="text" class="form-control" placeholder="" name="baseId" id="baseId"> -->
+                                           
+                                           <select name="baseId" class="selectpicker form-control" id="baseId">
+                                                <c:forEach items="${baseIdEnums}" var="baseIdEnum">
+                                                    <option value="${baseIdEnum.key}">${baseIdEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                           
                                             <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入</span>
+                                            <span class="help-block">请输入安装点数字代码</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            地区代码，系统中对应的地区代码表内容，如果是0表示对所有的地区有效 <span class="required">*</span>
+                                            地区代码 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" name="regionCode" id="regionCode">
@@ -49,7 +57,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            县区代码，系统中对应的县区代码表内容，如果是0表示对所有的县区有效 <span class="required">*</span>
+                                            县区代码 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" name="countyCode" id="countyCode">
@@ -88,25 +96,23 @@
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
                                             所属系统
-            系统基础参数所属的子系统：
-            1 －－ 系统管理
-            2 －－ 业务管理
-            3 －－ 综合客服
-            4 －－ 帐务管理
-            5 －－ 帐务处理
-            6 －－ 接口管理 <span class="required">*</span>
+                        <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="paramClass" id="paramClass">
+                                            <select name="paramClass" class="selectpicker form-control" id="paramClass">
+                                                <c:forEach items="${paramSystemEnums}" var="paramSystemEnums">
+                                                    <option value="${paramSystemEnums.key}">${paramSystemEnums.value}</option>
+                                                </c:forEach>
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入所属系统
-            系统基础参数所属的子系统：
-            1 －－ 系统管理
-            2 －－ 业务管理
-            3 －－ 综合客服
-            4 －－ 帐务管理
-            5 －－ 帐务处理
-            6 －－ 接口管理</span>
+                    系统基础参数所属的子系统：
+                    1 －－ 系统管理
+                    2 －－ 业务管理
+                    3 －－ 综合客服
+                    4 －－ 帐务管理
+                    5 －－ 帐务处理
+                    6 －－ 接口管理</span>
                                         </div>
                                     </div>
                                 </div>
@@ -115,11 +121,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            参数类型 参数的数据类别：(1--Char  2--Number  3--Boolean  4？Date 5－Long 6-String 7-Double)SYS_BASE_TYPE.code_type=1 <span class="required">*</span>
+                                            参数类型  <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="paramDataType" id="paramDataType">
-                                            <div class="form-control-focus"></div>
+                                             <select name="paramDataType" class="selectpicker form-control" id="paramDataType">
+                                                <c:forEach items="${paramTypeEnums}" var="paramTypeEnums">
+                                                    <option value="${paramTypeEnums.key}">${paramTypeEnums.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入参数类型 参数的数据类别：(1--Char  2--Number  3--Boolean  4？Date 5－Long 6-String 7-Double)SYS_BASE_TYPE.code_type=1</span>
                                         </div>
                                     </div>
@@ -156,7 +166,13 @@
                                             所属产品 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="prodId" id="prodId">
+                                            <select name="prodId" class="selectpicker form-control" id="prodId">
+                                                <c:forEach items="${prodEnums}" var="prodEnum">
+                                                    <option value="${prodEnum.key}">${prodEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                          
+                                          
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入所属产品</span>
                                         </div>
@@ -170,8 +186,14 @@
                                             产品版本 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="verCode" id="verCode">
-                                            <div class="form-control-focus"></div>
+                                          <select name="verCode" class="selectpicker form-control" id="verCode">
+                                                <c:forEach items="${verEnums}" var="verEnum">
+                                                    <option value="${verEnum.key}">${verEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                             
+                                          
+                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入产品版本</span>
                                         </div>
                                     </div>
@@ -182,7 +204,9 @@
                                             发布版本 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="relCode" id="relCode">
+                                            <!-- <input type="text" class="form-control" placeholder="" name="relCode" id="relCode"> -->
+                                            <select name="relCode" class="selectpicker form-control" data-live-search="true" id="relCode">
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入发布版本</span>
                                         </div>
@@ -209,6 +233,20 @@
 
 jQuery(document).ready(function() {
     
+	loadVerCodeSelect();
+    loadParentModuleSelect();
+    loadRelSelect();
+    $('#prodId').change(function(){
+        loadVerCodeSelect();
+        loadParentModuleSelect();
+        loadRelSelect();
+    });
+    
+    $('#verCode').change(function(){
+        loadParentModuleSelect();
+        loadRelSelect();
+    });
+    
     //表单校验提交
     //[1]自定义校验规则
     var rules = {
@@ -221,9 +259,9 @@ jQuery(document).ready(function() {
             paramDataType:"required",
             paramValue:"required",
             paramDesc:"required",
-            prodId:"required",
+           /*  prodId:"required",
             verCode:"required",
-            relCode:"required"
+            relCode:"required" */
     };
     //[2]表单校验初始化
     initFormValidate('form-add', rules, 'prod/sys_para/add', 'add');
