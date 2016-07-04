@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>新增系统枚举值</title>
 <%@include file="../../included/includedStyle.jsp" %>
 </head>
 
@@ -23,10 +24,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            编号 <span class="required">*</span>
+                                            安装点 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="id" id="id">
+                                           <!--  <input type="text" class="form-control" placeholder="" name="id" id="id"> -->
+                                           <select name="baseId" class="selectpicker form-control" id="baseId">
+                                                <c:forEach items="${baseIdEnums}" var="baseIdEnum">
+                                                    <option value="${baseIdEnum.key}">${baseIdEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入编号</span>
                                         </div>
@@ -142,7 +148,12 @@
                                             是否在用 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="isUsed" id="isUsed">
+                                           <!--  <input type="text" class="form-control" placeholder="" name="isUsed" id="isUsed"> -->
+                                            <select name="isUsed" class="selectpicker form-control" id="isUsed">
+                                                <c:forEach items="${isUsedEnums}" var="isUsedEnum">
+                                                    <option value="${isUsedEnum.key}">${isUsedEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入是否在用</span>
                                         </div>
@@ -168,7 +179,11 @@
                                             所属产品 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="prodId" id="prodId">
+                                             <select name="prodId" class="selectpicker form-control" id="prodId">
+                                                <c:forEach items="${prodEnums}" var="prodEnum">
+                                                    <option value="${prodEnum.key}">${prodEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入所属产品</span>
                                         </div>
@@ -182,7 +197,11 @@
                                             产品版本 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="verCode" id="verCode">
+                                            <select name="verCode" class="selectpicker form-control" id="verCode">
+                                                <c:forEach items="${verEnums}" var="verEnum">
+                                                    <option value="${verEnum.key}">${verEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入产品版本</span>
                                         </div>
@@ -194,7 +213,8 @@
                                             发布版本 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="relCode" id="relCode">
+                                             <select name="relCode" class="selectpicker form-control" data-live-search="true" id="relCode">
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入发布版本</span>
                                         </div>
@@ -221,6 +241,19 @@
 
 jQuery(document).ready(function() {
     
+	loadVerCodeSelect();
+   /*  loadParentModuleSelect(); */
+    loadRelSelect();
+    $('#prodId').change(function(){
+        loadVerCodeSelect();
+        /* loadParentModuleSelect(); */
+        loadRelSelect();
+    });
+    
+    $('#verCode').change(function(){
+      /*   loadParentModuleSelect(); */
+        loadRelSelect();
+    });
     //表单校验提交
     //[1]自定义校验规则
     var rules = {
@@ -235,12 +268,12 @@ jQuery(document).ready(function() {
             systemId:"required",
             isUsed:"required",
             remark:"required",
-            prodId:"required",
+           /*  prodId:"required",
             verCode:"required",
-            relCode:"required"
+            relCode:"required" */
     };
     //[2]表单校验初始化
-    initFormValidate('form-add', rules, 'product/sys_base_type/add', 'add');
+    initFormValidate('form-add', rules, 'prod/sys_base_type/add', 'add');
     
 });
 
