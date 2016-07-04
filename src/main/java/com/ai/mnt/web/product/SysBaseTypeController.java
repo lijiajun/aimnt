@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ai.mnt.common.cache.BaseDataCache;
+import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.product.SysBaseType;
 import com.ai.mnt.service.product.SysBaseTypeService;
 
@@ -54,12 +56,26 @@ public class SysBaseTypeController {
     }
     
     /**
-     * 系统枚举类型表新增界面跳转
+     * 系统枚举类型表新增界面跳转   新增
      * @param  model
      * @return String
      */
     @RequestMapping("/sys_base_type/add_page")
     public String showSysBaseTypeAddPage(Model model) {
+        List<EnumObject> baseIdEnums = BaseDataCache
+                .getDataList("BASE_NAME_ENUM");
+        List<EnumObject> isUsedEnums = BaseDataCache
+                .getDataList("MODULE_IS_USED");
+        List<EnumObject> prodEnums = BaseDataCache
+                .getDataList("PROD_INFO");
+        List<EnumObject> verEnums = BaseDataCache
+                .getDataList("PROD_VER");
+        
+        model.addAttribute("baseIdEnums", baseIdEnums);
+        model.addAttribute("isUsedEnums", isUsedEnums);
+        model.addAttribute("prodEnums", prodEnums);
+        model.addAttribute("verEnums", verEnums);
+        
         return "product/sys_base_type/sys_base_type_add";
     }
     
@@ -78,7 +94,7 @@ public class SysBaseTypeController {
     }
     
     /**
-     * 系统枚举类型表更新界面跳转
+     * 系统枚举类型表更新界面跳转   修改
      * @param  model
      * @param  id
      * @return
@@ -87,6 +103,16 @@ public class SysBaseTypeController {
     public String showSysBaseTypeUpdatePage(Model model, @PathVariable String id) {
         SysBaseType sysBaseType = sysBaseTypeService.findSysBaseTypeById(Integer.parseInt(id));
         model.addAttribute("sysBaseType", sysBaseType);
+        List<EnumObject>isUsedEnums= BaseDataCache
+                .getDataList("MODULE_IS_USED");
+        List<EnumObject>prodEnums=BaseDataCache
+                .getDataList("PROD_INFO");
+        List<EnumObject>verEnums=BaseDataCache
+                .getDataList("PROD_VER");
+        
+        model.addAttribute("isUsedEnums", isUsedEnums);
+        model.addAttribute("prodEnums", prodEnums);
+        model.addAttribute("verEnums", verEnums);
         return "product/sys_base_type/sys_base_type_update";
     }
     
