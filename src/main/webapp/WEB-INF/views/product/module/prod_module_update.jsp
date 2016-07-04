@@ -37,6 +37,19 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </select>
+                                             <!-- 
+                                             <c:forEach items="${prodEnums}" var="prodEnum">
+                                                    <option value="${prodEnum.key}">${prodEnum.value}</option>
+                                                </c:forEach>
+                                                <c:forEach items="${verEnums}" var="verEnum">
+                                                     <c:if test="${verEnums.key == sysPara.verCode}">
+                                                       <option value="${verEnum.key}" selected>${verEnum.value}</option>
+                                                     </c:if>
+                                                     <c:if test="${verEnums.key != sysPara.verCode}">
+                                                            <option value="${verEnums.key}">${verEnums.value}</option>
+                                                     </c:if>   
+                                                 </c:forEach>
+                                             -->
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请选择产品类型</span>
                                         </div>
