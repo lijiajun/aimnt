@@ -29,17 +29,17 @@ a:visited { text-decoration: none;color: #00688B}
                     </div>
                     <div class="portlet-body">
                         <c:forEach items="${articleList}" var="article">
-                        <div class="dis_article">
-                            <div class="_title">
-                                <a href="article/full_content/${article.id}">${article.title}</a>
+                            <div class="dis_article">
+                                <div class="_title">
+                                    <a href="article/full_content/${article.id}">${article.title}</a>
+                                </div>
+                                <div class="_summary">
+                                    ${article.summary}
+                                </div>
+                                <div class="_article-rel">
+                                    ${article.creator} 发布于 <fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                </div>
                             </div>
-                            <div class="_summary">
-                                ${article.summary}
-                            </div>
-                            <div class="_article-rel">
-                                ${article.creator} 发布于 <fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-                            </div>
-                        </div>
                         </c:forEach>
                     </div>
                     <div class="portlet-foot" style="text-align: center;margin-top:30px">

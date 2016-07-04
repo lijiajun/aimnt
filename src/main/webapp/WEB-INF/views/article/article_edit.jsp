@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">文章正文</label>
                                 <div class="col-md-9">
-                                    <div id="summernote"></div>
+                                    <div id="article-content">${mntArticle.content}</div>
                                 </div>
                             </div>
                         </div>
@@ -89,6 +89,15 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-9">
+                                    <input type="hidden" class="form-control" name="id" id="id" value="${mntArticle.id}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-10">
@@ -110,17 +119,35 @@
 <script>
     $(function() {
         
-    	$('#summernote').summernote({
+    	$('#article-content').summernote({
     		height: 300,
     		lang: 'zh-CN',
     		callbacks: {
     		    onImageUpload: function(files) {
-    		      // upload image to server and create imgNode...
-    		      $('#summernote').summernote('insertImage', "static/img/ai-logo.png", "ai-log.png");
+    		    	var formData = new FormData();
+                    formData.append("file", files[0]);
+                    $.ajax({
+                        url: 'article/upload_pic',
+                        type: 'POST',
+                        dataType: "json",
+                        data: formData,
+                        processData: false,  
+                        contentType: false,
+                        async:false,
+                        success:function (data) {
+                            var imgPath = data.returnPath;
+                            console.log(imgPath);
+                            $('#article-content').summernote('insertImage', imgPath, "ai-article.png");
+                            //showMsg("修改成功！");
+                        },
+                        error:function() {
+                            showMsg("修改操作发生错误！");
+                        }
+                    });
     		    }
     		}
     	});
-    	$('#summernote').summernote('code', '${mntArticle.content}');
+    	//$('#article-content').summernote('code', ${mntArticle.content});
     	
     	$('#publish_art').click(function(){
     		var _title = $('#title').val();
@@ -136,11 +163,11 @@
             var _keyword = $('#keyword').val();
             var _summary = $('#summary').val();
             var _isShow = $('#isShow').val();
-        	if ($('#summernote').summernote('isEmpty')) {
+        	if ($('#article-content').summernote('isEmpty')) {
         		showMsg("请输入要发布的文章！");
         		return false;
         	}
-        	var _content = $('#summernote').summernote('code');
+        	var _content = $('#article-content').summernote('code');
             var formData = new FormData($("#articleForm")[0]);
             formData.append('content', _content);
             $.ajax({

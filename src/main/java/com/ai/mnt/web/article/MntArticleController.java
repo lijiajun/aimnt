@@ -1,15 +1,22 @@
 package com.ai.mnt.web.article;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.article.MntArticle;
@@ -165,7 +172,8 @@ public class MntArticleController {
         //增加阅读次数
         MntArticle mntArticle2 = new MntArticle();
         mntArticle2.setId(mntArticle.getId());
-        mntArticle2.setReadCount(mntArticle.getReadCount() + 1);
+        int nReadCount = mntArticle.getReadCount() == null ? 0 : mntArticle.getReadCount();
+        mntArticle2.setReadCount(nReadCount + 1);
         mntArticleService.updateMntArticleById(mntArticle2);
         
         //热门
@@ -211,10 +219,34 @@ public class MntArticleController {
      */
     @RequestMapping("/upload_pic")
     @ResponseBody
-    public Map<String, Object> uploadPic(MntArticle mntArticle) {
-        mntArticleService.updateMntArticleById(mntArticle);
+    public Map<String, Object> uploadPic(@RequestParam("file") MultipartFile file,
+            HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
-        map.put("status", "1");
+        String returnPath = "";
+        if (!file.isEmpty()) {
+            try {
+                SysUser sysUser = userRealm.getCurrentUser();
+                String imgName = file.getOriginalFilename();
+                imgName = "article_" + System.currentTimeMillis() + imgName.substring(imgName.lastIndexOf("."));
+                String path = request.getSession().getServletContext().getRealPath("/") + 
+                        File.separator + "static" + File.separator + "img" + File.separator + "article" + File.separator + sysUser.getUserName();
+                File dir = new File(path);
+                if(!dir.exists()) {
+                    dir.mkdir();
+                }
+                File file_path = new File(path + File.separator + imgName);
+                file.transferTo(file_path);
+                
+                returnPath = "static" + File.separator + "img" + File.separator + "article" + 
+                            File.separator + sysUser.getUserName() + File.separator + imgName;
+                map.put("status", "1");
+            } catch (IOException e) {
+                e.printStackTrace();
+                map.put("status", "0");
+            }
+        }
+        map.put("returnPath", returnPath);
+        
         return map;
     }
 }

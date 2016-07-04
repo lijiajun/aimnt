@@ -116,8 +116,10 @@
     		callbacks: {
     		    onImageUpload: function(files) {
     		    	
+    		    	var formData = new FormData();
+    		    	formData.append("file", files[0]);
     		    	$.ajax({
-    	                url: 'articel/upload_pic',
+    	                url: 'article/upload_pic',
     	                type: 'POST',
     	                dataType: "json",
     	                data: formData,
@@ -125,15 +127,15 @@
     	                contentType: false,
     	                async:false,
     	                success:function (data) {
-    	                    showMsg("修改成功！");
+    	                	var imgPath = data.returnPath;
+    	                	console.log(imgPath);
+    	                	$('#summernote').summernote('insertImage', imgPath, "ai-article.png");
+    	                    //showMsg("修改成功！");
     	                },
     	                error:function() {
-    	                    showMsg("修改操作发生错误！");
+    	                    showMsg("图片插入发生错误！");
     	                }
     	            });
-    		    	
-    		    	
-    		      $('#summernote').summernote('insertImage', "static/img/ai-logo.png", "ai-log.png");
     		    }
     		}
     	});
