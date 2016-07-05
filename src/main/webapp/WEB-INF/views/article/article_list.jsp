@@ -31,13 +31,20 @@ a:visited { text-decoration: none;color: #00688B}
                         <c:forEach items="${articleList}" var="article">
                             <div class="dis_article">
                                 <div class="_title">
-                                    <a href="article/full_content/${article.id}">${article.title}</a>
+                                    <c:if test="${article.isTop == 1 }">
+                                        <a href="article/full_content/${article.id}">[顶]${article.title}</a>
+                                    </c:if>
+                                    <c:if test="${article.isTop != 1 }">
+                                        <a href="article/full_content/${article.id}">${article.title}</a>
+                                    </c:if>
                                 </div>
                                 <div class="_summary">
                                     ${article.summary}
                                 </div>
                                 <div class="_article-rel">
-                                    ${article.creator} 发布于 <fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                    <a href="article/page?creator=${article.creator}">${article.creator}</a>
+                                    发布于 <fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                    &nbsp;&nbsp;分类：<a href="article/page?typeId=${article.typeId}">${article.typeCn}</a>
                                 </div>
                             </div>
                         </c:forEach>

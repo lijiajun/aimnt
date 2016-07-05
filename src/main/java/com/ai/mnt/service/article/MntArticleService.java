@@ -3,6 +3,7 @@ package com.ai.mnt.service.article;
 import java.util.List;
 
 import com.ai.mnt.model.article.MntArticle;
+import com.ai.mnt.model.article.MntArticleType;
 
 /**
  * @Title: MntArticleService 
@@ -64,4 +65,29 @@ public interface MntArticleService {
      * @param id Primary key
      */
     public void deleteMntArticleByIds(String ids);
+    
+    /**
+     * 上一篇文章
+     * @param MntArticle mntArticle
+     */
+    public MntArticle getPreArticle(Integer id);
+    
+    /**
+     * 下一篇文章
+     * @param MntArticle mntArticle
+     */
+    public MntArticle getNextArticle(Integer id);
+    
+    /**
+     * 获取所有运维文章类型列表
+     * @return List<MntArticleType>
+     */
+    public List<MntArticleType> findAllMntArticleType();
+    
+    /**
+     * 更新运维文章阅读次数
+     * 根据MntArticle的主键更新主键以外的其他字段
+     * @param MntArticle
+     */
+    public void updateArticleReadCountById(MntArticle mntArticle);
 }

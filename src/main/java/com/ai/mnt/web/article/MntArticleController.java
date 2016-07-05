@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.article.MntArticle;
+import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.service.article.MntArticleService;
 
@@ -54,6 +56,7 @@ public class MntArticleController {
         }
         
         mntArticle.setDeleteFlag("0");
+        mntArticle.setIsShow("1");
         List<MntArticle> mntArticleList = mntArticleService.findMntArticleListPagination(mntArticle);
         long totalCount = mntArticleService.getMntArticleTotalCount(mntArticle);
         mntArticle.setTotalCount(totalCount);
@@ -100,6 +103,10 @@ public class MntArticleController {
      */
     @RequestMapping("/add_page")
     public String showMntArticleAddPage(Model model) {
+        
+        List<EnumObject> prodEnums = BaseDataCache.getDataList("ARTICLE_TYPE");
+        model.addAttribute("articleTypeEnums", prodEnums);
+        
         return "article/article_add";
     }
     
@@ -125,6 +132,10 @@ public class MntArticleController {
      */
     @RequestMapping("/update_page/{id}")
     public String showMntArticleUpdatePage(Model model, @PathVariable String id) {
+        
+        List<EnumObject> prodEnums = BaseDataCache.getDataList("ARTICLE_TYPE");
+        model.addAttribute("articleTypeEnums", prodEnums);
+        
         MntArticle mntArticle = mntArticleService.findMntArticleById(Integer.parseInt(id));
         model.addAttribute("mntArticle", mntArticle);
         return "article/article_edit";
@@ -169,16 +180,48 @@ public class MntArticleController {
         mntArticle = mntArticleService.findMntArticleById(Integer.parseInt(id));
         model.addAttribute("mntArticle", mntArticle);
         
+        //pre
+        MntArticle preArticle = mntArticleService.getPreArticle(Integer.parseInt(id));
+        if(preArticle == null) {
+            preArticle = new MntArticle();
+            preArticle.setTitle("没有了...");
+            model.addAttribute("hasPre", 0);
+        }else {
+            if(preArticle.getTitle().length() > 15) {
+                preArticle.setTitle(preArticle.getTitle().substring(0, 15) + "..."); 
+            }
+            model.addAttribute("hasPre", 1);
+        }
+        model.addAttribute("preArticle", preArticle);
+        //next
+        MntArticle nextArticle = mntArticleService.getNextArticle(Integer.parseInt(id));
+        if(nextArticle == null) {
+            nextArticle = new MntArticle();
+            nextArticle.setTitle("没有了...");
+            model.addAttribute("hasNext", 0);
+        }else {
+            if(nextArticle.getTitle().length() > 15) {
+                nextArticle.setTitle(nextArticle.getTitle().substring(0, 15) + "..."); 
+            }
+            model.addAttribute("hasNext", 1);
+        }
+        model.addAttribute("nextArticle", nextArticle);
+        
         //增加阅读次数
         MntArticle mntArticle2 = new MntArticle();
         mntArticle2.setId(mntArticle.getId());
         int nReadCount = mntArticle.getReadCount() == null ? 0 : mntArticle.getReadCount();
         mntArticle2.setReadCount(nReadCount + 1);
-        mntArticleService.updateMntArticleById(mntArticle2);
+        mntArticleService.updateArticleReadCountById(mntArticle2);
         
         //热门
         List<MntArticle> artiTopTenList = mntArticleService.getArticleListReadTopTen(mntArticle);
         model.addAttribute("artiTopTenList", artiTopTenList);
+        
+        
+        //current user
+        SysUser currentUser = userRealm.getCurrentUser();
+        model.addAttribute("currentUserName", currentUser.getUserName());
         
         return "article/article_content";
     }

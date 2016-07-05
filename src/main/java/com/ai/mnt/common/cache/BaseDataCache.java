@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ai.mnt.model.article.MntArticleType;
 import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.inst.MntInstallBaseInfo;
 import com.ai.mnt.model.product.MntModuleLib;
@@ -28,6 +29,7 @@ import com.ai.mnt.model.sys.SysRole;
 import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.model.task.MntTaskInfo;
 import com.ai.mnt.persistence.product.MntProdModuleMapper;
+import com.ai.mnt.service.article.MntArticleService;
 import com.ai.mnt.service.inst.MntInstallBaseInfoService;
 import com.ai.mnt.service.product.MntModuleLibService;
 import com.ai.mnt.service.product.MntProdService;
@@ -86,6 +88,9 @@ public class BaseDataCache {
     @Autowired
     SysUserService sysUserService;
     
+    @Autowired
+    MntArticleService mntArticleService;
+    
     public void init(){
         
         logger.info("===============加载缓存数据===============");
@@ -100,10 +105,30 @@ public class BaseDataCache {
         loadModuleLib();
         loadMntTask();
         loadUserName();
+        loadArticleType();
         logger.info("===============加载缓存数据完成===============");
         loadTime = new Date();
     }
     
+    /**
+     * 加载文章类型映射
+     */
+    private void loadArticleType() {
+        Map<Object, EnumObject> map = new HashMap<>();
+        List<MntArticleType> articleTypeList = mntArticleService.findAllMntArticleType();
+        for(MntArticleType temp : articleTypeList) {
+            EnumObject enumObject = new EnumObject();
+            enumObject.setKey(temp.getTypeId().toString());
+            enumObject.setValue(temp.getTypeCn());
+            enumObject.setOrder(temp.getTypeId());
+            enumObject.setGroupKey("ARTICLE_TYPE");
+            enumObject.setGroupValue("产品类型映射");
+            map.put(temp.getTypeId().toString(), enumObject);
+        }
+        GLOBAL_MAP.put("ARTICLE_TYPE", map);
+        
+    }
+
     /**
      * 加载产品映射
      */

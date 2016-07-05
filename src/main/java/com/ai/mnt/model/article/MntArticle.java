@@ -66,7 +66,9 @@ public class MntArticle extends Pagination implements Serializable{
     /**修改时间*/
     private Date modifyDate;
 
-
+    /**文章类型*/
+    private String typeCn;
+    
     public Integer getId() {
         return id;
     }
@@ -201,6 +203,14 @@ public class MntArticle extends Pagination implements Serializable{
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public String getTypeCn() {
+        return typeCn;
+    }
+
+    public void setTypeCn(String typeCn) {
+        this.typeCn = typeCn;
     }
 
 

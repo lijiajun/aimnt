@@ -548,3 +548,7 @@ ul.pagination.bootpag>li>a {
     font-size:50px;
     text-align: center;
 }
+
+.portlet.light.article {
+    padding: 1px 20px 20px;
+}

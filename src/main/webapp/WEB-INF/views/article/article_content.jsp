@@ -13,13 +13,13 @@
     <div class="wrapper">
         <div class="row">
             <div class="col-md-9 col-sm-12">
-                <div class="portlet light">
+                <div class="portlet light article">
                     <div class="full-article-title">
                         ${mntArticle.title}
                     </div>
                     <div class="full-article-rel">
-                        作者：${mntArticle.creator} &nbsp;&nbsp;&nbsp;&nbsp; <fmt:formatDate value="${mntArticle.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-                        <c:if test="${mntArticle.creator == mntArticle.creator}">
+                        作者：${mntArticle.author} &nbsp;&nbsp;&nbsp;&nbsp; <fmt:formatDate value="${mntArticle.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                        <c:if test="${mntArticle.creator == currentUserName}">
                         &nbsp;&nbsp;<a href="article/update_page/${mntArticle.id}">编辑</a>&nbsp;&nbsp;<a id="article-delete" href="javascript:void(0);">删除</a>
                         </c:if>
                     </div>
@@ -28,6 +28,26 @@
                     </div>
                     <div class="full-article-up">
                         <i id="article-like" class="fa fa-thumbs-o-up"></i>
+                    </div>
+                    <div class="full-article-footer" style="margin-bottom: 10px">
+                        <div class="col-md-6 col-sm-12" style="text-align: left">
+                            上一篇：
+                            <c:if test="${hasPre == 1}">
+                                <a href="article/full_content/${preArticle.id}">${preArticle.title}</a>
+                            </c:if>
+                            <c:if test="${hasPre != 1}">
+                                ${preArticle.title}
+                            </c:if>
+                        </div>
+                        <div class="col-md-6 col-sm-12" style="text-align: right">
+                            下一篇：
+                            <c:if test="${hasNext == 1}">
+                                <a href="article/full_content/${nextArticle.id}">${nextArticle.title}</a>
+                            </c:if>
+                            <c:if test="${hasNext != 1}">
+                                ${nextArticle.title}
+                            </c:if>
+                        </div>
                     </div>
                 </div>
             </div>

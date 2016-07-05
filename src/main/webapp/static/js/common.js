@@ -516,6 +516,11 @@ function refreshSelect2() {
 
 //===========表单校验提交 end ========================================
 
+function clearHtmlTag(str){
+	return str.replace(/<[^>]+>/g,"").replace(/&nbsp;/ig, "");//去掉所有的html标签
+}
+
+
 jQuery(document).ready(function() {
 	
 //    $('input').iCheck({

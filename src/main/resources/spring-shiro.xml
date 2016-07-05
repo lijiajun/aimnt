@@ -29,6 +29,7 @@
                 /priv/** = user
                 /inst/** = user
                 /task/** = user
+                /article/** = user
                 /my_task = user
 <!--                 /prod/**/page = user -->
 <!--                 /prod/**/query/** = user -->
