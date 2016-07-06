@@ -8,7 +8,6 @@
 <title>运维文章</title>
 <%@include file="../included/includedStyle.jsp" %>
 <link href="static/plugins/summernote/summernote.css" rel="stylesheet" type="text/css" />
-
 <style>
 .error_msg {
     color: red;
@@ -57,7 +56,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-9" style="padding-left:1px">
-                                        <input type="text" class="form-control" id="typeCn" name="typeCn" style="width:30%;display:none">
+                                        <input type="text" class="form-control" id="typeCn" name="typeCn" style="width:30%;display:none" placeholder="添加新的文章分类">
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +67,9 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">文章正文</label>
                                 <div class="col-md-9">
-                                    <div id="article-content">${mntArticle.content}</div>
+                                    <div id="article-content">
+                                    ${mntArticle.content}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -154,11 +155,13 @@
     	$('#article-content').summernote({
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['fontsize', ['style', 'fontname', 'fontsize', 'color']],
+                ['fontsize', ['style', 'fontname', 'fontsize', 'height', 'color']],
                 ['para', ['ul', 'ol', 'paragraph', 'undo', 'redo']],
                 ['picture', ['picture', 'link', 'video', 'table', 'hr']],
                 ['fullscreen', ['fullscreen', 'codeview']]
             ],
+            fontNames: ['Arial', 'Courier New', 'Microsoft YaHei', 'SimSun', '微软雅黑', '宋体', '楷体'],
+            fontNamesIgnoreCheck: ['Microsoft YaHei', 'SimSun', '微软雅黑', '宋体', '楷体'],
     		height: 300,
     		lang: 'zh-CN',
     		callbacks: {
@@ -186,7 +189,6 @@
     		    }
     		}
     	});
-    	//$('#article-content').summernote('code', ${mntArticle.content});
     	
     	$('#publish_art').click(function(){
     		var _title = $('#title').val();
@@ -195,9 +197,10 @@
     			return false;
     		}
             var _typeId = $('#typeId').val();
-            if(_typeId == '') {
-            	showMsg("请选择文章分类！");
-            	return false;
+            var _typeCn = $('#typeCn').val();
+            if(_typeId == -99 && _typeCn == '') {
+                showMsg("请选择文章分类或输入新的分类！");
+                return false;
             }
             //var _keyword = $('#keyword').val();
             var _summary = $('#summaryContent').val();

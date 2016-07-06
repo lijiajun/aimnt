@@ -167,8 +167,8 @@ public class MntArticleServiceImpl implements MntArticleService{
      * @param MntArticle
      */
     @Override
-    public void updateArticleReadCountById(MntArticle mntArticle) {
-        mntArticleMapper.updateArticleReadCountById(mntArticle);
+    public void updateArticleRelCountById(MntArticle mntArticle) {
+        mntArticleMapper.updateArticleRelCountById(mntArticle);
     }
     
     /**

@@ -13,9 +13,9 @@ response.setDateHeader("Expires", -1);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <base href="<%=basePath%>">
+<link href="static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <link href="static/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-<link href="static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="static/plugins/datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 <!-- <link href="static/plugins/icheck/skins/minimal/minimal.css" rel="stylesheet" type="text/css" /> -->
 <link href="static/plugins/uniform/css/uniform.default.min.css" rel="stylesheet" type="text/css" />

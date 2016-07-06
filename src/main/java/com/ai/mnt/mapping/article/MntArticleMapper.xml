@@ -193,9 +193,25 @@
         id = #{id}
     </update>
 
-    <update id="updateArticleReadCountById">
+    <update id="updateArticleRelCountById">
         update mnt_article
-        set read_count = #{readCount}
+        <set>
+            <if test="readCount != null">
+                read_count = #{readCount},
+            </if>
+            <if test="commentCount != null">
+                comment_count = #{commentCount},
+            </if>
+            <if test="allowComment != null">
+                allow_comment = #{allowComment},
+            </if>
+            <if test="isTop != null">
+                is_top = #{isTop},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow},
+            </if>
+        </set>
         where
         id = #{id}
     </update>
@@ -399,9 +415,8 @@
         select
         <include refid="MntArticleColumns" />
         from mnt_article
-        where <![CDATA[id < #{id}]]> 
-        and delete_flag = '0'
-        order by id desc
+        where <![CDATA[id < #{id}]]> and delete_flag = '0' and is_show = '1' 
+        order by id desc 
         limit 0, 1
     </select>
     
@@ -409,10 +424,9 @@
         select
         <include refid="MntArticleColumns" />
         from mnt_article
-        where <![CDATA[id > #{id}]]> 
-        and delete_flag = '0'
-        order by id asc
-        limit 0, 1
+        where <![CDATA[id > #{id}]]> and delete_flag = '0'  and is_show = '1'
+        order by id asc 
+        limit 0, 1 
     </select>
     
     <select id="findAll" resultMap="MntArticleResultMap">

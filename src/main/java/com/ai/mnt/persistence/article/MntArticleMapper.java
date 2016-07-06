@@ -27,5 +27,5 @@ public interface MntArticleMapper extends CrudMapper<MntArticle, Integer>{
     
     public MntArticle getNextArticle(Integer id);
     
-    public void updateArticleReadCountById(MntArticle mntArticle);
+    public void updateArticleRelCountById(MntArticle mntArticle);
 }

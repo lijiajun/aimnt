@@ -66,7 +66,7 @@
                     </div>
                     <div class="portlet-body">
                         <c:forEach items="${artiTopTenList}" var="topTen">
-                            <div class="_summary">
+                            <div class="_titleTopTen">
                                 <a href="article/full_content/${topTen.id}">${topTen.title}</a>
                             </div>
                         </c:forEach>
@@ -78,7 +78,6 @@
 
 
 <%@include file="../included/includedJs.jsp" %>
-
 <script>
     $(function() {
         

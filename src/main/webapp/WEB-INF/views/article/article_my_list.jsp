@@ -161,7 +161,7 @@
     }
     
     function btnSetTopArticle(aId, topFlag) {
-    	var surl = 'article/update_article?id=' + aId;
+    	var surl = 'article/update_article_top?id=' + aId;
     	if(topFlag == 1) {
     		surl += "&isTop=0";
     	}else {

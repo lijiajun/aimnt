@@ -10,10 +10,10 @@
 
 <style type="text/css"> 
 
-a:link { text-decoration: none;color: #00688B} 
-a:active { text-decoration:blink} 
-a:hover { text-decoration:underline;color: #00688B} 
-a:visited { text-decoration: none;color: #00688B} 
+/* a:link { text-decoration: none;color: #00688B}  */
+/* a:active { text-decoration:blink}  */
+/* a:hover { text-decoration:underline;}  */
+/* a:visited { text-decoration: none;}  */
 
 </style>
 </head>
@@ -69,7 +69,7 @@ a:visited { text-decoration: none;color: #00688B}
                     </div>
                     <div class="portlet-body">
                         <c:forEach items="${artiTopTenList}" var="topTen">
-                            <div class="_summary">
+                            <div class="_titleTopTen">
                                 <a href="article/full_content/${topTen.id}">${topTen.title}</a>
                             </div>
                         </c:forEach>

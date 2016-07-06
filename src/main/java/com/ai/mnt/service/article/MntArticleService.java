@@ -89,5 +89,5 @@ public interface MntArticleService {
      * 根据MntArticle的主键更新主键以外的其他字段
      * @param MntArticle
      */
-    public void updateArticleReadCountById(MntArticle mntArticle);
+    public void updateArticleRelCountById(MntArticle mntArticle);
 }

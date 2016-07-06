@@ -156,6 +156,20 @@ public class MntArticleController {
     }
     
     /**
+     * 运维文章根据主键更新
+     * @param mntArticle
+     * @return
+     */
+    @RequestMapping("/update_article_top")
+    @ResponseBody
+    public Map<String, Object> updateMntArticleIsTop(MntArticle mntArticle) {
+        mntArticleService.updateArticleRelCountById(mntArticle);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", "1");
+        return map;
+    }
+    
+    /**
      * 运维文章根据主键批量删除
      * @param ids
      * @return Map<String, Object>
@@ -212,7 +226,7 @@ public class MntArticleController {
         mntArticle2.setId(mntArticle.getId());
         int nReadCount = mntArticle.getReadCount() == null ? 0 : mntArticle.getReadCount();
         mntArticle2.setReadCount(nReadCount + 1);
-        mntArticleService.updateArticleReadCountById(mntArticle2);
+        mntArticleService.updateArticleRelCountById(mntArticle2);
         
         //热门
         List<MntArticle> artiTopTenList = mntArticleService.getArticleListReadTopTen(mntArticle);

@@ -8,7 +8,6 @@
 <title>运维文章</title>
 <%@include file="../included/includedStyle.jsp" %>
 <link href="static/plugins/summernote/summernote.css" rel="stylesheet" type="text/css" />
-<link href="static/plugins/icheck/skins/minimal/minimal.css" rel="stylesheet" type="text/css" />
 <style>
 .error_msg {
     color: red;
@@ -52,7 +51,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-9" style="padding-left:1px">
-                                        <input type="text" class="form-control" id="typeCn" name="typeCn" style="width:30%;display:none">
+                                        <input type="text" class="form-control" id="typeCn" name="typeCn" style="width:30%;display:none" placeholder="添加新的文章分类">
                                     </div>
                                 </div>
                             </div>
@@ -127,22 +126,23 @@
 <%@include file="../included/includedJs.jsp" %>
 <script src="static/plugins/summernote/summernote.min.js" type="text/javascript"></script>
 <script src="static/plugins/summernote/lang/summernote-zh-CN.min.js" type="text/javascript"></script>
-<script src="static/plugins/icheck/icheck.min.js" type="text/javascript"></script>
 <script>
     $(function() {
         
     	$('#summernote').summernote({
     		//fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+    		//prettifyHtml:false,
     		toolbar: [
                 // [groupName, [list of button]]
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 //['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['style', 'fontname', 'fontsize', 'color']],
+                ['fontsize', ['style', 'fontname', 'fontsize', 'height', 'color']],
                 ['para', ['ul', 'ol', 'paragraph', 'undo', 'redo']],
-                //['height', ['height']],
                 ['picture', ['picture', 'link', 'video', 'table', 'hr']],
                 ['fullscreen', ['fullscreen', 'codeview']]
             ],
+            fontNames: ['Arial', 'Courier New', 'Microsoft YaHei', 'SimSun', '微软雅黑', '宋体', '楷体'],
+            fontNamesIgnoreCheck: ['Microsoft YaHei', 'SimSun', '微软雅黑', '宋体', '楷体'],
     		height: 300,
     		lang: 'zh-CN',
     		callbacks: {
@@ -172,20 +172,6 @@
     		}
     	});
     	
-//         $('#isShowCheckbox').iCheck({
-//             checkboxClass: 'icheckbox_minimal',
-//             radioClass: 'iradio_minimal',
-//             increaseArea: '20%' // optional
-//         });
-    	
-//         var _isShow = '1';
-//         $('#isShowCheckbox').on('ifUnchecked', function(event){
-//         	_isShow = '0';
-//         });
-//         $('#isShowCheckbox').on('ifChecked', function(event){
-//         	_isShow = '1';
-//         });
-        
     	$('#publish_art').click(function(){
     		
     		var _title = $('#title').val();
@@ -242,6 +228,9 @@
             });
     	});
     	
+        if($('#typeId').val() == -99){
+            $('#typeCn').css('display','block'); 
+        }
     	$('#typeId').change(function(){
     		if($(this).val() == -99){
     			$('#typeCn').css('display','block'); 
