@@ -7,7 +7,7 @@ import com.ai.mnt.model.article.MntArticleType;
  * @Title: MntArticleTypeService 
  * @Description: MntArticleTypeService ServicePackage
  * @Author: Auto Generate.
- * @Date: 2016-6-27
+ * @Date: 2016-7-6
  */
 
 public interface MntArticleTypeService {

@@ -575,3 +575,13 @@ ul.pagination.bootpag>li>a {
 .portlet.light.article {
     padding: 1px 20px 20px;
 }
+.commend-edit{
+    margin-right:50px;
+}
+.commend-reply{
+     position: absolute;
+        top: 0;
+        right: 0;
+        width: 80px;
+        height: 30px;
+}

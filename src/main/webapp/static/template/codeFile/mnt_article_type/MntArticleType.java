@@ -7,7 +7,7 @@ import java.util.Date;
  * @Title: MntArticleType 
  * @Description: MntArticleType Model
  * @Author: Auto Generate.
- * @Date: 2016-6-27
+ * @Date: 2016-7-6
  */
 public class MntArticleType implements Serializable{
 

@@ -17,7 +17,7 @@ import com.ai.mnt.service.article.MntArticleTypeService;
  * @Title: MntArticleTypeServiceImpl 
  * @Description: MntArticleTypeServiceImpl ServiceImplPackage
  * @Author: Auto Generate.
- * @Date: 2016-6-27
+ * @Date: 2016-7-6
  */
 @Service
 public class MntArticleTypeServiceImpl implements MntArticleTypeService{

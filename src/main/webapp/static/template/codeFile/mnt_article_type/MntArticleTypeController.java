@@ -18,7 +18,7 @@ import com.ai.mnt.service.article.MntArticleTypeService;
  * @Title: MntArticleTypeController 
  * @Description: MntArticleTypeController ControllerPackage
  * @Author: Auto Generate.
- * @Date: 2016-6-27
+ * @Date: 2016-7-6
  */
 
 @Controller

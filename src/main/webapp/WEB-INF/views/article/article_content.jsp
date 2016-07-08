@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +52,61 @@
                         </div>
                     </div>
                 </div>
+                
+                
+                <!--comment begin -->
+              
+                
+                <!-- 评论发表输入 -->
+                <div >
+                    <div class="portlet light article">
+                        <div>
+                            评论(${mntArticle.commentCount })
+                        </div> <hr>
+                        <div  id="comment-list">
+                            <c:forEach items="${commentList }" var="comment">
+                                <c:if test="${comment.aritcleId==mntArticle.id}">
+                                    <div>
+                                        <b>${comment.userName }</b>  &nbsp; 发表于 &nbsp;
+                                        <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm:ss" />                               
+                                        <div style="text-align:right" >
+                                            <input type="button"  value="回复"/>
+                                        </div>
+                                    </div>
+                                    <%-- <div>
+                                        <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm:ss" />                               
+                                    </div> --%>
+                                    <div class="">
+                                        ${comment.commentContent }
+                                    </div>
+                                    <hr>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                        <div class="portlet-foot" style="text-align: center;margin-top:30px">
+                            <div id="page-selection"></div>
+                        </div>
+                        
+                    </div>
+                    <div class="reply-title">
+                        <strong>发表我的看法</strong>
+                    </div>
+                    <div>
+                            <div>
+                            
+                            </div>
+                            <div class="">
+                                <textarea rows="3" class="form-control" id="commentContend" placeholder="请输入评论，不要超过1000字"></textarea><br>
+                                <div class="" >
+                                    <span class="publish">
+                                        <button type="button" class="commend-edit"  id="reply-submit">发表评论</button>
+                                    </span>
+                                </div>
+                            </div>
+                    </div>
+               </div>
+                <!--comment end -->
+                
             </div>
             <div class="col-md-3 col-sm-12">
                   <div class="portlet light cale">
@@ -85,7 +142,7 @@
             var _searchContent = $('#sContent').val();
             window.location.href = "article/page?title=" + _searchContent;
         });
-        
+       
         $('#article-like').click(function(){
             
         	$('#article-like').removeClass('fa fa-thumbs-o-up');
@@ -109,6 +166,34 @@
             });
             
         });
+        
+        $('#reply-submit').click(function(){
+            var _commentContent = $('#commentContend').val();
+            var _articleId = ${mntArticle.id};
+//             var oMyForm = new FormData();
+//             oMyForm.append('commentContent', _commendContent);
+//             oMyForm.append('aritcleId', _articleId);
+//             console.log(oMyForm);
+            var surl = 'article/add_article_comment?commentContent=' + _commentContent + "&aritcleId=" + _articleId;
+            
+            $.ajax({
+                url: surl,
+                type: 'POST',
+                dataType: "json",
+                success:function (data) {
+                    //showMsg("评论成功！");
+                    window.location.href = "article/full_content/${mntArticle.id}";
+                    //return;
+                },
+                error:function(xhr, ajaxOptions, thrownError) {
+                    console.log(thrownError);
+                    showMsg("评论出现错误，请稍后重试！");
+                    return false;
+                }
+            });
+        });
+        
+        
     });
 
 

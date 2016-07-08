@@ -108,6 +108,7 @@ public class GenUtil {
             String str = match.group();
             tableName = tableName.replaceFirst(str, str.replace("_", "").toUpperCase());
         }
+        System.out.println("==================tableName : " + tableName);
         return tableName.replaceAll("_", "").substring(0, 1).toUpperCase() + tableName.replaceAll("_", "").substring(1);
     }
     
@@ -450,8 +451,8 @@ public class GenUtil {
 //        generateCodeFile("mnt", "mnt_lib_base_rel", "product", "lib_base");
 //        generateCodeFile("mnt", "mnt_lib_relation", "product", "lib_relation");
 //        generateCodeFile("mnt_dev", "mnt_article", "article", "posts");
-        generateCodeFile("mnt_dev", "mnt_article_type", "article", "type");
-        
+//        generateCodeFile("mnt_dev", "mnt_article_type", "article", "type");
+         generateCodeFile("mnt_dev", "mnt_article_comment", "article", "comment");
         
         System.exit(0);
     }

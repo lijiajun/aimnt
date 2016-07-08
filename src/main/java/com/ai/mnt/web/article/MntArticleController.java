@@ -21,8 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.article.MntArticle;
+import com.ai.mnt.model.article.MntArticleComment;
 import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.sys.SysUser;
+import com.ai.mnt.service.article.MntArticleCommentService;
 import com.ai.mnt.service.article.MntArticleService;
 
 /**
@@ -41,6 +43,9 @@ public class MntArticleController {
     
     @Autowired
     UserRealm userRealm;
+    
+    @Autowired
+    MntArticleCommentService mntArticleCommentService;
     
     /**
      * 运维文章界面跳转
@@ -232,6 +237,13 @@ public class MntArticleController {
         List<MntArticle> artiTopTenList = mntArticleService.getArticleListReadTopTen(mntArticle);
         model.addAttribute("artiTopTenList", artiTopTenList);
         
+        //评论
+        MntArticleComment mntArticleComment = new MntArticleComment();
+        List<MntArticleComment> mntArticleCommentList = mntArticleCommentService.findMntArticleCommentList(mntArticleComment);
+        model.addAttribute("commentList", mntArticleCommentList);
+        
+        long totalCount = mntArticleCommentService.getMntArticleTotalCount(mntArticleComment);
+        List<MntArticleComment> mntArticleCommentList2 = mntArticleCommentService.findMntArticleListPagination(mntArticleComment);
         
         //current user
         SysUser currentUser = userRealm.getCurrentUser();

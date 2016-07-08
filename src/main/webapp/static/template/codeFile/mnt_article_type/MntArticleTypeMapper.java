@@ -10,7 +10,7 @@ import com.ai.mnt.persistence.base.CrudMapper;
  * @Title: MntArticleTypeMapper 
  * @Description: MntArticleTypeMapper Persistence
  * @Author: Auto Generate. HE
- * @Date: 2016-6-27
+ * @Date: 2016-7-6
  */
 @Repository
 public interface MntArticleTypeMapper extends CrudMapper<MntArticleType, Integer>{

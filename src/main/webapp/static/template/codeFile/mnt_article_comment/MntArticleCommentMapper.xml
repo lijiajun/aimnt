@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.article.MntArticleCommentMapper">
+
+    <resultMap id="MntArticleCommentResultMap" type="com.ai.mnt.model.article.MntArticleComment">
+        <id column="comment_id" property="commentId" />
+        <result column="aritcle_id" property="aritcleId" />
+        <result column="user_name" property="userName" />
+        <result column="comment_content" property="commentContent" />
+        <result column="comment_date" property="commentDate" />
+        <result column="parent_id" property="parentId" />
+    </resultMap>
+
+    <sql id="MntArticleCommentColumns">
+        comment_id,
+        aritcle_id,
+        user_name,
+        comment_content,
+        comment_date,
+        parent_id
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="commentId">
+        insert into mnt_article_comment (
+        aritcle_id,
+        user_name,
+        comment_content,
+        comment_date,
+        parent_id
+        )
+        values (
+        #{aritcleId},
+        #{userName},
+        #{commentContent},
+        #{commentDate},
+        #{parentId}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_article_comment (
+        aritcle_id,
+        user_name,
+        comment_content,
+        comment_date,
+        parent_id
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.aritcleId},
+            #{item.userName},
+            #{item.commentContent},
+            #{item.commentDate},
+            #{item.parentId}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_article_comment
+        where
+        comment_id = #{commentId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_article_comment
+        where comment_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_article_comment
+        <set>
+            <if test="aritcleId != null">
+                aritcle_id = #{aritcleId},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="commentContent != null">
+                comment_content = #{commentContent},
+            </if>
+            <if test="commentDate != null">
+                comment_date = #{commentDate},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId}
+            </if>
+        </set>
+        where
+        comment_id = #{commentId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntArticleCommentResultMap">
+        select
+        <include refid="MntArticleCommentColumns" />
+        from mnt_article_comment
+        where comment_id = #{commentId}
+    </select>
+
+    <select id="findList" resultMap="MntArticleCommentResultMap">
+        select
+        <include refid="MntArticleCommentColumns" />
+        from mnt_article_comment
+        <where>
+            <if test="commentId != null">
+                comment_id = #{commentId}
+            </if>
+            <if test="aritcleId != null">
+                and aritcle_id = #{aritcleId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="commentContent != null and commentContent != ''">
+                and comment_content = #{commentContent}
+            </if>
+            <if test="commentDate != null">
+                and comment_date = #{commentDate}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntArticleCommentResultMap">
+        select
+        <include refid="MntArticleCommentColumns" />
+        from mnt_article_comment
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>
