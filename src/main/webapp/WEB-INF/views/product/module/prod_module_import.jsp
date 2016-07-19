@@ -97,11 +97,11 @@
 jQuery(document).ready(function() {
     
     //赋值
-    loadVerCodeSelect();
-    var _verCode = '${prodModule.verCode}';
-    $('#verCode').val(_verCode);
-    loadParentModuleSelect();
-    $('#verCode').selectpicker('refresh');
+//     loadVerCodeSelect();
+//     var _verCode = '${prodModule.verCode}';
+//     $('#verCode').val(_verCode);
+//     loadParentModuleSelect();
+//     $('#verCode').selectpicker('refresh');
     
     
     $('#prodId').change(function(){

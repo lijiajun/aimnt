@@ -101,7 +101,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group form-md-line-input">
                                     <label class="col-md-2 control-label" for="form_control_1">
-                                        关联Lib库
+                                        依赖库
                                     </label>
                                     <div class="col-md-10">
                                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tabMntLibRelation" cellspacing="0" width="100%">
@@ -109,8 +109,8 @@
                                                 <tr>
                                                     <th>序号</th>
 <!--                                                     <th>Lib库id</th> -->
-                                                    <th>关联Lib库</th>
-                                                    <th>关联描述</th>
+                                                    <th>依赖库</th>
+                                                    <th>描述</th>
 <!--                                                     <th>产品ID</th> -->
 <!--                                                     <th>版本Code</th> -->
 <!--                                                     <th>模块ID</th> -->

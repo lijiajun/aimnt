@@ -57,7 +57,7 @@ body, .list-heading {
     margin-top: 0px;
     margin-bottom: 0px;
     min-height: 600px;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px!important;
     background-color: #707b88;
 }
 

@@ -450,7 +450,8 @@ public class GenUtil {
 //        generateCodeFile("mnt", "mnt_lib_base_rel", "product", "lib_base");
 //        generateCodeFile("mnt", "mnt_lib_relation", "product", "lib_relation");
 //        generateCodeFile("mnt_dev", "mnt_article", "article", "posts");
-        generateCodeFile("mnt_dev", "mnt_article_type", "article", "type");
+//        generateCodeFile("mnt_dev", "mnt_article_type", "article", "type");
+        generateCodeFile("mnt", "mnt_lib_relation_ext", "lib", "relation");
         
         
         System.exit(0);

@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>产品模块导入</title>
-<%@include file="../../included/includedStyle.jsp" %>
+<title>依赖库导入</title>
+<%@include file="../../../included/includedStyle.jsp" %>
 </head>
 
 <body>
@@ -80,7 +80,7 @@
                                 模板下载：
                             </label>
                             <div class="col-md-10 form-group">
-                                <a id="templete" href="javascript:void(0)">产品模块库文件信息模板</a>
+                                <a id="templete" href="javascript:void(0)">依赖库文件模板</a>
                             </div>
                         </div>
                     </div>
@@ -89,14 +89,14 @@
         </div>
     </div>
 
-<%@include file="../../included/includedJs.jsp" %>
+<%@include file="../../../included/includedJs.jsp" %>
 
 
 <script type="text/javascript">
 
 jQuery(document).ready(function() {
     
-//     //赋值
+    //赋值
 //     loadVerCodeSelect();
 //     var _verCode = '${prodModule.verCode}';
 //     $('#verCode').val(_verCode);
@@ -131,7 +131,7 @@ jQuery(document).ready(function() {
         }
         var formData = new FormData($("#form-upload")[0]);
         $.ajax({
-            url: 'prod/lib/import',
+            url: 'lib/relation/import',
             type: 'POST',
             dataType: "json",
             data: formData,

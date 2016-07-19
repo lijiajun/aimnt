@@ -315,7 +315,7 @@
                 "processing" : "努力加载数据中...",
                 "lengthMenu" : "_MENU_ 条记录每页",
                 "zeroRecords" : "没有查询到数据",
-                "info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+                "info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 _MAX_ 条记录)",
                 "infoEmpty" : "无记录",
                 "infoFiltered" : "(从 _MAX_ 条记录过滤)",
                 "paginate" : {
