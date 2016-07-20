@@ -3,13 +3,15 @@ package com.ai.mnt.model.article;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.ai.mnt.model.common.Pagination;
+
 /**
  * @Title: MntArticleComment 
  * @Description: MntArticleComment Model
  * @Author: Auto Generate.
  * @Date: 2016-7-6
  */
-public class MntArticleComment implements Serializable{
+public class MntArticleComment extends Pagination implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +32,9 @@ public class MntArticleComment implements Serializable{
 
     /**评论上级*/
     private Integer parentId;
-
+    
+    //评论上级的用户
+    private String parentUserName;
 
     public Integer getCommentId() {
         return commentId;
@@ -78,6 +82,14 @@ public class MntArticleComment implements Serializable{
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public String getParentUserName() {
+        return parentUserName;
+    }
+
+    public void setParentUserName(String parentUserName) {
+        this.parentUserName = parentUserName;
     }
 
    /* public void setCommentCount(int size) {

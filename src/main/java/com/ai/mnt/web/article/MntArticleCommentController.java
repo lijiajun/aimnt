@@ -33,13 +33,27 @@ public class MntArticleCommentController {
      * @param  model
      * @return String
      */
-    @RequestMapping("/comment/page")
+    @RequestMapping("/comment/page{}")
+    @ResponseBody
     public String showMntArticleCommentPage(Model model,MntArticleComment mntArticleComment) {
-        List<MntArticleComment> mntArticleComments =mntArticleCommentService.findMntArticleCommentList(mntArticleComment);
-        model.addAttribute("commentList", mntArticleComments);
+        if(mntArticleComment.getCurrentPage() != 1) {
+            int start = (mntArticleComment.getCurrentPage() -1) * mntArticleComment.getPageSize();
+            mntArticleComment.setStart(start);
+        }
         
+        List<MntArticleComment> mntArticleCommentList=mntArticleCommentService.findMntArticleCommentListPagination(mntArticleComment);
+        long totalCount = mntArticleCommentService.getMntArticleTotalCount(mntArticleComment);
+        mntArticleComment.setTotalCount(totalCount);                       //本篇文章总评论数
         
-        return "article/article_content";
+        long totalPage = totalCount / mntArticleComment.getPageSize();
+        int mod = (int) (totalCount % mntArticleComment.getPageSize());
+        totalPage = mod == 0 ? totalPage : totalPage + 1;
+        mntArticleComment.setTotalPage(totalPage);
+        
+        model.addAttribute("mntArticleComment", mntArticleComment);
+        model.addAttribute("commentList", mntArticleCommentList);
+        
+        return "article/article_comment";
     }
     
     /**
@@ -78,7 +92,22 @@ public class MntArticleCommentController {
         mntArticleCommentService.saveMntArticleComment(mntArticleComment);
         Map<String, Object> map = new HashMap<>();
         map.put("status", "1");
-        return map;
+        return map; 
+      
+    }
+    /**
+     * 文章评论的回复保存
+     * @param mntArticleComment
+     * @return Map<String, Object>
+     */
+    @RequestMapping("/add_article_comment2")
+    @ResponseBody
+    public Map<String, Object> saveMntArticleComment2(MntArticleComment mntArticleComment) {
+        mntArticleCommentService.saveMntArticleComment2(mntArticleComment);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", "1");
+        return map; 
+      
     }
     
     /**
@@ -141,6 +170,6 @@ public class MntArticleCommentController {
         if(mntArticleCommentList != null && mntArticleCommentList.size() > 0) { //只会有一条数据
             model.addAttribute("commentList", mntArticleCommentList.get(0));
         }
-        return "article/article_content";
+        return "";
     }
 }

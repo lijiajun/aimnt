@@ -58,6 +58,7 @@ public class MntArticleController {
         if(mntArticle.getCurrentPage() != 1) {
             int start = (mntArticle.getCurrentPage() -1) * mntArticle.getPageSize();
             mntArticle.setStart(start);
+            
         }
         
         mntArticle.setDeleteFlag("0");
@@ -65,7 +66,7 @@ public class MntArticleController {
         List<MntArticle> mntArticleList = mntArticleService.findMntArticleListPagination(mntArticle);
         long totalCount = mntArticleService.getMntArticleTotalCount(mntArticle);
         mntArticle.setTotalCount(totalCount);
-        
+       
         //总页数
         long totalPage = totalCount / mntArticle.getPageSize();
         int mod = (int) (totalCount % mntArticle.getPageSize());
@@ -82,7 +83,7 @@ public class MntArticleController {
     }
     
     /**
-     * 获取运维文章列表
+     * 获取运维文章列表          /article/query的映射地址是哪里，？？？？？？
      * @param mntArticle
      * @return Map<String, Object>
      */
@@ -194,7 +195,8 @@ public class MntArticleController {
      * @return
      */
     @RequestMapping("/full_content/{id}")
-    public String queryMntArticleById(Model model, @PathVariable String id) {
+    public String queryMntArticleById(Model model, @PathVariable String id,
+            MntArticleComment mntArticleComment) {
         MntArticle mntArticle = new MntArticle();
         mntArticle = mntArticleService.findMntArticleById(Integer.parseInt(id));
         model.addAttribute("mntArticle", mntArticle);
@@ -237,17 +239,35 @@ public class MntArticleController {
         List<MntArticle> artiTopTenList = mntArticleService.getArticleListReadTopTen(mntArticle);
         model.addAttribute("artiTopTenList", artiTopTenList);
         
+        
         //评论
-        MntArticleComment mntArticleComment = new MntArticleComment();
-        List<MntArticleComment> mntArticleCommentList = mntArticleCommentService.findMntArticleCommentList(mntArticleComment);
+       // mntArticleComment.setCommentId();
+        mntArticleComment.setAritcleId(Integer.parseInt(id));
+        if(mntArticleComment.getCurrentPage() != 1) {
+            int start = (mntArticleComment.getCurrentPage() -1) * mntArticleComment.getPageSize();
+            mntArticleComment.setStart(start);
+        }
+        long totalCount = mntArticleCommentService.getMntArticleTotalCount(mntArticleComment);
+        mntArticleComment.setTotalCount(totalCount);                       //本篇文章总评论数
+   
+        long totalPage = totalCount / mntArticle.getPageSize();
+        int mod = (int) (totalCount % mntArticle.getPageSize());
+        totalPage = mod == 0 ? totalPage : totalPage + 1;
+        mntArticleComment.setTotalPage(totalPage);
+        
+       // String parentUserName =mntArticleCommentService.ge
+        //mntArticleComment.setParentId(parentId);
+        
+        List<MntArticleComment> mntArticleCommentList=mntArticleCommentService.findMntArticleCommentListPagination(mntArticleComment);
+       
+        model.addAttribute("mntArticleComment", mntArticleComment);
         model.addAttribute("commentList", mntArticleCommentList);
         
-        long totalCount = mntArticleCommentService.getMntArticleTotalCount(mntArticleComment);
-        List<MntArticleComment> mntArticleCommentList2 = mntArticleCommentService.findMntArticleListPagination(mntArticleComment);
         
         //current user
         SysUser currentUser = userRealm.getCurrentUser();
         model.addAttribute("currentUserName", currentUser.getUserName());
+        
         
         return "article/article_content";
     }

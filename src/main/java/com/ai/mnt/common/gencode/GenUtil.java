@@ -452,7 +452,12 @@ public class GenUtil {
 //        generateCodeFile("mnt", "mnt_lib_relation", "product", "lib_relation");
 //        generateCodeFile("mnt_dev", "mnt_article", "article", "posts");
 //        generateCodeFile("mnt_dev", "mnt_article_type", "article", "type");
+<<<<<<< HEAD
          generateCodeFile("mnt_dev", "mnt_article_comment", "article", "comment");
+=======
+        generateCodeFile("mnt", "mnt_lib_relation_ext", "lib", "relation");
+        
+>>>>>>> 51d05c534911e50f4e183358650991d03bba15a6
         
         System.exit(0);
     }

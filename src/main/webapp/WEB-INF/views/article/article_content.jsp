@@ -57,36 +57,55 @@
                 <!--comment begin -->
               
                 
-                <!-- 评论发表输入 -->
+                <!-- 评论发表输出 -->
                 <div >
                     <div class="portlet light article">
                         <div>
-                            评论(${mntArticle.commentCount })
+                            评论(${mntArticleComment.totalCount}) 
                         </div> <hr>
-                        <div  id="comment-list">
+                        <div  id="content">
                             <c:forEach items="${commentList }" var="comment">
                                 <c:if test="${comment.aritcleId==mntArticle.id}">
                                     <div>
-                                        <b>${comment.userName }</b>  &nbsp; 发表于 &nbsp;
+                                        <a href="#"><strong>${comment.userName }</strong></a>  &nbsp; 发表于 &nbsp;
                                         <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm:ss" />                               
                                         <div style="text-align:right" >
-                                            <input type="button"  value="回复"/>
+<%--                                             <button type="button" id="qwe_${comment.commentId}">回复此评论</button> --%>
+                                            <a href="javascript:;" onclick="showInput(${comment.commentId})">回复</a>
                                         </div>
                                     </div>
-                                    <%-- <div>
-                                        <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm:ss" />                               
-                                    </div> --%>
-                                    <div class="">
-                                        ${comment.commentContent }
+                                    <c:if test="${comment.parentId ==-1}">
+                                        <div class="">
+                                            ${comment.commentContent }
+                                         </div>
+                                    </c:if>
+                                    <c:if test="${comment.parentId !=-1}">
+                                        <div>
+                                            对<a href="#"><strong>${comment.parentUserName}</strong></a>的回复:
+                                        </div><br>
+                                        <div class="">
+                                            ${comment.commentContent }
+                                        </div>
+                                    </c:if>
+                                    <br>
+                                    <div id="qwe_${comment.commentId }" style="display:none" class="comInp">              <!--  点击回复后，在评论下弹出一个文本框 不点击就隐藏 -->
+                                        <textarea rows="3" class="form-control" id="reInp${comment.commentId}"  placeholder="请输入评论，不要超过1000字"></textarea><br>
+                                        <div class="" style="text-align:right">
+                                            <span class="publish">
+                                                <a href="javascript:;" onclick="showReply(${comment.commentId})">回复评论</a>
+                                                <!-- <button type="button" class="commend-edit" id="reply-submit2" >回复</button> -->
+                                            </span>
+                                        </div>
                                     </div>
                                     <hr>
                                 </c:if>
                             </c:forEach>
                         </div>
-                        <div class="portlet-foot" style="text-align: center;margin-top:30px">
+                        <div class="portlet-foot" style="text-align: center;margin-top:30px" >
                             <div id="page-selection"></div>
                         </div>
-                        
+                        <!-- <div id="content">Dynamic Content goes here</div>
+                        <div id="page-selection">Pagination goes here</div> -->
                     </div>
                     <div class="reply-title">
                         <strong>发表我的看法</strong>
@@ -97,7 +116,7 @@
                             </div>
                             <div class="">
                                 <textarea rows="3" class="form-control" id="commentContend" placeholder="请输入评论，不要超过1000字"></textarea><br>
-                                <div class="" >
+                                <div class="" style="text-align:right">
                                     <span class="publish">
                                         <button type="button" class="commend-edit"  id="reply-submit">发表评论</button>
                                     </span>
@@ -135,6 +154,8 @@
 
 
 <%@include file="../included/includedJs.jsp" %>
+<script src="static/plugins/bootpag/jquery.bootpag.min.js" type="text/javascript"></script>
+
 <script>
     $(function() {
         
@@ -167,21 +188,18 @@
             
         });
         
-        $('#reply-submit').click(function(){
+        $('button#reply-submit').click(function(){
+        	//alert("==================");
             var _commentContent = $('#commentContend').val();
             var _articleId = ${mntArticle.id};
-//             var oMyForm = new FormData();
-//             oMyForm.append('commentContent', _commendContent);
-//             oMyForm.append('aritcleId', _articleId);
-//             console.log(oMyForm);
             var surl = 'article/add_article_comment?commentContent=' + _commentContent + "&aritcleId=" + _articleId;
-            
+           
             $.ajax({
                 url: surl,
                 type: 'POST',
                 dataType: "json",
                 success:function (data) {
-                    //showMsg("评论成功！");
+                    showMsg("评论成功！");
                     window.location.href = "article/full_content/${mntArticle.id}";
                     //return;
                 },
@@ -193,9 +211,74 @@
             });
         });
         
+        $('#page-selection').bootpag({
+            total:${mntArticleComment.totalPage},
+            page: ${mntArticleComment.currentPage},
+            maxVisible: 10,
+            leaps: false,
+            next: ' > ',
+            prev: ' < '
+        }).on("page", function(event,num){
+             window.location.href = "article/full_content/${mntArticle.id}?currentPage=" + num;
+            // alert("num: " + num);
+        });
+        
+       /*  $('button#reply-submit2').click(function(){
+        	var _commentContent2 = $("#commentContend2").val();
+            alert(_commentContent2);
+        }); */
+        
         
     });
+   
+       /*  function comment() {
+        	
+            var _url = 'article/comment/page?currentPage='+num;
+        	$.ajax({
+                url: _url,
+                dataType: "json",
+                async:false,
+                success:function (data) {
+                   
+                },
+                error:function() {
+                    showMsg("加载下拉框出现错误！");
+                }
+            });
+} */
 
+function showInput(_cId) {
+	//alert(_cId);
+	if($(".comInp").is(":visible")==true){
+		$(".comInp").hide();
+	};
+	$("#qwe_"+_cId).toggle();
+	
+}
+
+
+function showReply(_commentId){
+	var _articleId2 = ${mntArticle.id};
+	var _commentContent2 = $("#reInp"+_commentId).val();
+	var _parentId = _commentId;
+	var _url2 = 'article/add_article_comment2?commentContent='+	 _commentContent2 +'&aritcleId=' +_articleId2 + '&parentId=' +_parentId;
+		 
+	$.ajax({
+             url: _url2,
+             type: 'POST',
+             dataType: "json",
+             success:function (data) {
+                 showMsg("评论成功！");
+                 window.location.href = "article/full_content/${mntArticle.id}";
+                 //return;
+             },
+             error:function(xhr, ajaxOptions, thrownError) {
+                 console.log(thrownError);
+                 showMsg("评论出现错误，请稍后重试！");
+                 return false;
+             }
+         });
+}
 
 </script>
 </body>

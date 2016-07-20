@@ -106,7 +106,7 @@
              }
              var _searchContent = $('#sContent').val();
              window.location.href = "article/page?title=" + _searchContent + "&currentPage=" + num;
-        });
+         });
         
     });
 

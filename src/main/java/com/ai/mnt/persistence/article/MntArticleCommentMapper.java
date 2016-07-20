@@ -17,10 +17,12 @@ import com.ai.mnt.persistence.base.CrudMapper;
 @Repository
 public interface MntArticleCommentMapper extends CrudMapper<MntArticleComment, Integer>{
 
-    long getMntArticleTotalCount(MntArticleComment mntArticleComment);
+   public long getMntArticleTotalCount(MntArticleComment mntArticleComment);
 
-    List<MntArticleComment> findMntArticleListPagination(
+    List<MntArticleComment> findMntArticleCommentListPagination(
             MntArticleComment mntArticleComment);
+    
+    public String getMntArticleCommentParentName(MntArticleComment mntArticleComment);
     
     
 }

@@ -40,6 +40,11 @@ public interface MntArticleCommentService {
     public void saveMntArticleComment(MntArticleComment mntArticleComment);
     
     /**
+     * 添加文章评论的评论
+     * @param MntArticleComment
+     */
+    public void saveMntArticleComment2(MntArticleComment mntArticleComment);
+    /**
      * 更新文章评论
      * 根据MntArticleComment的主键更新主键以外的其他字段
      * @param MntArticleComment
@@ -53,10 +58,14 @@ public interface MntArticleCommentService {
      */
     public void deleteMntArticleCommentByCommentIds(String commentIds);
 
-
+    // 获得评论的数量
     public long getMntArticleTotalCount(MntArticleComment mntArticleComment);
 
-
-    public List<MntArticleComment> findMntArticleListPagination(
+    /*
+     * 评论分页
+     * */
+    public List<MntArticleComment> findMntArticleCommentListPagination(
             MntArticleComment mntArticleComment);
+    //获得评论的父名
+    public String getMntArticleCommentParentName(MntArticleComment mntArticleComment);
 }

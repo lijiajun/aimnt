@@ -7,6 +7,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.article.MntArticle;
 import com.ai.mnt.model.article.MntArticleComment;
@@ -54,6 +55,26 @@ public class MntArticleCommentServiceImpl implements MntArticleCommentService{
         //cvtContentList(mntArticleCommentList);
         return mntArticleCommentList;
     }
+    
+    /**
+     * 评论分页
+     * */
+    @Override
+    public List<MntArticleComment> findMntArticleCommentListPagination(
+            MntArticleComment mntArticleComment) {
+        List<MntArticleComment> mntArticleCommentList = mntArticleCommentMapper.findMntArticleCommentListPagination(mntArticleComment);
+        //cvtContentList(mntArticleCommentList);
+        for (MntArticleComment mntArticleComment2 : mntArticleCommentList) {
+            if (mntArticleComment2.getParentId()!=-1) {
+                MntArticleComment mntArticleComment1 = findMntArticleCommentByCommentId(mntArticleComment2.getParentId());
+                mntArticleComment2.setParentUserName(mntArticleComment1.getUserName());
+                System.out.println(mntArticleComment1.getParentUserName()+"===============");
+            }else {
+                mntArticleComment2.setParentUserName("");
+            }
+        }
+        return mntArticleCommentList;
+    }
 
     /**
      * 通过主键ID获取文章评论
@@ -73,19 +94,12 @@ public class MntArticleCommentServiceImpl implements MntArticleCommentService{
     @Override
     public void saveMntArticleComment(MntArticleComment mntArticleComment) {
         SysUser currentUser = userRealm.getCurrentUser();
-       /* mntArticleComment.setDeleteFlag("0");
-        mntArticleComment.setCreator(currentUser.getUserName());
-        mntArticleComment.setModifier(currentUser.getUserName());
-        mntArticleComment.setCreateDate(new Date());
-        mntArticleComment.setModifyDate(new Date());*/
+       
         mntArticleComment.setCommentDate(new Date());
         mntArticleComment.setUserName(currentUser.getUserName());
         mntArticleComment.setParentId(-1);
-        //mntArticleComment.setAritcleId(aritcleId);
-       // mntArticleComment.setCommentCount(mntArticleComment.getAritcleId().SIZE);
-       
+        //mntArticleComment.setParentUserName(parentUserName);
         mntArticleCommentMapper.save(mntArticleComment);
-        
     }
 
     /**
@@ -124,16 +138,33 @@ public class MntArticleCommentServiceImpl implements MntArticleCommentService{
     //评论的总数
     @Override
     public long getMntArticleTotalCount(MntArticleComment mntArticleComment) {
-        // TODO Auto-generated method stub
         return mntArticleCommentMapper.getMntArticleTotalCount(mntArticleComment);
     }
-
+    
+    //评论的回复
     @Override
-    public List<MntArticleComment> findMntArticleListPagination(
-            MntArticleComment mntArticleComment) {
-        List<MntArticleComment> mntArticleCommentList2 = mntArticleCommentMapper.findMntArticleListPagination(mntArticleComment);
-        return null;
+    public void saveMntArticleComment2(MntArticleComment mntArticleComment) {
+        SysUser currentUser = userRealm.getCurrentUser();
+        mntArticleComment.setCommentDate(new Date());
+        mntArticleComment.setUserName(currentUser.getUserName());
+        mntArticleCommentMapper.save(mntArticleComment);
     }
+
+    //获取评论父名
+    @Override
+    public String getMntArticleCommentParentName(MntArticleComment mntArticleComment) {
+        return null;
+       /* for (MntArticleComment mntArticleComment2 : mntArticleCommentList) {
+            // System.out.println(mntArticleComment2.getParentId()+"============----------------");
+             if (mntArticleComment2.getParentId()!=-1) {
+                 mntArticleComment =findMntArticleCommentByCommentId(mntArticleComment2.getParentId());
+                 System.out.println(mntArticleComment.getUserName()+"-----------------");
+                 mntArticleComment.setParentUserName(mntArticleComment.getUserName());
+                 System.out.println(mntArticleComment.getParentUserName()+"===============");
+             }
+         }*/
+    }
+    
     
   
     //private void cvtContentList(List<MntArticleComment> MntArticleCommentList) {

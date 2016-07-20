@@ -29,8 +29,9 @@ var menuHtml = "";
 
 function getMenuHtml() {
 	$.ajax({
-        url:"menu",
+        url:"menu?_ver=" + new Date(),
         dataType: "json",
+        cache: false,
         async:false,
         success:function (data) {
 //        	console.log(data);
@@ -271,7 +272,7 @@ jQuery(document).ready(function() {
     var content = $('.page-content');
     var content_bar = $('.page-bar');
     var content_body = $('.page-content-body');
-    var available_height = (content.outerHeight() - content_bar.outerHeight() - 13);
+    var available_height = (content.outerHeight() - content_bar.outerHeight() - 10);
     content_body.attr('style', 'min-height:' + available_height + 'px');
     $("#page-content-frame").height(available_height);
 });

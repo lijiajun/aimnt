@@ -129,13 +129,74 @@
     <!--统计评论数量-->
     <select id="getMntArticleTotalCount" resultType="java.lang.Long">
         select
-        count(2)
+        count(1)
+        from mnt_article_comment 
+        <where>
+        	<if test="aritcleId != null">
+                aritcle_id = #{aritcleId}
+            </if>
+        </where>
+       <!-- <where>
+           <if test="commentId != null">
+                comment_id = #{commentId}
+            </if>
+            <if test="aritcleId != null">
+                and aritcle_id = #{aritcleId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="commentContent != null and commentContent != ''">
+                and comment_content = #{commentContent}
+            </if>
+            <if test="commentDate != null">
+                and comment_date = #{commentDate}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+        </where>-->
+    </select>
+    
+    <!--查询父类姓名-->
+    <select id="getMntArticleCommentParentName" resultType="java.lang.String">
+    	select
+    	user_name
+    	from mnt_article_comment
+    	where
+    	comment_id=#{parentId}
+    </select>
+    
+    
+    <!---->
+     <select id="findMntArticleCommentListPagination" resultMap="MntArticleCommentResultMap">
+        select
+        <include refid="MntArticleCommentColumns" />
         from mnt_article_comment
         <where>
-            article_id=#{aritcleId}
+        	 <if test="commentId != null">
+                comment_id = #{commentId}
+            </if>
+            <if test="aritcleId != null">
+                and aritcle_id = #{aritcleId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="commentContent != null and commentContent != ''">
+                and comment_content = #{commentContent}
+            </if>
+            <if test="commentDate != null">
+                and comment_date = #{commentDate}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
         </where>
+        order by  comment_date desc
+        limit #{start}, #{pageSize}
     </select>
-
+    
     <select id="findAll" resultMap="MntArticleCommentResultMap">
         select
         <include refid="MntArticleCommentColumns" />
