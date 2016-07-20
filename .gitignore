@@ -1,8 +1,10 @@
 # Eclipse project files
 .classpath
 .project
+.factorypath
 .settings/
 .externalToolBuilders/
+.apt_generated/
 
 
 # Intellij project files
@@ -15,4 +17,3 @@ ehcache/
 logs/
 *.log
 *.sql
-/.apt_generated/
