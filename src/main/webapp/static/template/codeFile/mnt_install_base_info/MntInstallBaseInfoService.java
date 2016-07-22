@@ -6,8 +6,8 @@ import com.ai.mnt.model.inst.MntInstallBaseInfo;
 /**
  * @Title: MntInstallBaseInfoService 
  * @Description: MntInstallBaseInfoService ServicePackage
- * @Author: Auto Generate 
- * @Date: 2016-5-11
+ * @Author: Auto Generate.
+ * @Date: 2016-7-21
  */
 
 public interface MntInstallBaseInfoService {
@@ -31,7 +31,7 @@ public interface MntInstallBaseInfoService {
      * @param baseId Primary key
      * @return MntInstallBaseInfo
      */
-    public MntInstallBaseInfo findMntInstallBaseInfoById(Integer baseId);
+    public MntInstallBaseInfo findMntInstallBaseInfoByBaseId(Integer baseId);
     
     /**
      * 添加安装点信息

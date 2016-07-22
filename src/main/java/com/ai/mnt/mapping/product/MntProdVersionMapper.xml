@@ -185,12 +185,14 @@
                 and modify_date = #{modifyDate}
             </if>
         </where>
+        order by prod_id asc, ver_name asc
     </select>
 
     <select id="findAll" resultMap="MntProdVersionResultMap">
         select
         <include refid="MntProdVersionColumns" />
         from mnt_prod_version
+        order by prod_id asc, ver_name asc
     </select>
     
     <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>

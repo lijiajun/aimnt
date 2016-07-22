@@ -16,8 +16,8 @@ import com.ai.mnt.service.inst.MntInstallOnlineInfoService;
 /**
  * @Title: MntInstallOnlineInfoServiceImpl 
  * @Description: MntInstallOnlineInfoServiceImpl ServiceImplPackage
- * @Author: Auto Generate. HE
- * @Date: 2016-5-23
+ * @Author: Auto Generate.
+ * @Date: 2016-7-21
  */
 @Service
 public class MntInstallOnlineInfoServiceImpl implements MntInstallOnlineInfoService{

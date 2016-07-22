@@ -1,14 +1,17 @@
 package com.ai.mnt.model.inst;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @Title: MntInstallBaseInfo 
  * @Description: MntInstallBaseInfo Model
- * @Author: Auto Generate 
- * @Date: 2016-5-5
+ * @Author: Auto Generate.
+ * @Date: 2016-7-21
  */
-public class MntInstallBaseInfo {
+public class MntInstallBaseInfo implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     /**安装点编号*/
     private Integer baseId;

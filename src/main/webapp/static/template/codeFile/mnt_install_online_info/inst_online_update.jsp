@@ -78,7 +78,7 @@
                                             发布版本号 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntInstallOnlineInfo.relCode}" name="relCode" id="relCode">
+                                            <input type="text" class="form-control" placeholder="" value="${mntInstallOnlineInfo.relId}" name="relId" id="relId">
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入发布版本号</span>
                                         </div>
@@ -167,6 +167,33 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
+                                            延期上线日期 <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="date-picker form-control" readonly data-date-format="yyyy-mm-dd" 
+                                                value="<fmt:formatDate value="${mntInstallOnlineInfo.delayOnlineDate}" pattern="yyyy-MM-dd"/>" name="delayOnlineDate" id="delayOnlineDate">
+                                            <div class="form-control-focus"></div>
+                                            <span class="help-block">请输入延期上线日期</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input">
+                                        <label class="col-md-4 control-label" for="form_control_1">
+                                            是否出现故障,1是 0否 <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" placeholder="" value="${mntInstallOnlineInfo.isFault}" name="isFault" id="isFault">
+                                            <div class="form-control-focus"></div>
+                                            <span class="help-block">请输入是否出现故障,1是 0否</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input">
+                                        <label class="col-md-4 control-label" for="form_control_1">
                                             是否已上线 1是 0否 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
@@ -193,21 +220,6 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            延期上线日期 <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="date-picker form-control" readonly data-date-format="yyyy-mm-dd" 
-                                                value="<fmt:formatDate value="${mntInstallOnlineInfo.delayOnlineDate}" pattern="yyyy-MM-dd"/>" name="delayOnlineDate" id="delayOnlineDate">
-                                            <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入延期上线日期</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        <label class="col-md-4 control-label" for="form_control_1">
                                             备注 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
@@ -217,6 +229,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
@@ -229,8 +243,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
@@ -243,6 +255,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
@@ -256,8 +270,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
@@ -270,6 +282,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
@@ -318,16 +332,17 @@ jQuery(document).ready(function() {
             baseId:"required",
             prodId:"required",
             verCode:"required",
-            relCode:"required",
+            relId:"required",
             relDtlId:"required",
             moduleId:"required",
             isOnsiteSupport:"required",
             isRemoteSupport:"required",
             planOnlineDate:"required",
             onlineDate:"required",
+            delayOnlineDate:"required",
+            isFault:"required",
             isOnlined:"required",
             unOnlineReason:"required",
-            delayOnlineDate:"required",
             onlineRemark:"required",
             deleteFlag:"required",
             creator:"required",

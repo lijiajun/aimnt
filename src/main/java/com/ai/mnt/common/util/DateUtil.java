@@ -3,7 +3,6 @@ package com.ai.mnt.common.util;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -277,9 +276,9 @@ public class DateUtil {
      * @return 日期
      */
     public static Date stringToDate(String dateString) {
-        String sf = "yyyy-MM-dd HH:mm:ss";
-        Date dt = stringToDate(dateString, sf);
-        return dt;
+            String sf = "yyyy-MM-dd HH:mm:ss";
+            Date dt = stringToDate(dateString, sf);
+            return dt;
     }
 
     /**
@@ -333,12 +332,34 @@ public class DateUtil {
      * @return 转换后的日期
      */
     public static Date stringToDate(String dateString, String sf) {
-        ParsePosition pos = new ParsePosition(0);
-        SimpleDateFormat sdf = new SimpleDateFormat(sf);
-        Date dt = sdf.parse(dateString, pos);
-        return dt;
+        try {
+            //ParsePosition pos = new ParsePosition(0);
+            SimpleDateFormat sdf = new SimpleDateFormat(sf);
+            Date dt = sdf.parse(dateString);
+            return dt;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
+    public static Date stringToDate2(String dateString, String sf) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(sf);
+            Date dt = sdf.parse(dateString);
+            return dt;
+        } catch (Exception e){
+            SimpleDateFormat sdf2 = new SimpleDateFormat(sf);
+            try {
+                Date dt = sdf2.parse("yyyy/M/dd");
+                return dt;
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+                return null;
+            }
+        }
+    }
+    
     /**
      * 计算两个日期差（毫秒）
      * 

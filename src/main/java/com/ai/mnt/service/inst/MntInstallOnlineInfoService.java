@@ -64,4 +64,7 @@ public interface MntInstallOnlineInfoService {
 
     List<MntInstallOnlineInfo> findOnlineInfoListJoinRelDtl(
             MntInstallOnlineInfo mntInstallOnlineInfo);
+
+
+    public void importOnlineData(List<List<String>> excelData, Integer baseId) throws Exception;
 }

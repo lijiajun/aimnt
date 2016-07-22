@@ -30,7 +30,7 @@ public class MntInstallOnlineInfo implements Serializable {
     private String verCode;
 
     /** 发布版本号 */
-    private String relId;
+    private Integer relId;
     
     /** 发布明细编号 需求或故障 */
     private Integer relDtlId;
@@ -62,6 +62,9 @@ public class MntInstallOnlineInfo implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date delayOnlineDate;
 
+    /**是否出现故障,1是 0否*/
+    private String isFault;
+    
     /** 备注 */
     private String onlineRemark;
 
@@ -112,6 +115,8 @@ public class MntInstallOnlineInfo implements Serializable {
     
     /** 发布版本号 */
     private String relCode;
+    
+    private String isFaultTxt;
     
     private MntReleaseRecDtl mntReleaseRecDtl = new MntReleaseRecDtl();
 
@@ -355,12 +360,28 @@ public class MntInstallOnlineInfo implements Serializable {
         this.isOnlinedTxt = isOnlinedTxt;
     }
 
-    public String getRelId() {
+    public Integer getRelId() {
         return relId;
     }
 
-    public void setRelId(String relId) {
+    public void setRelId(Integer relId) {
         this.relId = relId;
+    }
+
+    public String getIsFault() {
+        return isFault;
+    }
+
+    public void setIsFault(String isFault) {
+        this.isFault = isFault;
+    }
+
+    public String getIsFaultTxt() {
+        return isFaultTxt;
+    }
+
+    public void setIsFaultTxt(String isFaultTxt) {
+        this.isFaultTxt = isFaultTxt;
     }
 
 }

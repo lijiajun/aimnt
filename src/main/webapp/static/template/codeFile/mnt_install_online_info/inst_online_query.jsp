@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4">发布版本号</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="relCode">
+                                        <input type="text" class="form-control" id="relId">
                                     </div>
                                 </div>
                             </div>
@@ -130,24 +130,6 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">是否已上线 1是 0否</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="isOnlined">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">未上线原因</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="unOnlineReason">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
                                     <label class="control-label col-md-4">延期上线日期</label>
                                     <div class="col-md-8">
                                         <div class="input-group date-picker input-daterange" data-date="2012-12-12" data-date-format="yyyy-mm-dd">
@@ -158,6 +140,34 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">是否出现故障,1是 0否</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="isFault">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">是否已上线 1是 0否</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="isOnlined">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">未上线原因</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="unOnlineReason">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label col-md-4">备注</label>
@@ -166,8 +176,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label col-md-4">删除标识，1删除，0未删除</label>
@@ -184,6 +192,8 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label col-md-4">创建时间</label>
@@ -196,8 +206,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label col-md-4">修改人</label>
@@ -257,9 +265,10 @@
                                     <th>是否申请R&D远程支持  1是 0否</th>
                                     <th>计划上线日期</th>
                                     <th>实际上线日期</th>
+                                    <th>延期上线日期</th>
+                                    <th>是否出现故障,1是 0否</th>
                                     <th>是否已上线 1是 0否</th>
                                     <th>未上线原因</th>
-                                    <th>延期上线日期</th>
                                     <th>备注</th>
                                     <th>删除标识，1删除，0未删除</th>
                                     <th>创建人</th>
@@ -307,16 +316,17 @@
             var strBaseId = $("#baseId").val();
             var strProdId = $("#prodId").val();
             var strVerCode = $("#verCode").val();
-            var strRelCode = $("#relCode").val();
+            var strRelId = $("#relId").val();
             var strRelDtlId = $("#relDtlId").val();
             var strModuleId = $("#moduleId").val();
             var strIsOnsiteSupport = $("#isOnsiteSupport").val();
             var strIsRemoteSupport = $("#isRemoteSupport").val();
             var strPlanOnlineDate = $("#planOnlineDate").val();
             var strOnlineDate = $("#onlineDate").val();
+            var strDelayOnlineDate = $("#delayOnlineDate").val();
+            var strIsFault = $("#isFault").val();
             var strIsOnlined = $("#isOnlined").val();
             var strUnOnlineReason = $("#unOnlineReason").val();
-            var strDelayOnlineDate = $("#delayOnlineDate").val();
             var strOnlineRemark = $("#onlineRemark").val();
             var strDeleteFlag = $("#deleteFlag").val();
             var strCreator = $("#creator").val();
@@ -329,16 +339,17 @@
                 "&baseId=" + strBaseId +
                 "&prodId=" + strProdId +
                 "&verCode=" + strVerCode +
-                "&relCode=" + strRelCode +
+                "&relId=" + strRelId +
                 "&relDtlId=" + strRelDtlId +
                 "&moduleId=" + strModuleId +
                 "&isOnsiteSupport=" + strIsOnsiteSupport +
                 "&isRemoteSupport=" + strIsRemoteSupport +
                 "&planOnlineDate=" + strPlanOnlineDate +
                 "&onlineDate=" + strOnlineDate +
+                "&delayOnlineDate=" + strDelayOnlineDate +
+                "&isFault=" + strIsFault +
                 "&isOnlined=" + strIsOnlined +
                 "&unOnlineReason=" + strUnOnlineReason +
-                "&delayOnlineDate=" + strDelayOnlineDate +
                 "&onlineRemark=" + strOnlineRemark +
                 "&deleteFlag=" + strDeleteFlag +
                 "&creator=" + strCreator +
@@ -353,16 +364,17 @@
             $('#baseId').val('');
             $('#prodId').val('');
             $('#verCode').val('');
-            $('#relCode').val('');
+            $('#relId').val('');
             $('#relDtlId').val('');
             $('#moduleId').val('');
             $('#isOnsiteSupport').val('');
             $('#isRemoteSupport').val('');
             $('#planOnlineDate').val('');
             $('#onlineDate').val('');
+            $('#delayOnlineDate').val('');
+            $('#isFault').val('');
             $('#isOnlined').val('');
             $('#unOnlineReason').val('');
-            $('#delayOnlineDate').val('');
             $('#onlineRemark').val('');
             $('#deleteFlag').val('');
             $('#creator').val('');
@@ -385,39 +397,18 @@
                 return;
             }
             var strOnlineId = checkedBox.find('input:checkbox').val();
-            showModal(2, "修改发布信息", [ '650px', '500px' ], "inst/online/update_page/" + strOnlineId, tableObj);
+            showModal(2, " ", [ '1000px', '500px' ], "inst/online/update_page/" + strOnlineId, tableObj);
         });
         
         //新增
         $('.div_right').on('click', '.dt-buttons>#btnAdd', function(){
-            showModal(2, " ", ['650px', '500px'], "inst/online/add_page", tableObj);
+            showModal(2, " ", ['1000px', '500px'], "inst/online/add_page", tableObj);
         });
         
         //删除按钮
         $('.div_right').on('click', '.dt-buttons>#btnDelete',function() {
-            
             var checkedBox = $("#tabMntInstallOnlineInfo tbody tr td .checked");
-            var checkedLength = checkedBox.length;
-            if(checkedLength == 0) {
-                showMsg("请选择需要删除的数据！");
-                return;
-            }
-            var onlineIdAry = [];
-            checkedBox.find('input:checkbox').each(function(){
-                onlineIdAry.push($(this).val());
-            });
-            $.ajax({
-                url: 'inst/online/delete/' + onlineIdAry,
-                dataType: 'json',
-                async:false,
-                success:function (data) {
-                    showMsg("删除成功！");
-                    tableObj.ajax.reload(null,false);
-                },
-                error:function() {
-                    showMsg("删除操作发生错误！");
-                }
-            });
+            comfirmDeleteData(tableObj, checkedBox, 'inst/online/delete/');
         });
         
     });
@@ -443,7 +434,7 @@
             }, {
                 "data" : "verCode"
             }, {
-                "data" : "relCode"
+                "data" : "relId"
             }, {
                 "data" : "relDtlId"
             }, {
@@ -457,11 +448,13 @@
             }, {
                 "data" : "onlineDate"
             }, {
+                "data" : "delayOnlineDate"
+            }, {
+                "data" : "isFault"
+            }, {
                 "data" : "isOnlined"
             }, {
                 "data" : "unOnlineReason"
-            }, {
-                "data" : "delayOnlineDate"
             }, {
                 "data" : "onlineRemark"
             }, {
@@ -505,7 +498,7 @@
                  }
             },
             {
-                "targets": [13],
+                "targets": [11],
                 "data": "delayOnlineDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -515,7 +508,7 @@
                  }
             },
             {
-                "targets": [17],
+                "targets": [18],
                 "data": "createDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -525,7 +518,7 @@
                  }
             },
             {
-                "targets": [19],
+                "targets": [20],
                 "data": "modifyDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {

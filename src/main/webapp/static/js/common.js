@@ -392,6 +392,20 @@ function loadRelSelect(type) {
     }
 }
 
+//获取该发布版本下的明细
+function loadRelDtlSelect(type) {
+	var _relId = $("#relId").val();
+    loadSelectBox("load/select/dtl/" + _relId, "relDtlId");
+    if(type == 2){
+    	$('#relDtlId').prepend("<option value='-1' selected>全部</option>");
+    	$('#relDtlId').select2({
+    		minimumResultsForSearch: Infinity
+    	});
+    }else {
+    	$('#relDtlId').selectpicker('refresh');
+    }
+}
+
 //获取模块下的Lib
 function loadLibSelect(type) {
 	var _moduleId = $("#moduleId").val();

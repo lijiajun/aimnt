@@ -161,7 +161,7 @@ public class BaseDataCache {
             EnumObject enumObject = new EnumObject();
             enumObject.setKey(mntProdVersion.getVerCode());
             enumObject.setValue(mntProdVersion.getVerName());
-            enumObject.setOrder(mntProdVersion.getVerId());
+            enumObject.setOrder(mntProdVersion.getProdId());
             enumObject.setGroupKey("PROD_VER");
             enumObject.setGroupValue("产品版本映射");
             map.put(mntProdVersion.getVerCode(),enumObject);

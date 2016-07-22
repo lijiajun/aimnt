@@ -1,5 +1,6 @@
 package com.ai.mnt.web.inst;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,10 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.util.DateUtil;
+import com.ai.mnt.common.util.ExcelUtil;
 import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.inst.MntInstallOnlineInfo;
 import com.ai.mnt.service.inst.MntInstallOnlineInfoService;
@@ -78,11 +82,13 @@ public class MntInstallOnlineInfoController {
         List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_INFO");
         List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
         List<EnumObject> isOnlinedEnums = BaseDataCache.getDataList("IS_ONLINED");
+        List<EnumObject> isFaultEnums = BaseDataCache.getDataList("IS_FAULT");
         List<EnumObject> isRemoteSupportEnums = BaseDataCache.getDataList("IS_REMOTE_SUPPORT");
         List<EnumObject> isOnsiteSupportEnums = BaseDataCache.getDataList("IS_ONSITE_SUPPORT");
         model.addAttribute("prodEnums", prodEnums);
         model.addAttribute("baseIdEnums", baseIdEnums);
         model.addAttribute("isOnlinedEnums", isOnlinedEnums);
+        model.addAttribute("isFaultEnums", isFaultEnums);
         model.addAttribute("isRemoteSupportEnums", isRemoteSupportEnums);
         model.addAttribute("isOnsiteSupportEnums", isOnsiteSupportEnums);
         return "inst/online/inst_online_add";
@@ -116,11 +122,13 @@ public class MntInstallOnlineInfoController {
         List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_INFO");
         List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
         List<EnumObject> isOnlinedEnums = BaseDataCache.getDataList("IS_ONLINED");
+        List<EnumObject> isFaultEnums = BaseDataCache.getDataList("IS_FAULT");
         List<EnumObject> isRemoteSupportEnums = BaseDataCache.getDataList("IS_REMOTE_SUPPORT");
         List<EnumObject> isOnsiteSupportEnums = BaseDataCache.getDataList("IS_ONSITE_SUPPORT");
         model.addAttribute("prodEnums", prodEnums);
         model.addAttribute("baseIdEnums", baseIdEnums);
         model.addAttribute("isOnlinedEnums", isOnlinedEnums);
+        model.addAttribute("isFaultEnums", isFaultEnums);
         model.addAttribute("isRemoteSupportEnums", isRemoteSupportEnums);
         model.addAttribute("isOnsiteSupportEnums", isOnsiteSupportEnums);
         
@@ -208,4 +216,50 @@ public class MntInstallOnlineInfoController {
         map.put("status", "1");
         return map;
     }
+    
+    /**
+     * 上线反馈导入页面
+     * 
+     * @param model
+     * @return
+     */
+    @RequestMapping("/online/import_page")
+    public String batchImportLibPage(Model model) {
+        List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
+        model.addAttribute("baseIdEnums", baseIdEnums);
+        return "inst/online/inst_online_import";
+    }
+    
+    /**
+     * 产品模块批量导入Excel
+     * 
+     * @param model
+     * @return
+     */
+    @RequestMapping("/online/import")
+    @ResponseBody
+    public Map<String, Object> batchImportProdModuleLib(@RequestParam("file") MultipartFile file, MntInstallOnlineInfo mntInstallOnlineInfo) {
+        Map<String, Object> map = new HashMap<>();
+        if (!file.isEmpty()) {
+            try {
+                //String fileName = file.getOriginalFilename();
+                InputStream inputStream = file.getInputStream();
+                List<List<String>> excelData = ExcelUtil.readExcelToListBySheetIndex(inputStream, 0);
+                
+                mntInstallOnlineInfoService.importOnlineData(excelData, mntInstallOnlineInfo.getBaseId());
+                
+                map.put("status", "1");
+                map.put("info", "文件上传解析成功！");
+            } catch (Exception e) {
+                e.printStackTrace();
+                map.put("status", "0");
+                map.put("error", "文件上传失败！" + e.getMessage());
+            }
+        }else {
+            map.put("status", "0");
+            map.put("error", "请选择需要上传的文件！");
+        }
+        return map;
+    }
+    
 }

@@ -109,7 +109,9 @@
                                             需求或故障编号 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" value="${mntInstallOnlineInfo.relDtlId}" name="relDtlId" id="relDtlId">
+                                            <select name="relDtlId" id="relDtlId" class="selectpicker form-control" data-live-search="true">
+                                            </select>
+<%--                                             <input type="text" class="form-control" value="${mntInstallOnlineInfo.relDtlId}" name="relDtlId" id="relDtlId"> --%>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入需求或故障编号</span>
                                         </div>
@@ -213,6 +215,24 @@
                                 <div class="col-md-12">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-2 control-label" for="form_control_1">
+                                            是否有故障 <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-10">
+                                            <select name="isFault" class="selectpicker form-control" id="isFault">
+                                                <c:forEach items="${isFaultEnums}" var="isFaultEnum">
+                                                    <option value="${isFaultEnum.key}">${isFaultEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <div class="form-control-focus"></div>
+                                            <span class="help-block">请选择是否有故障</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-md-line-input">
+                                        <label class="col-md-2 control-label" for="form_control_1">
                                             未上线原因
                                         </label>
                                         <div class="col-md-10">
@@ -280,6 +300,11 @@ jQuery(document).ready(function() {
     $('#relId').val(_relId);
     $('#relId').selectpicker('refresh');
     
+    loadRelDtlSelect();
+    var _relDtlId = '${mntInstallOnlineInfo.relDtlId}';
+    $('#relDtlId').val(_relDtlId);
+    $('#relDtlId').selectpicker('refresh');
+    
     var _baseId = '${mntInstallOnlineInfo.baseId}';
     $('#baseId').val(_baseId);
     $('#baseId').selectpicker('refresh');
@@ -296,6 +321,26 @@ jQuery(document).ready(function() {
     $('#isOnlined').val(_isOnlined);
     $('#isOnlined').selectpicker('refresh');
     
+    var _isFault = '${mntInstallOnlineInfo.isFault}';
+    $('#isFault').val(_isFault);
+    $('#isFault').selectpicker('refresh');
+    
+    $('#prodId').change(function(){
+        loadVerCodeSelect();
+        loadModuleSelect();
+        loadRelSelect();
+        loadRelDtlSelect();
+    });
+    
+    $('#verCode').change(function(){
+        loadModuleSelect();
+        loadRelSelect();
+        loadRelDtlSelect();
+    });
+    
+    $('#relId').change(function(){
+        loadRelDtlSelect();
+    });
     
     //表单校验提交
     //[1]自定义校验规则
@@ -311,6 +356,7 @@ jQuery(document).ready(function() {
             isRemoteSupport:"required",
             planOnlineDate:"required",
             isOnlined:"required",
+            isFault:"isFault"
     };
     //[2]表单校验初始化
     initFormValidate('form-update', rules, 'inst/online/update', 'update');

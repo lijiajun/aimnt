@@ -3,23 +3,21 @@ package com.ai.mnt.service.inst.impl;
 
 import java.util.List;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.inst.MntInstallBaseInfo;
 import com.ai.mnt.model.sys.SysUser;
-import com.ai.mnt.persistence.product.MntInstallBaseInfoMapper;
+import com.ai.mnt.persistence.inst.MntInstallBaseInfoMapper;
 import com.ai.mnt.service.inst.MntInstallBaseInfoService;
 
 /**
  * @Title: MntInstallBaseInfoServiceImpl 
  * @Description: MntInstallBaseInfoServiceImpl ServiceImplPackage
- * @Author: Auto Generate 
- * @Date: 2016-5-11
+ * @Author: Auto Generate.
+ * @Date: 2016-7-21
  */
 @Service
 public class MntInstallBaseInfoServiceImpl implements MntInstallBaseInfoService{
@@ -35,7 +33,7 @@ public class MntInstallBaseInfoServiceImpl implements MntInstallBaseInfoService{
      * @return List<MntInstallBaseInfo>
      */
     @Override
-    public List<MntInstallBaseInfo> findAllProdModule() {
+    public List<MntInstallBaseInfo> findAllMntInstallBaseInfo() {
         List<MntInstallBaseInfo> mntInstallBaseInfoList = mntInstallBaseInfoMapper.findAll();
         //cvtContentList(mntInstallBaseInfoList);
         return mntInstallBaseInfoList;
@@ -59,7 +57,7 @@ public class MntInstallBaseInfoServiceImpl implements MntInstallBaseInfoService{
      * @return MntInstallBaseInfo
      */
     @Override
-    public MntInstallBaseInfo findMntInstallBaseInfoById(Integer baseId) {
+    public MntInstallBaseInfo findMntInstallBaseInfoByBaseId(Integer baseId) {
         MntInstallBaseInfo mntInstallBaseInfo = mntInstallBaseInfoMapper.findByPrimaryKey(baseId);
         return mntInstallBaseInfo;
     }
@@ -113,9 +111,9 @@ public class MntInstallBaseInfoServiceImpl implements MntInstallBaseInfoService{
         }
     }
     
-    private void cvtContentList(List<MntInstallBaseInfo> MntInstallBaseInfoList) {
-        //for(MntInstallBaseInfo mntInstallBaseInfo : MntInstallBaseInfoList) {
-        //}
-    }
+    //private void cvtContentList(List<MntInstallBaseInfo> MntInstallBaseInfoList) {
+    //    for(MntInstallBaseInfo mntInstallBaseInfo : MntInstallBaseInfoList) {
+    //    }
+    //}
 }
 

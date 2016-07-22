@@ -131,8 +131,8 @@
                             <thead>
                                 <tr>
                                     <th class="checkbox-datatables"><input type="checkbox" id="tab-th-chk" /></th>
-                                    <th>安装点编号</th>
-                                    <th>产品编号</th>
+                                    <th>安装点</th>
+                                    <th>上线产品</th>
                                     <th>产品版本</th>
                                     <th>上线版本</th>
                                     <th>需求或故障编号</th>
@@ -144,6 +144,7 @@
                                     <th>延期上线日期</th>
                                     <th>实际上线日期</th>
                                     <th>是否已上线</th>
+                                    <th>是否有故障</th>
                                     <th>未上线原因</th>
                                     <th>备注</th>
                                     <th>创建人</th>
@@ -162,6 +163,11 @@
     </div>
     <div style="display:none" id="btn-data-tools">
         <shiro:hasPermission name="inst:operate">
+        <span class="dt-buttons">
+            <a class="dt-button btn purple btn-outline btn-mnt" id="btnImport" >
+                <span>导入</span>
+            </a>
+        </span>
         <span class="dt-buttons">
             <a class="dt-button btn red btn-outline btn-mnt" id="btnDelete" >
                 <span>删除</span>
@@ -251,6 +257,11 @@
             comfirmDeleteData(tableObj, checkedBox, 'inst/online/delete/');
         });
         
+        //导入
+        $('.div_right').on('click', '.dt-buttons>#btnImport', function() {
+            showModal(2, " ", [ '1000px', '400px' ], "inst/online/import_page", tableObj);
+        });
+        
     });
 
     function getConfig() {
@@ -294,6 +305,8 @@
             }, {
                 "data" : "isOnlinedTxt"
             }, {
+                "data" : "isFaultTxt"
+            }, {
                 "data" : "unOnlineReason"
             }, {
                 "data" : "onlineRemark"
@@ -322,7 +335,7 @@
                     if(data == null || data == "") {
                         return "";
                     }
-                    return new Date(data).format("yyyy-MM-dd hh:mm:ss");
+                    return new Date(data).format("yyyy-MM-dd");
                  }
             },
             {
@@ -332,7 +345,7 @@
                     if(data == null || data == "") {
                         return "";
                     }
-                    return new Date(data).format("yyyy-MM-dd hh:mm:ss");
+                    return new Date(data).format("yyyy-MM-dd");
                  }
             },
             {
@@ -342,11 +355,11 @@
                     if(data == null || data == "") {
                         return "";
                     }
-                    return new Date(data).format("yyyy-MM-dd hh:mm:ss");
+                    return new Date(data).format("yyyy-MM-dd");
                  }
             },
             {
-                "targets": [17],
+                "targets": [18],
                 "data": "createDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -356,7 +369,7 @@
                  }
             },
             {
-                "targets": [19],
+                "targets": [20],
                 "data": "modifyDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {

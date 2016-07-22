@@ -17,8 +17,8 @@ import com.ai.mnt.service.inst.MntInstallOnlineInfoService;
 /**
  * @Title: MntInstallOnlineInfoController 
  * @Description: MntInstallOnlineInfoController ControllerPackage
- * @Author: Auto Generate. HE
- * @Date: 2016-5-23
+ * @Author: Auto Generate.
+ * @Date: 2016-7-21
  */
 
 @Controller

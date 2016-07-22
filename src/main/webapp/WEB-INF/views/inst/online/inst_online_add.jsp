@@ -105,9 +105,11 @@
                                             需求或故障编号 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="relDtlId" id="relDtlId">
+                                            <select name="relDtlId" id="relDtlId" class="selectpicker form-control" data-live-search="true">
+                                            </select>
+<!--                                             <input type="text" class="form-control" placeholder="" name="relDtlId" id="relDtlId"> -->
                                             <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入需求或故障编号</span>
+                                            <span class="help-block">请选择需求或故障编号</span>
                                         </div>
                                     </div>
                                 </div>
@@ -206,6 +208,24 @@
                                 <div class="col-md-12">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-2 control-label" for="form_control_1">
+                                            是否有故障 <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-10">
+                                            <select name="isFault" class="selectpicker form-control" id="isFault">
+                                                <c:forEach items="${isFaultEnums}" var="isFaultEnum">
+                                                    <option value="${isFaultEnum.key}">${isFaultEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <div class="form-control-focus"></div>
+                                            <span class="help-block">请选择是否有故障</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-md-line-input">
+                                        <label class="col-md-2 control-label" for="form_control_1">
                                             未上线原因
                                         </label>
                                         <div class="col-md-10">
@@ -253,15 +273,22 @@ jQuery(document).ready(function() {
     loadVerCodeSelect();
     loadModuleSelect();
     loadRelSelect();
+    loadRelDtlSelect();
     $('#prodId').change(function(){
         loadVerCodeSelect();
         loadModuleSelect();
         loadRelSelect();
+        loadRelDtlSelect();
     });
     
     $('#verCode').change(function(){
         loadModuleSelect();
         loadRelSelect();
+        loadRelDtlSelect();
+    });
+    
+    $('#relId').change(function(){
+        loadRelDtlSelect();
     });
     
     //表单校验提交

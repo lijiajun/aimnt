@@ -10,7 +10,7 @@ import com.ai.mnt.persistence.base.CrudMapper;
  * @Title: MntInstallOnlineInfoMapper 
  * @Description: MntInstallOnlineInfoMapper Persistence
  * @Author: Auto Generate. HE
- * @Date: 2016-5-23
+ * @Date: 2016-7-21
  */
 @Repository
 public interface MntInstallOnlineInfoMapper extends CrudMapper<MntInstallOnlineInfo, Integer>{

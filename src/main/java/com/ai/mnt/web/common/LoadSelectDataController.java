@@ -15,9 +15,11 @@ import com.ai.mnt.model.product.MntModuleLib;
 import com.ai.mnt.model.product.MntProdModule;
 import com.ai.mnt.model.product.MntProdVersion;
 import com.ai.mnt.model.product.MntReleaseRec;
+import com.ai.mnt.model.product.MntReleaseRecDtl;
 import com.ai.mnt.service.product.MntModuleLibService;
 import com.ai.mnt.service.product.MntProdModuleService;
 import com.ai.mnt.service.product.MntProdVerService;
+import com.ai.mnt.service.product.MntReleaseRecDtlService;
 import com.ai.mnt.service.product.MntReleaseRecService;
 
 /**
@@ -40,6 +42,9 @@ public class LoadSelectDataController {
     
     @Autowired
     MntModuleLibService mntModuleLibService;
+    
+    @Autowired
+    MntReleaseRecDtlService mntReleaseRecDtlService;
     
     /**
      * 获取产品版本
@@ -128,6 +133,30 @@ public class LoadSelectDataController {
             for(MntModuleLib lib : mntModuleLibList) {
                 Map<Integer, String> map = new HashMap<>();
                 map.put(lib.getLibId(), lib.getLibName());
+                list.add(map);
+            }
+        }
+        return list;
+    }
+    
+    /**
+     * 获取发布版本下的需求或故障列表
+     * @param prodId
+     * @param verCode
+     * @return
+     */
+    @RequestMapping("/dtl/{relId}")
+    @ResponseBody
+    public List<Map<Integer, String>> queryRelDtlByRelId(@PathVariable String relId) {
+        List<Map<Integer, String>> list = new ArrayList<>();
+        if(relId != null && !"".equals(relId) && !"null".equals(relId)) {
+            MntReleaseRecDtl mntReleaseRecDtl = new MntReleaseRecDtl();
+            mntReleaseRecDtl.setDeleteFlag("0");
+            mntReleaseRecDtl.setRelId(Integer.parseInt(relId));
+            List<MntReleaseRecDtl> mntReleaseRecDtls = mntReleaseRecDtlService.findRelDtlList(mntReleaseRecDtl);
+            for(MntReleaseRecDtl dtl : mntReleaseRecDtls) {
+                Map<Integer, String> map = new HashMap<>();
+                map.put(dtl.getDtlId(), dtl.getDtlCode());
                 list.add(map);
             }
         }

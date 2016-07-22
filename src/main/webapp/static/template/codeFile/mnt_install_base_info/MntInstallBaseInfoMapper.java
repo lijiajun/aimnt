@@ -9,8 +9,8 @@ import com.ai.mnt.persistence.base.CrudMapper;
 /**
  * @Title: MntInstallBaseInfoMapper 
  * @Description: MntInstallBaseInfoMapper Persistence
- * @Author: Auto Generate 
- * @Date: 2016-5-5
+ * @Author: Auto Generate. HE
+ * @Date: 2016-7-21
  */
 @Repository
 public interface MntInstallBaseInfoMapper extends CrudMapper<MntInstallBaseInfo, Integer>{

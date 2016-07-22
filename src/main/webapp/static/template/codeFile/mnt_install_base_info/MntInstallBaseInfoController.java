@@ -11,16 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ai.mnt.common.cache.BaseDataCache;
-import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.inst.MntInstallBaseInfo;
 import com.ai.mnt.service.inst.MntInstallBaseInfoService;
 
 /**
  * @Title: MntInstallBaseInfoController 
  * @Description: MntInstallBaseInfoController ControllerPackage
- * @Author: Auto Generate 
- * @Date: 2016-5-11
+ * @Author: Auto Generate.
+ * @Date: 2016-7-21
  */
 
 @Controller
@@ -37,7 +35,7 @@ public class MntInstallBaseInfoController {
      */
     @RequestMapping("/base/page")
     public String showMntInstallBaseInfoPage(Model model) {
-        return "/inst/base/base_info";
+        return "inst/base/inst_base_query";
     }
     
     /**
@@ -48,7 +46,7 @@ public class MntInstallBaseInfoController {
     @RequestMapping("/base/query")
     @ResponseBody
     public Map<String, Object> getMntInstallBaseInfoList(MntInstallBaseInfo mntInstallBaseInfo) {
-        List<MntInstallBaseInfo> mntInstallBaseInfoList = mntInstallBaseInfoService.findmntInstallBaseInfoList(MntInstallBaseInfo);
+        List<MntInstallBaseInfo> mntInstallBaseInfoList = mntInstallBaseInfoService.findMntInstallBaseInfoList(mntInstallBaseInfo);
         Map<String, Object> map = new HashMap<>();
         map.put("data", mntInstallBaseInfoList);
         map.put("status", "1");
@@ -62,7 +60,7 @@ public class MntInstallBaseInfoController {
      */
     @RequestMapping("/base/add_page")
     public String showMntInstallBaseInfoAddPage(Model model) {
-        return "/inst/base/base_add";
+        return "inst/base/inst_base_add";
     }
     
     /**
@@ -87,9 +85,9 @@ public class MntInstallBaseInfoController {
      */
     @RequestMapping("/base/update_page/{baseId}")
     public String showMntInstallBaseInfoUpdatePage(Model model, @PathVariable String baseId) {
-        MntInstallBaseInfo mntInstallBaseInfo = mntInstallBaseInfoService.findMntInstallBaseInfoBybaseId(Integer.parseInt(baseId));
+        MntInstallBaseInfo mntInstallBaseInfo = mntInstallBaseInfoService.findMntInstallBaseInfoByBaseId(Integer.parseInt(baseId));
         model.addAttribute("mntInstallBaseInfo", mntInstallBaseInfo);
-        return "/inst/base/base_update";
+        return "inst/base/inst_base_update";
     }
     
     /**
@@ -113,10 +111,26 @@ public class MntInstallBaseInfoController {
      */
     @RequestMapping("/base/delete/{baseIds}")
     @ResponseBody
-    public Map<String, Object> deleteMntInstallBaseInfoBybaseIds(@PathVariable String baseIds) {
+    public Map<String, Object> deleteMntInstallBaseInfoByBaseIds(@PathVariable String baseIds) {
         mntInstallBaseInfoService.deleteMntInstallBaseInfoByBaseIds(baseIds);
         Map<String, Object> map = new HashMap<>();
         map.put("status", "1");
         return map;
+    }
+    
+    /**
+     * 根据主键查询安装点信息详细信息
+     * @param model
+     * @return
+     */
+    @RequestMapping("/base/{baseId}/page")
+    public String queryMntInstallBaseInfoByBaseId(Model model, @PathVariable String baseId) {
+        MntInstallBaseInfo mntInstallBaseInfo = new MntInstallBaseInfo();
+        mntInstallBaseInfo.setBaseId(Integer.parseInt(baseId));
+        List<MntInstallBaseInfo> mntInstallBaseInfoList = mntInstallBaseInfoService.findMntInstallBaseInfoList(mntInstallBaseInfo);
+        if(mntInstallBaseInfoList != null && mntInstallBaseInfoList.size() > 0) { //只会有一条数据
+            model.addAttribute("mntInstallBaseInfo", mntInstallBaseInfoList.get(0));
+        }
+        return "inst/base/inst_base_info";
     }
 }

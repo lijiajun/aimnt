@@ -14,6 +14,7 @@
         <result column="is_remote_support" property="isRemoteSupport" />
         <result column="plan_online_date" property="planOnlineDate" />
         <result column="online_date" property="onlineDate" />
+        <result column="is_fault" property="isFault" />
         <result column="is_onlined" property="isOnlined" />
         <result column="un_online_reason" property="unOnlineReason" />
         <result column="delay_online_date" property="delayOnlineDate" />
@@ -37,6 +38,7 @@
         <result column="is_remote_support" property="isRemoteSupport" />
         <result column="plan_online_date" property="planOnlineDate" />
         <result column="online_date" property="onlineDate" />
+        <result column="is_fault" property="isFault" />
         <result column="is_onlined" property="isOnlined" />
         <result column="un_online_reason" property="unOnlineReason" />
         <result column="delay_online_date" property="delayOnlineDate" />
@@ -70,6 +72,7 @@
         is_remote_support,
         plan_online_date,
         online_date,
+        is_fault,
         is_onlined,
         un_online_reason,
         delay_online_date,
@@ -93,6 +96,7 @@
         is_remote_support,
         plan_online_date,
         online_date,
+        is_fault,
         is_onlined,
         un_online_reason,
         delay_online_date,
@@ -114,6 +118,7 @@
         #{isRemoteSupport},
         #{planOnlineDate},
         #{onlineDate},
+        #{isFault},
         #{isOnlined},
         #{unOnlineReason},
         #{delayOnlineDate},
@@ -138,6 +143,7 @@
         is_remote_support,
         plan_online_date,
         online_date,
+        is_fault,
         is_onlined,
         un_online_reason,
         delay_online_date,
@@ -161,6 +167,7 @@
             #{item.isRemoteSupport},
             #{item.planOnlineDate},
             #{item.onlineDate},
+            #{item.isFault},
             #{item.isOnlined},
             #{item.unOnlineReason},
             #{item.delayOnlineDate},
@@ -220,6 +227,9 @@
             </if>
             <if test="onlineDate != null">
                 online_date = #{onlineDate},
+            </if>
+            <if test="isFault != null">
+                is_fault = #{isFault},
             </if>
             <if test="isOnlined != null">
                 is_onlined = #{isOnlined},
@@ -298,6 +308,9 @@
             <if test="onlineDate != null">
                 and online_date = #{onlineDate}
             </if>
+            <if test="isFault != null and isFault != ''">
+                is_fault = #{isFault}
+            </if>
             <if test="isOnlined != null and isOnlined != ''">
                 and is_onlined = #{isOnlined}
             </if>
@@ -370,6 +383,7 @@
         is_remote_support,
         plan_online_date,
         online_date,
+        is_fault,
         is_onlined,
         un_online_reason,
         delay_online_date,
@@ -411,6 +425,9 @@
             </if>
             <if test="onlineDate != null">
                 and (plan_online_date = #{onlineDate} or online_date = #{onlineDate} or delay_online_date = #{onlineDate})
+            </if>
+            <if test="isFault != null and isFault != ''">
+                and is_fault = #{isFault}
             </if>
             <if test="isOnlined != null and isOnlined != ''">
                 and is_onlined = #{isOnlined}

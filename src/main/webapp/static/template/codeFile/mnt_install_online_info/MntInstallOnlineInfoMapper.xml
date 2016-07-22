@@ -7,16 +7,17 @@
         <result column="base_id" property="baseId" />
         <result column="prod_id" property="prodId" />
         <result column="ver_code" property="verCode" />
-        <result column="rel_code" property="relCode" />
+        <result column="rel_id" property="relId" />
         <result column="rel_dtl_id" property="relDtlId" />
         <result column="module_id" property="moduleId" />
         <result column="is_onsite_support" property="isOnsiteSupport" />
         <result column="is_remote_support" property="isRemoteSupport" />
         <result column="plan_online_date" property="planOnlineDate" />
         <result column="online_date" property="onlineDate" />
+        <result column="delay_online_date" property="delayOnlineDate" />
+        <result column="is_fault" property="isFault" />
         <result column="is_onlined" property="isOnlined" />
         <result column="un_online_reason" property="unOnlineReason" />
-        <result column="delay_online_date" property="delayOnlineDate" />
         <result column="online_remark" property="onlineRemark" />
         <result column="delete_flag" property="deleteFlag" />
         <result column="creator" property="creator" />
@@ -30,16 +31,17 @@
         base_id,
         prod_id,
         ver_code,
-        rel_code,
+        rel_id,
         rel_dtl_id,
         module_id,
         is_onsite_support,
         is_remote_support,
         plan_online_date,
         online_date,
+        delay_online_date,
+        is_fault,
         is_onlined,
         un_online_reason,
-        delay_online_date,
         online_remark,
         delete_flag,
         creator,
@@ -53,16 +55,17 @@
         base_id,
         prod_id,
         ver_code,
-        rel_code,
+        rel_id,
         rel_dtl_id,
         module_id,
         is_onsite_support,
         is_remote_support,
         plan_online_date,
         online_date,
+        delay_online_date,
+        is_fault,
         is_onlined,
         un_online_reason,
-        delay_online_date,
         online_remark,
         delete_flag,
         creator,
@@ -74,16 +77,17 @@
         #{baseId},
         #{prodId},
         #{verCode},
-        #{relCode},
+        #{relId},
         #{relDtlId},
         #{moduleId},
         #{isOnsiteSupport},
         #{isRemoteSupport},
         #{planOnlineDate},
         #{onlineDate},
+        #{delayOnlineDate},
+        #{isFault},
         #{isOnlined},
         #{unOnlineReason},
-        #{delayOnlineDate},
         #{onlineRemark},
         #{deleteFlag},
         #{creator},
@@ -98,16 +102,17 @@
         base_id,
         prod_id,
         ver_code,
-        rel_code,
+        rel_id,
         rel_dtl_id,
         module_id,
         is_onsite_support,
         is_remote_support,
         plan_online_date,
         online_date,
+        delay_online_date,
+        is_fault,
         is_onlined,
         un_online_reason,
-        delay_online_date,
         online_remark,
         delete_flag,
         creator,
@@ -121,16 +126,17 @@
             #{item.baseId},
             #{item.prodId},
             #{item.verCode},
-            #{item.relCode},
+            #{item.relId},
             #{item.relDtlId},
             #{item.moduleId},
             #{item.isOnsiteSupport},
             #{item.isRemoteSupport},
             #{item.planOnlineDate},
             #{item.onlineDate},
+            #{item.delayOnlineDate},
+            #{item.isFault},
             #{item.isOnlined},
             #{item.unOnlineReason},
-            #{item.delayOnlineDate},
             #{item.onlineRemark},
             #{item.deleteFlag},
             #{item.creator},
@@ -167,8 +173,8 @@
             <if test="verCode != null">
                 ver_code = #{verCode},
             </if>
-            <if test="relCode != null">
-                rel_code = #{relCode},
+            <if test="relId != null">
+                rel_id = #{relId},
             </if>
             <if test="relDtlId != null">
                 rel_dtl_id = #{relDtlId},
@@ -188,14 +194,17 @@
             <if test="onlineDate != null">
                 online_date = #{onlineDate},
             </if>
+            <if test="delayOnlineDate != null">
+                delay_online_date = #{delayOnlineDate},
+            </if>
+            <if test="isFault != null">
+                is_fault = #{isFault},
+            </if>
             <if test="isOnlined != null">
                 is_onlined = #{isOnlined},
             </if>
             <if test="unOnlineReason != null">
                 un_online_reason = #{unOnlineReason},
-            </if>
-            <if test="delayOnlineDate != null">
-                delay_online_date = #{delayOnlineDate},
             </if>
             <if test="onlineRemark != null">
                 online_remark = #{onlineRemark},
@@ -244,8 +253,8 @@
             <if test="verCode != null and verCode != ''">
                 and ver_code = #{verCode}
             </if>
-            <if test="relCode != null and relCode != ''">
-                and rel_code = #{relCode}
+            <if test="relId != null">
+                and rel_id = #{relId}
             </if>
             <if test="relDtlId != null">
                 and rel_dtl_id = #{relDtlId}
@@ -265,14 +274,17 @@
             <if test="onlineDate != null">
                 and online_date = #{onlineDate}
             </if>
+            <if test="delayOnlineDate != null">
+                and delay_online_date = #{delayOnlineDate}
+            </if>
+            <if test="isFault != null and isFault != ''">
+                and is_fault = #{isFault}
+            </if>
             <if test="isOnlined != null and isOnlined != ''">
                 and is_onlined = #{isOnlined}
             </if>
             <if test="unOnlineReason != null and unOnlineReason != ''">
                 and un_online_reason = #{unOnlineReason}
-            </if>
-            <if test="delayOnlineDate != null">
-                and delay_online_date = #{delayOnlineDate}
             </if>
             <if test="onlineRemark != null and onlineRemark != ''">
                 and online_remark = #{onlineRemark}

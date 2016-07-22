@@ -7,9 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,7 +25,7 @@ public class LogParser {
     public static void parserLibDependencyLog() throws Exception {
         
         
-        File file = new File("E:\\zl\\yx\\运维平台\\数据导入\\帐处模块信息信息(初稿)\\帐处-NG-库依赖.txt");
+        File file = new File("E:\\zl\\yx\\运维平台\\数据导入\\帐处模块信息信息(初稿)\\帐处-库依赖\\帐处-VB-统一版-库依赖.txt");
         InputStream is = new FileInputStream(file);
         
         InputStreamReader isReader = new InputStreamReader(is);
@@ -35,7 +33,6 @@ public class LogParser {
         BufferedReader bis = new BufferedReader(isReader, 1024 * 1024);
         
         
-        Map<String, List<String>> libsMap = new HashMap<>();
         
         
         List<MntLibRelationExt> exts = new ArrayList<>();
@@ -48,7 +45,7 @@ public class LogParser {
         
         while((line = bis.readLine()) != null) {
             
-            if(line.contains("ldd: Invalid file type:")) {
+            if(line.contains("ldd: Invalid file type:") || "".equals(line.trim())) {
                 continue;
             }
             
@@ -112,7 +109,7 @@ public class LogParser {
         }
         
         
-        FileOutputStream fileOut = new FileOutputStream("E:\\zl\\yx\\运维平台\\数据导入\\帐处模块信息信息(初稿)\\依赖库.xls");
+        FileOutputStream fileOut = new FileOutputStream("E:\\zl\\yx\\运维平台\\数据导入\\帐处模块信息信息(初稿)\\帐处-库依赖\\帐处-VB-统一版-库依赖.xls");
         wb.write(fileOut);
         wb.close();
         fileOut.close();

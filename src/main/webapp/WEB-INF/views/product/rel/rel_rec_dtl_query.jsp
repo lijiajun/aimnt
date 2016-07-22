@@ -295,10 +295,10 @@
             "lengthMenu" : [ [ 5, 10, 20, -1 ], [ 5, 10, 20, "All" ] ],
             "order" : [ [ 1, "asc" ] ],
             "serverSide" : false,
-//             "ajax" : {
-//                 "url" : 'rel/dtl/query?relId=-1'
+            "ajax" : {
+                "url" : 'rel/dtl/query?relId=-1'
 //                 "async": false
-//             },
+            },
             "columns" : [ {
                 "data" : "dtlId"
             }, {

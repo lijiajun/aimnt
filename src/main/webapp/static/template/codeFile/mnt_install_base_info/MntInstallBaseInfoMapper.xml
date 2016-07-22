@@ -136,25 +136,25 @@
             <if test="baseId != null">
                 base_id = #{baseId}
             </if>
-            <if test="baseName != null">
+            <if test="baseName != null and baseName != ''">
                 and base_name = #{baseName}
             </if>
             <if test="buId != null">
                 and bu_id = #{buId}
             </if>
-            <if test="baseDesc != null">
+            <if test="baseDesc != null and baseDesc != ''">
                 and base_desc = #{baseDesc}
             </if>
-            <if test="deleteFlag != null">
+            <if test="deleteFlag != null and deleteFlag != ''">
                 and delete_flag = #{deleteFlag}
             </if>
-            <if test="creator != null">
+            <if test="creator != null and creator != ''">
                 and creator = #{creator}
             </if>
             <if test="createDate != null">
                 and create_date = #{createDate}
             </if>
-            <if test="modifier != null">
+            <if test="modifier != null and modifier != ''">
                 and modifier = #{modifier}
             </if>
             <if test="modifyDate != null">
@@ -168,5 +168,7 @@
         <include refid="MntInstallBaseInfoColumns" />
         from mnt_install_base_info
     </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
     
 </mapper>

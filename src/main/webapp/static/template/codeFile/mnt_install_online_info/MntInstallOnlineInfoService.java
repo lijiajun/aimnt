@@ -6,8 +6,8 @@ import com.ai.mnt.model.inst.MntInstallOnlineInfo;
 /**
  * @Title: MntInstallOnlineInfoService 
  * @Description: MntInstallOnlineInfoService ServicePackage
- * @Author: Auto Generate. HE
- * @Date: 2016-5-23
+ * @Author: Auto Generate.
+ * @Date: 2016-7-21
  */
 
 public interface MntInstallOnlineInfoService {

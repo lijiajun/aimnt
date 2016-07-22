@@ -6,8 +6,8 @@ import java.util.Date;
 /**
  * @Title: MntInstallOnlineInfo 
  * @Description: MntInstallOnlineInfo Model
- * @Author: Auto Generate. HE
- * @Date: 2016-5-23
+ * @Author: Auto Generate.
+ * @Date: 2016-7-21
  */
 public class MntInstallOnlineInfo implements Serializable{
 
@@ -26,7 +26,7 @@ public class MntInstallOnlineInfo implements Serializable{
     private String verCode;
 
     /**发布版本号*/
-    private String relCode;
+    private Integer relId;
 
     /**发布明细编号 需求或故障*/
     private Integer relDtlId;
@@ -46,14 +46,17 @@ public class MntInstallOnlineInfo implements Serializable{
     /**实际上线日期*/
     private Date onlineDate;
 
+    /**延期上线日期*/
+    private Date delayOnlineDate;
+
+    /**是否出现故障,1是 0否*/
+    private String isFault;
+
     /**是否已上线 1是 0否*/
     private String isOnlined;
 
     /**未上线原因*/
     private String unOnlineReason;
-
-    /**延期上线日期*/
-    private Date delayOnlineDate;
 
     /**备注*/
     private String onlineRemark;
@@ -106,12 +109,12 @@ public class MntInstallOnlineInfo implements Serializable{
         this.verCode = verCode;
     }
 
-    public String getRelCode() {
-        return relCode;
+    public Integer getRelId() {
+        return relId;
     }
 
-    public void setRelCode(String relCode) {
-        this.relCode = relCode;
+    public void setRelId(Integer relId) {
+        this.relId = relId;
     }
 
     public Integer getRelDtlId() {
@@ -162,6 +165,22 @@ public class MntInstallOnlineInfo implements Serializable{
         this.onlineDate = onlineDate;
     }
 
+    public Date getDelayOnlineDate() {
+        return delayOnlineDate;
+    }
+
+    public void setDelayOnlineDate(Date delayOnlineDate) {
+        this.delayOnlineDate = delayOnlineDate;
+    }
+
+    public String getIsFault() {
+        return isFault;
+    }
+
+    public void setIsFault(String isFault) {
+        this.isFault = isFault;
+    }
+
     public String getIsOnlined() {
         return isOnlined;
     }
@@ -176,14 +195,6 @@ public class MntInstallOnlineInfo implements Serializable{
 
     public void setUnOnlineReason(String unOnlineReason) {
         this.unOnlineReason = unOnlineReason;
-    }
-
-    public Date getDelayOnlineDate() {
-        return delayOnlineDate;
-    }
-
-    public void setDelayOnlineDate(Date delayOnlineDate) {
-        this.delayOnlineDate = delayOnlineDate;
     }
 
     public String getOnlineRemark() {

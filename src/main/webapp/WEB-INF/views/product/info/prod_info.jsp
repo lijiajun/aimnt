@@ -279,7 +279,7 @@ function getVerConfig() {
         "pageLength" : 5,
         "lengthMenu" : [ [5, 10, 20, -1 ], [ 5, 10, 20, "All" ] ],
         "serverSide" : false,
-        "order" : [ [ 1, "asc" ] ],
+        "order" : [ [ 2, "asc" ] ],
         "ajax": {
             "url": "prod/ver/query/-1",
        },
