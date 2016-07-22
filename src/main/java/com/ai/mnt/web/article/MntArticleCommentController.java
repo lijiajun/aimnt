@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ai.mnt.common.shiro.UserRealm;
+import com.ai.mnt.model.article.MntArticle;
 import com.ai.mnt.model.article.MntArticleComment;
+import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.service.article.MntArticleCommentService;
+import com.ai.mnt.service.article.MntArticleService;
 
 /**
  * @Title: MntArticleCommentController 
@@ -27,33 +31,49 @@ public class MntArticleCommentController {
 
     @Autowired
     MntArticleCommentService mntArticleCommentService;
-    
+    @Autowired
+    MntArticleService mntArticleService;
+    @Autowired
+    UserRealm userRealm;
     /**
      * 文章评论界面跳转
      * @param  model
      * @return String
      */
-    @RequestMapping("/comment/page{}")
+    @RequestMapping("/comment/page/{id}")
     @ResponseBody
-    public String showMntArticleCommentPage(Model model,MntArticleComment mntArticleComment) {
+    public Map<String, Object> showMntArticleCommentPage(Model model, @PathVariable String id,MntArticleComment mntArticleComment) {
+       System.out.println(id+"++++++++++++++++++++++");
+        MntArticle mntArticle = new MntArticle();
+        mntArticle = mntArticleService.findMntArticleById(Integer.parseInt(id));
+        model.addAttribute("mntArticle", mntArticle);
+        
+        mntArticleComment.setAritcleId(Integer.parseInt(id));
+        System.out.println(mntArticleComment.getCurrentPage()+"======commentcontroller");
         if(mntArticleComment.getCurrentPage() != 1) {
             int start = (mntArticleComment.getCurrentPage() -1) * mntArticleComment.getPageSize();
+            System.out.println("start="+start);
             mntArticleComment.setStart(start);
         }
-        
-        List<MntArticleComment> mntArticleCommentList=mntArticleCommentService.findMntArticleCommentListPagination(mntArticleComment);
         long totalCount = mntArticleCommentService.getMntArticleTotalCount(mntArticleComment);
         mntArticleComment.setTotalCount(totalCount);                       //本篇文章总评论数
-        
-        long totalPage = totalCount / mntArticleComment.getPageSize();
-        int mod = (int) (totalCount % mntArticleComment.getPageSize());
+        long totalPage = totalCount / mntArticle.getPageSize();
+        int mod = (int) (totalCount % mntArticle.getPageSize());
         totalPage = mod == 0 ? totalPage : totalPage + 1;
         mntArticleComment.setTotalPage(totalPage);
         
-        model.addAttribute("mntArticleComment", mntArticleComment);
-        model.addAttribute("commentList", mntArticleCommentList);
         
-        return "article/article_comment";
+        List<MntArticleComment> mntArticleCommentList=mntArticleCommentService.findMntArticleCommentListPagination(mntArticleComment);
+       
+        //model.addAttribute("mntArticleComment", mntArticleComment);
+        //model.addAttribute("commentList", mntArticleCommentList);
+
+        //return "article/article_comment";
+        Map<String, Object> map = new HashMap<>();
+        map.put("mntArticleComment", mntArticleComment);
+        map.put("commentList", mntArticleCommentList);
+        map.put("status", "1");
+        return map;
     }
     
     /**

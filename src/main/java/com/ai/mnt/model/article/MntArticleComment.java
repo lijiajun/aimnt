@@ -35,6 +35,9 @@ public class MntArticleComment extends Pagination implements Serializable{
     
     //评论上级的用户
     private String parentUserName;
+    
+    //评论上级的内容
+    private String parentComment;
 
     public Integer getCommentId() {
         return commentId;
@@ -90,6 +93,14 @@ public class MntArticleComment extends Pagination implements Serializable{
 
     public void setParentUserName(String parentUserName) {
         this.parentUserName = parentUserName;
+    }
+
+    public String getParentComment() {
+        return parentComment;
+    }
+
+    public void setParentComment(String parentComment) {
+        this.parentComment = parentComment;
     }
 
    /* public void setCommentCount(int size) {
