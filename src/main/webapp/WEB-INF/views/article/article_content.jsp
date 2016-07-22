@@ -20,7 +20,7 @@
                         ${mntArticle.title}
                     </div>
                     <div class="full-article-rel">
-                        作者：${mntArticle.author} &nbsp;&nbsp;&nbsp;&nbsp; <fmt:formatDate value="${mntArticle.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                                                 作者：${mntArticle.author} &nbsp;&nbsp;&nbsp;&nbsp; <fmt:formatDate value="${mntArticle.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                         <c:if test="${mntArticle.creator == currentUserName}">
                         &nbsp;&nbsp;<a href="article/update_page/${mntArticle.id}">编辑</a>&nbsp;&nbsp;<a id="article-delete" href="javascript:void(0);">删除</a>
                         </c:if>
@@ -60,52 +60,15 @@
                 <!-- 评论发表输出 -->
                 <div >
                     <div class="portlet light article">
-                        <div>
-                            评论(${mntArticleComment.totalCount}) 
+                        <div id="commenttotalCount">
+                                                                               评论(${mntArticleComment.totalCount}) 
                         </div> <hr>
-                        <div  id="content">
-                            <c:forEach items="${commentList }" var="comment">
-                                <c:if test="${comment.aritcleId==mntArticle.id}">
-                                    <div>
-                                        <a href="#"><strong>${comment.userName }</strong></a>  &nbsp; 发表于 &nbsp;
-                                        <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm:ss" />                               
-                                        <div style="text-align:right" >
-<%--                                             <button type="button" id="qwe_${comment.commentId}">回复此评论</button> --%>
-                                            <a href="javascript:;" onclick="showInput(${comment.commentId})">回复</a>
-                                        </div>
-                                    </div>
-                                    <c:if test="${comment.parentId ==-1}">
-                                        <div class="">
-                                            ${comment.commentContent }
-                                         </div>
-                                    </c:if>
-                                    <c:if test="${comment.parentId !=-1}">
-                                        <div>
-                                            对<a href="#"><strong>${comment.parentUserName}</strong></a>的回复:
-                                        </div><br>
-                                        <div class="">
-                                            ${comment.commentContent }
-                                        </div>
-                                    </c:if>
-                                    <br>
-                                    <div id="qwe_${comment.commentId }" style="display:none" class="comInp">              <!--  点击回复后，在评论下弹出一个文本框 不点击就隐藏 -->
-                                        <textarea rows="3" class="form-control" id="reInp${comment.commentId}"  placeholder="请输入评论，不要超过1000字"></textarea><br>
-                                        <div class="" style="text-align:right">
-                                            <span class="publish">
-                                                <a href="javascript:;" onclick="showReply(${comment.commentId})">回复评论</a>
-                                                <!-- <button type="button" class="commend-edit" id="reply-submit2" >回复</button> -->
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </c:if>
-                            </c:forEach>
+                        <div  id="commentList"> <a name="pos"></a>
                         </div>
                         <div class="portlet-foot" style="text-align: center;margin-top:30px" >
                             <div id="page-selection"></div>
                         </div>
-                        <!-- <div id="content">Dynamic Content goes here</div>
-                        <div id="page-selection">Pagination goes here</div> -->
+                       
                     </div>
                     <div class="reply-title">
                         <strong>发表我的看法</strong>
@@ -158,7 +121,7 @@
 
 <script>
     $(function() {
-        
+
         $('#articleSearch').click(function(){
             var _searchContent = $('#sContent').val();
             window.location.href = "article/page?title=" + _searchContent;
@@ -173,7 +136,7 @@
         
         $('#article-delete').click(function(){
         	$.ajax({
-                url:"article/delete/" + ${mntArticle.id},
+                url:"article/delete/" + '${mntArticle.id}',
                 dataType: "json",
                 async:false,
                 success:function (data) {
@@ -189,7 +152,6 @@
         });
         
         $('button#reply-submit').click(function(){
-        	//alert("==================");
             var _commentContent = $('#commentContend').val();
             var _articleId = ${mntArticle.id};
             var surl = 'article/add_article_comment?commentContent=' + _commentContent + "&aritcleId=" + _articleId;
@@ -198,10 +160,12 @@
                 url: surl,
                 type: 'POST',
                 dataType: "json",
-                success:function (data) {
-                    showMsg("评论成功！");
-                    window.location.href = "article/full_content/${mntArticle.id}";
-                    //return;
+                success:function (data) {  // 此处需要修改 
+                    //showMsg("评论成功！");
+                    //window.location.href = "article/full_content/${mntArticle.id}";
+                    $("#commentList").empty();
+                    comment(1);
+                    window.location.href = "article/full_content/${mntArticle.id}#commenttotalCount";
                 },
                 error:function(xhr, ajaxOptions, thrownError) {
                     console.log(thrownError);
@@ -210,43 +174,78 @@
                 }
             });
         });
-        
+         
         $('#page-selection').bootpag({
-            total:${mntArticleComment.totalPage},
-            page: ${mntArticleComment.currentPage},
+            total:'${mntArticleComment.totalPage}',
+            page: '${mntArticleComment.currentPage}',
             maxVisible: 10,
             leaps: false,
             next: ' > ',
             prev: ' < '
-        }).on("page", function(event,num){
-             window.location.href = "article/full_content/${mntArticle.id}?currentPage=" + num;
-            // alert("num: " + num);
-        });
-        
-       /*  $('button#reply-submit2').click(function(){
-        	var _commentContent2 = $("#commentContend2").val();
-            alert(_commentContent2);
-        }); */
-        
+        }).on("page", function(event,num){   //此处需要修改 
+             //window.location.href = "article/comment/page/${mntArticle.id}?currentPage=" + num;
+             //alert("num: " + num);
+             $("#commentList").empty();
+             number = num;
+             comment(number);
+             window.location.href = "article/full_content/${mntArticle.id}#commenttotalCount";
+             window.location.href = "article/full_content/${mntArticle.id}#commenttotalCount";
+        }); 
+        var number = 1 ;
+        comment(number);
         
     });
    
-       /*  function comment() {
-        	
-            var _url = 'article/comment/page?currentPage='+num;
+function comment(number) {
+        	//alert(number);
+            var _url = 'article/comment/page/${mntArticle.id}?currentPage=' + number ;  //需要传num参数吗 
+            
         	$.ajax({
                 url: _url,
                 dataType: "json",
                 async:false,
                 success:function (data) {
-                   
+                	for(var index in data){
+                		for(var i=0;i<data[index].length;i++){
+                			var _commentId = data[index][i].commentId;
+                			var _commentContent = data[index][i].commentContent;
+                			var _commentUserName = data[index][i].userName;
+                			var _commentDate = data[index][i].commentDate;
+                			var _commentParentId = data[index][i].parentId;
+                			var _commentParentUserName =  data[index][i].parentUserName;
+                			var _commentArticleId = data[index][i].aritcleId;
+                			var _commentParent = data[index][i].parentComment;
+                			 //alert('${mntArticle.id}'==_commentArticleId);
+                			if(_commentArticleId=='${mntArticle.id}'){
+                				$("#commentList").append("<div id='commentUserNameAndDate'><a href=''><strong>"+_commentUserName+"</strong></a>  &nbsp;"+
+                                        "发表于<nobr>&nbsp;"+new Date(_commentDate).format("yyyy-MM-dd hh:mm:ss") +"</nobr> "+
+                                        "<span><div style='text-align:right'> <a  href='javascript:;' onclick='showInput("+ _commentId +")' >回复 </a></div></span></div>");
+                                        
+                                        $("#commentList").append("<div id='qwe_"+_commentId+"' style='display:none' class='comInp'>"+
+                                                " <textarea rows='3' class='form-control' id='reInp"+_commentId+"' "+
+                                                "placeholder='请输入评论，不要超过1000字'></textarea><br>"+
+                                                "<div class='' style='text-align:right'> <a href='javascript:;' onclick='showReply("+_commentId+")'> 回复评论 </a></div> </div>");
+
+                                        
+                                        if(_commentParentId != -1){
+                                            $("#commentList").append("<div> 引用来自 &quot; <a href=''><strong>"+_commentParentUserName+"</strong></a>&quot; 的评论 :<br/><div id='height1'>"+
+                                            		_commentParent+"</div><hr>&nbsp;&nbsp;"+_commentContent+"</div><hr>");
+                                        }
+                                        else{
+                                             $("#commentList").append("<div id='commentContentOne'>"+_commentContent+"</div><hr>");
+                                        }
+                			}
+                			
+                		}
+                	}
                 },
                 error:function() {
-                    showMsg("加载下拉框出现错误！");
-                }
+                    showMsg("加载评论出现错误！ ");
+                },
             });
-} */
+}
 
+        
 function showInput(_cId) {
 	//alert(_cId);
 	if($(".comInp").is(":visible")==true){
@@ -267,10 +266,12 @@ function showReply(_commentId){
              url: _url2,
              type: 'POST',
              dataType: "json",
-             success:function (data) {
-                 showMsg("评论成功！");
-                 window.location.href = "article/full_content/${mntArticle.id}";
-                 //return;
+             success:function (data) {// 此处需要修改 
+                // showMsg("评论成功！");
+                 //window.location.href = "article/full_content/${mntArticle.id}";
+                $("#commentList").empty();
+                comment(1);
+                window.location.href = "article/full_content/${mntArticle.id}#commenttotalCount";
              },
              error:function(xhr, ajaxOptions, thrownError) {
                  console.log(thrownError);

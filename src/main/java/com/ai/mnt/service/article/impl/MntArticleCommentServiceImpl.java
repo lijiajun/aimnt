@@ -68,7 +68,8 @@ public class MntArticleCommentServiceImpl implements MntArticleCommentService{
             if (mntArticleComment2.getParentId()!=-1) {
                 MntArticleComment mntArticleComment1 = findMntArticleCommentByCommentId(mntArticleComment2.getParentId());
                 mntArticleComment2.setParentUserName(mntArticleComment1.getUserName());
-                System.out.println(mntArticleComment1.getParentUserName()+"===============");
+                mntArticleComment2.setParentComment(mntArticleComment1.getCommentContent());
+                System.out.println(mntArticleComment2.getParentUserName()+"===============");
             }else {
                 mntArticleComment2.setParentUserName("");
             }

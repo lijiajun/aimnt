@@ -239,14 +239,15 @@ public class MntArticleController {
         List<MntArticle> artiTopTenList = mntArticleService.getArticleListReadTopTen(mntArticle);
         model.addAttribute("artiTopTenList", artiTopTenList);
         
-        
+       
         //评论
-       // mntArticleComment.setCommentId();
+      
         mntArticleComment.setAritcleId(Integer.parseInt(id));
-        if(mntArticleComment.getCurrentPage() != 1) {
+        //System.out.println(mntArticleComment.getCurrentPage()+"=======mntarticlecontroller");
+        /*if(mntArticleComment.getCurrentPage() != 1) {
             int start = (mntArticleComment.getCurrentPage() -1) * mntArticleComment.getPageSize();
             mntArticleComment.setStart(start);
-        }
+        }*/
         long totalCount = mntArticleCommentService.getMntArticleTotalCount(mntArticleComment);
         mntArticleComment.setTotalCount(totalCount);                       //本篇文章总评论数
    
@@ -255,13 +256,11 @@ public class MntArticleController {
         totalPage = mod == 0 ? totalPage : totalPage + 1;
         mntArticleComment.setTotalPage(totalPage);
         
-       // String parentUserName =mntArticleCommentService.ge
-        //mntArticleComment.setParentId(parentId);
         
-        List<MntArticleComment> mntArticleCommentList=mntArticleCommentService.findMntArticleCommentListPagination(mntArticleComment);
+       // List<MntArticleComment> mntArticleCommentList=mntArticleCommentService.findMntArticleCommentListPagination(mntArticleComment);
        
         model.addAttribute("mntArticleComment", mntArticleComment);
-        model.addAttribute("commentList", mntArticleCommentList);
+      //  model.addAttribute("commentList", mntArticleCommentList);
         
         
         //current user
