@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.rel.MntProdRelPlanMapper">
+
+    <resultMap id="MntProdRelPlanResultMap" type="com.ai.mnt.model.rel.MntProdRelPlan">
+        <id column="id" property="id" />
+        <result column="base_id" property="baseId" />
+        <result column="plan_date" property="planDate" />
+        <result column="prod_id" property="prodId" />
+        <result column="ver_code" property="verCode" />
+        <result column="module_id" property="moduleId" />
+        <result column="req_no" property="reqNo" />
+        <result column="req_name" property="reqName" />
+        <result column="remark" property="remark" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="MntProdRelPlanColumns">
+        id,
+        base_id,
+        plan_date,
+        prod_id,
+        ver_code,
+        module_id,
+        req_no,
+        req_name,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into mnt_prod_rel_plan (
+        base_id,
+        plan_date,
+        prod_id,
+        ver_code,
+        module_id,
+        req_no,
+        req_name,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{baseId},
+        #{planDate},
+        #{prodId},
+        #{verCode},
+        #{moduleId},
+        #{reqNo},
+        #{reqName},
+        #{remark},
+        #{deleteFlag},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_prod_rel_plan (
+        base_id,
+        plan_date,
+        prod_id,
+        ver_code,
+        module_id,
+        req_no,
+        req_name,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.baseId},
+            #{item.planDate},
+            #{item.prodId},
+            #{item.verCode},
+            #{item.moduleId},
+            #{item.reqNo},
+            #{item.reqName},
+            #{item.remark},
+            #{item.deleteFlag},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_prod_rel_plan
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_prod_rel_plan
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_prod_rel_plan
+        <set>
+            <if test="baseId != null">
+                base_id = #{baseId},
+            </if>
+            <if test="planDate != null">
+                plan_date = #{planDate},
+            </if>
+            <if test="prodId != null">
+                prod_id = #{prodId},
+            </if>
+            <if test="verCode != null">
+                ver_code = #{verCode},
+            </if>
+            <if test="moduleId != null">
+                module_id = #{moduleId},
+            </if>
+            <if test="reqNo != null">
+                req_no = #{reqNo},
+            </if>
+            <if test="reqName != null">
+                req_name = #{reqName},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntProdRelPlanResultMap">
+        select
+        <include refid="MntProdRelPlanColumns" />
+        from mnt_prod_rel_plan
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="MntProdRelPlanResultMap">
+        select
+        <include refid="MntProdRelPlanColumns" />
+        from mnt_prod_rel_plan
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="baseId != null">
+                and base_id = #{baseId}
+            </if>
+            <if test="planDate != null">
+                and plan_date = #{planDate}
+            </if>
+            <if test="prodId != null">
+                and prod_id = #{prodId}
+            </if>
+            <if test="verCode != null and verCode != ''">
+                and ver_code = #{verCode}
+            </if>
+            <if test="moduleId != null">
+                and module_id = #{moduleId}
+            </if>
+            <if test="reqNo != null and reqNo != ''">
+                and req_no = #{reqNo}
+            </if>
+            <if test="reqName != null and reqName != ''">
+                and req_name = #{reqName}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntProdRelPlanResultMap">
+        select
+        <include refid="MntProdRelPlanColumns" />
+        from mnt_prod_rel_plan
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

@@ -238,7 +238,7 @@ public class MntInstallOnlineInfoController {
      */
     @RequestMapping("/online/import")
     @ResponseBody
-    public Map<String, Object> batchImportProdModuleLib(@RequestParam("file") MultipartFile file, MntInstallOnlineInfo mntInstallOnlineInfo) {
+    public Map<String, Object> importOnlineData(@RequestParam("file") MultipartFile file, MntInstallOnlineInfo mntInstallOnlineInfo) {
         Map<String, Object> map = new HashMap<>();
         if (!file.isEmpty()) {
             try {

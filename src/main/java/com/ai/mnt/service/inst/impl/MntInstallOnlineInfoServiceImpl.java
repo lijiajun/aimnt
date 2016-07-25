@@ -190,7 +190,7 @@ public class MntInstallOnlineInfoServiceImpl implements MntInstallOnlineInfoServ
         SysUser currentUser = userRealm.getCurrentUser();
         
         //数据存在校验
-        if(excelData == null || excelData.size() == 0) {
+        if(excelData == null || excelData.size() <= 1) {
             throw new MntDataAccessException("EXCEL没有数据，请检查后重新导入！" );
         }
         
@@ -233,7 +233,7 @@ public class MntInstallOnlineInfoServiceImpl implements MntInstallOnlineInfoServ
             module.setProdId(prodId);
             module.setVerCode(verCode);
             module.setDeleteFlag("0");
-            module.setModuleNameCn(rowList.get(5).trim());
+            module.setModuleName(rowList.get(5).trim());
             List<MntProdModule> moduleList = mntProdModuleMapper.findList(module);
             if(moduleList == null || moduleList.size() == 0) {
                 throw new MntDataAccessException("第" + (index+1) + "行该模块不存在，请检查后重新导入！" );
