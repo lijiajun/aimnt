@@ -166,6 +166,7 @@
                     $("#commentList").empty();
                     comment(1);
                     window.location.href = "article/full_content/${mntArticle.id}#commenttotalCount";
+                    $('#commentContend').val('');
                 },
                 error:function(xhr, ajaxOptions, thrownError) {
                     console.log(thrownError);
@@ -217,7 +218,7 @@ function comment(number) {
                 			var _commentParent = data[index][i].parentComment;
                 			 //alert('${mntArticle.id}'==_commentArticleId);
                 			if(_commentArticleId=='${mntArticle.id}'){
-                				$("#commentList").append("<div id='commentUserNameAndDate'><a href=''><strong>"+_commentUserName+"</strong></a>  &nbsp;"+
+                				$("#commentList").append("<div id='commentUserNameAndDate'><strong>"+_commentUserName+"</strong>  &nbsp;"+
                                         "发表于<nobr>&nbsp;"+new Date(_commentDate).format("yyyy-MM-dd hh:mm:ss") +"</nobr> "+
                                         "<span><div style='text-align:right'> <a  href='javascript:;' onclick='showInput("+ _commentId +")' >回复 </a></div></span></div>");
                                         
@@ -228,8 +229,8 @@ function comment(number) {
 
                                         
                                         if(_commentParentId != -1){
-                                            $("#commentList").append("<div> 引用来自 &quot; <a href=''><strong>"+_commentParentUserName+"</strong></a>&quot; 的评论 :<br/><div id='height1'>"+
-                                            		_commentParent+"</div><hr>&nbsp;&nbsp;"+_commentContent+"</div><hr>");
+                                            $("#commentList").append("<div> 引用来自 &quot; <strong>"+_commentParentUserName+"</strong>&quot; 的评论 :<br/><div id='height1'><em>"+
+                                            		_commentParent+"</em></div ><hr>&nbsp;&nbsp;"+_commentContent+"</div><hr>");
                                         }
                                         else{
                                              $("#commentList").append("<div id='commentContentOne'>"+_commentContent+"</div><hr>");
