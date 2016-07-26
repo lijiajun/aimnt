@@ -13,11 +13,11 @@
         <div class="wrapper-content">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class=" icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 产品模块导入 </span>
+                    <i class=" icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 业务库依赖批量导入 </span>
                 </div>
             </div>
             <div class="portlet-body">
-                <form action="#" action="prod/lib/import" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-upload">
+                <form action="prod/lib/import" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-upload">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input">
@@ -55,20 +55,18 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <label class="col-md-2 control-label" for="form_control_1">
+                        <div class="col-md-6">
+                            <label class="col-md-4 control-label" for="form_control_1">
                                     导入文件 <span class="required">*</span>
                             </label>
-                            <div class="col-md-10 form-group">
+                            <div class="col-md-8 form-group">
                                 <input type="file" name="file" id="tempFile">
                                 <div class="form-control-focus"></div>
-                                <span class="help-block">请选择导入文件</span>
+                                <span class="help-block">请选择导入文件(Excel)</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="col-md-12 control-label" for="form_control_1">
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label" for="form_control_1">
                                 <button type="button" id="commit" class="btn green">提 交</button>
                             </label>
                         </div>
@@ -82,6 +80,34 @@
                             <div class="col-md-10 form-group">
                                 <a id="templete" href="javascript:void(0)">依赖库文件模板</a>
                             </div>
+                        </div>
+                    </div>
+                    <hr/>
+                </form>
+            </div>
+            
+            <div class="portlet-title">
+                <div class="caption font-dark">
+                    <i class=" icon-layers font-green"></i> <span class="caption-subject bold uppercase"> ldd生成文件转换 </span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form action="parser/ldd/down" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-parser">
+                    <div class="row" style="padding-top:20px">
+                        <div class="col-md-6">
+                            <label class="col-md-4 control-label" for="form_control_1">
+                                    上传文件 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-8 form-group">
+                                <input type="file" name="file" id="lddTempFile">
+                                <div class="form-control-focus"></div>
+                                <span class="help-block">请选择上传文件(txt或TXT文件)</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label" for="form_control_1">
+                                <button type="button" id="parserLdd" class="btn green">转 换</button>
+                            </label>
                         </div>
                     </div>
                 </form>
@@ -135,7 +161,7 @@ jQuery(document).ready(function() {
             type: 'POST',
             dataType: "json",
             data: formData,
-            processData: false,  
+            processData: false,
             contentType: false,
             async:false,
             success:function (data) {
@@ -156,6 +182,16 @@ jQuery(document).ready(function() {
         $('#verCode').selectpicker('refresh');
     });
     
+    
+    $("#parserLdd").click(function(){
+    	
+        if($('#lddTempFile').val() == '') {
+            showMsg("请选择需要上传的txt或TXT文件！");
+            return;
+        }
+    	
+        $("#form-parser").submit();
+    });  
 });
 
 </script>

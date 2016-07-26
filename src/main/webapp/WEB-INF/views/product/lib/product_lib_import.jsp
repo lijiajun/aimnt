@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>产品模块导入</title>
+<title>业务库导入</title>
 <%@include file="../../included/includedStyle.jsp" %>
 </head>
 
@@ -13,7 +13,7 @@
         <div class="wrapper-content">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class=" icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 产品模块导入 </span>
+                    <i class=" icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 业务库批量导入 </span>
                 </div>
             </div>
             <div class="portlet-body">

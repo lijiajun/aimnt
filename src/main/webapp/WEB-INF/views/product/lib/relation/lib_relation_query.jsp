@@ -201,7 +201,7 @@
         
         //库依赖导入
         $('.div_right').on('click', '.dt-buttons>#btnImport', function() {
-            showModal(2, " ", [ '1000px', '400px' ], "lib/relation/import_page", tableObj);
+            showModal(2, " ", [ '1000px', '500px' ], "lib/relation/import_page", tableObj);
         });
         
     });
