@@ -21,6 +21,7 @@ import com.ai.mnt.common.util.DateUtil;
 import com.ai.mnt.common.util.ExcelUtil;
 import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.inst.MntInstallOnlineInfo;
+import com.ai.mnt.model.product.MntReleaseRecDtl;
 import com.ai.mnt.service.inst.MntInstallOnlineInfoService;
 
 /**
@@ -62,8 +63,10 @@ public class MntInstallOnlineInfoController {
      */
     @RequestMapping("/online/query")
     @ResponseBody
-    public Map<String, Object> getMntInstallOnlineInfoList(MntInstallOnlineInfo mntInstallOnlineInfo) {
+    public Map<String, Object> getMntInstallOnlineInfoList(MntInstallOnlineInfo mntInstallOnlineInfo,
+            MntReleaseRecDtl mntReleaseRecDtl) {
         mntInstallOnlineInfo.setDeleteFlag("0");
+        mntInstallOnlineInfo.setMntReleaseRecDtl(mntReleaseRecDtl);
         List<MntInstallOnlineInfo> mntInstallOnlineInfoList = 
                 mntInstallOnlineInfoService.findOnlineInfoListJoinRelDtl(mntInstallOnlineInfo);
         Map<String, Object> map = new HashMap<>();

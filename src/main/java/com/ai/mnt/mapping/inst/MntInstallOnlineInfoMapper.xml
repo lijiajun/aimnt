@@ -404,6 +404,7 @@
         from 
         mnt_install_online_info t1 join mnt_release_rec_dtl t2
         on t1.rel_dtl_id = t2.dtl_id
+        join mnt_release_rec t3 on t2.rel_id = t3.rel_id
         <where>
             <if test="onlineId != null">
                 online_id = #{onlineId}
@@ -419,6 +420,12 @@
             </if>
             <if test="relId != null and relId != ''">
                 and rel_id = #{relId}
+            </if>
+            <if test="relCode != null and relCode != ''">
+                and t3.rel_code like '%${relCode}%'
+            </if>
+            <if test="mntReleaseRecDtl.dtlCode != null and mntReleaseRecDtl.dtlCode != ''">
+                and t2.dtl_code like '%${mntReleaseRecDtl.dtlCode}%'
             </if>
             <if test="planOnlineDate != null">
                 and plan_online_date = #{planOnlineDate}

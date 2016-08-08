@@ -82,14 +82,18 @@ public class MntReleaseRecServiceImpl implements MntReleaseRecService {
     @Override
     public void saveReleaseRec(MntReleaseRec mntReleaseRec) throws MntDataAccessException{
         
-        MntReleaseRec mntReleaseRec2 = new MntReleaseRec();
-        mntReleaseRec2.setRelCode(mntReleaseRec.getRelCode());
-        mntReleaseRec2.setProdId(mntReleaseRec.getProdId());
-        List<MntReleaseRec> relReclist = mntReleaseRecMapper.findList(mntReleaseRec2);
-        if(relReclist != null && relReclist.size() > 0) {
-            throw new MntDataAccessException("该产品的版本号信息已经存在，请检查后重新添加！" );
+        if(!"BIZBILLING_VER_00000".equals(mntReleaseRec.getRelCode()) && 
+                !"BIZBILLING_VER_11111".equals(mntReleaseRec.getRelCode()) &&
+                !"BIZBILLING_VER_99999".equals(mntReleaseRec.getRelCode())) {
+            //重复验证
+            MntReleaseRec mntReleaseRec2 = new MntReleaseRec();
+            mntReleaseRec2.setRelCode(mntReleaseRec.getRelCode());
+            mntReleaseRec2.setProdId(mntReleaseRec.getProdId());
+            List<MntReleaseRec> relReclist = mntReleaseRecMapper.findList(mntReleaseRec2);
+            if(relReclist != null && relReclist.size() > 0) {
+                throw new MntDataAccessException("该产品的版本号信息已经存在，请检查后重新添加！" );
+            }
         }
-        
         SysUser currentUser = userRealm.getCurrentUser();
         mntReleaseRec.setDeleteFlag("0");
         mntReleaseRec.setCreator(currentUser.getUserName());

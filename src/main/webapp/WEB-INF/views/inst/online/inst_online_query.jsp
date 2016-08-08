@@ -102,7 +102,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">需求(故障)编号</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="dtlCode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -201,6 +209,7 @@
             var strProdId = $("#prodId").val();
             var strVerCode = $("#verCode").val();
             var strRelCode = $("#relCode").val();
+            var strDtlCode = $("#dtlCode").val();
             var strBeginDate = $("#beginDate").val();
             var strEndDate = $("#endDate").val();
             var strIsOnlined = $("#isOnlined").val();
@@ -215,6 +224,7 @@
                 "&relCode=" + strRelCode +
                 "&beginDate=" + strBeginDate +
                 "&endDate=" + strEndDate +
+                "&dtlCode=" + strDtlCode +
                 "&isOnlined=" + strIsOnlined;
             tableObj.ajax.url(sUrl).load();
         });
@@ -224,6 +234,7 @@
             $('#prodId').val(-1);
             $('#verCode').val(-1);
             $('#relCode').val('');
+            $('#dtlCode').val('');
             $('#beginDate').val('');
             $('#endDate').val('');
             $('#isOnlined').val(-1);
