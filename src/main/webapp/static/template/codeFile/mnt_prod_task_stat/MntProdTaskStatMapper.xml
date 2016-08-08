@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.report.MntProdTaskStatMapper">
+
+    <resultMap id="MntProdTaskStatResultMap" type="com.ai.mnt.model.report.MntProdTaskStat">
+        <id column="id" property="id" />
+        <result column="prod_id" property="prodId" />
+        <result column="new_num" property="newNum" />
+        <result column="processing_num" property="processingNum" />
+        <result column="finished_num" property="finishedNum" />
+        <result column="earl_subm_time_unfinished" property="earlSubmTimeUnfinished" />
+        <result column="cycle" property="cycle" />
+        <result column="cycle_begin_date" property="cycleBeginDate" />
+        <result column="cycle_end_date" property="cycleEndDate" />
+        <result column="remark" property="remark" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="MntProdTaskStatColumns">
+        id,
+        prod_id,
+        new_num,
+        processing_num,
+        finished_num,
+        earl_subm_time_unfinished,
+        cycle,
+        cycle_begin_date,
+        cycle_end_date,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into mnt_prod_task_stat (
+        prod_id,
+        new_num,
+        processing_num,
+        finished_num,
+        earl_subm_time_unfinished,
+        cycle,
+        cycle_begin_date,
+        cycle_end_date,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{prodId},
+        #{newNum},
+        #{processingNum},
+        #{finishedNum},
+        #{earlSubmTimeUnfinished},
+        #{cycle},
+        #{cycleBeginDate},
+        #{cycleEndDate},
+        #{remark},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_prod_task_stat (
+        prod_id,
+        new_num,
+        processing_num,
+        finished_num,
+        earl_subm_time_unfinished,
+        cycle,
+        cycle_begin_date,
+        cycle_end_date,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.prodId},
+            #{item.newNum},
+            #{item.processingNum},
+            #{item.finishedNum},
+            #{item.earlSubmTimeUnfinished},
+            #{item.cycle},
+            #{item.cycleBeginDate},
+            #{item.cycleEndDate},
+            #{item.remark},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_prod_task_stat
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_prod_task_stat
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_prod_task_stat
+        <set>
+            <if test="prodId != null">
+                prod_id = #{prodId},
+            </if>
+            <if test="newNum != null">
+                new_num = #{newNum},
+            </if>
+            <if test="processingNum != null">
+                processing_num = #{processingNum},
+            </if>
+            <if test="finishedNum != null">
+                finished_num = #{finishedNum},
+            </if>
+            <if test="earlSubmTimeUnfinished != null">
+                earl_subm_time_unfinished = #{earlSubmTimeUnfinished},
+            </if>
+            <if test="cycle != null">
+                cycle = #{cycle},
+            </if>
+            <if test="cycleBeginDate != null">
+                cycle_begin_date = #{cycleBeginDate},
+            </if>
+            <if test="cycleEndDate != null">
+                cycle_end_date = #{cycleEndDate},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntProdTaskStatResultMap">
+        select
+        <include refid="MntProdTaskStatColumns" />
+        from mnt_prod_task_stat
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="MntProdTaskStatResultMap">
+        select
+        <include refid="MntProdTaskStatColumns" />
+        from mnt_prod_task_stat
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="prodId != null">
+                and prod_id = #{prodId}
+            </if>
+            <if test="newNum != null">
+                and new_num = #{newNum}
+            </if>
+            <if test="processingNum != null">
+                and processing_num = #{processingNum}
+            </if>
+            <if test="finishedNum != null">
+                and finished_num = #{finishedNum}
+            </if>
+            <if test="earlSubmTimeUnfinished != null">
+                and earl_subm_time_unfinished = #{earlSubmTimeUnfinished}
+            </if>
+            <if test="cycle != null and cycle != ''">
+                and cycle = #{cycle}
+            </if>
+            <if test="cycleBeginDate != null">
+                and cycle_begin_date = #{cycleBeginDate}
+            </if>
+            <if test="cycleEndDate != null">
+                and cycle_end_date = #{cycleEndDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntProdTaskStatResultMap">
+        select
+        <include refid="MntProdTaskStatColumns" />
+        from mnt_prod_task_stat
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

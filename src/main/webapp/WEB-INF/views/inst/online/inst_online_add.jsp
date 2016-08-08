@@ -304,6 +304,7 @@ jQuery(document).ready(function() {
             isRemoteSupport:"required",
             planOnlineDate:"required",
             isOnlined:"required",
+            isFault:"required"
     };
     //[2]表单校验初始化
     initFormValidate('form-add', rules, 'inst/online/add', 'add');

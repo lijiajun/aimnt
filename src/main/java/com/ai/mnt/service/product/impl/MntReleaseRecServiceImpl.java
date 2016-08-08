@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
+import com.ai.mnt.exception.MntDataAccessException;
 import com.ai.mnt.model.product.MntReleaseRec;
 import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.persistence.product.MntReleaseRecMapper;
@@ -79,7 +80,15 @@ public class MntReleaseRecServiceImpl implements MntReleaseRecService {
     }
 
     @Override
-    public void saveReleaseRec(MntReleaseRec mntReleaseRec) {
+    public void saveReleaseRec(MntReleaseRec mntReleaseRec) throws MntDataAccessException{
+        
+        MntReleaseRec mntReleaseRec2 = new MntReleaseRec();
+        mntReleaseRec2.setRelCode(mntReleaseRec.getRelCode());
+        mntReleaseRec2.setProdId(mntReleaseRec.getProdId());
+        List<MntReleaseRec> relReclist = mntReleaseRecMapper.findList(mntReleaseRec2);
+        if(relReclist != null && relReclist.size() > 0) {
+            throw new MntDataAccessException("该产品的版本号信息已经存在，请检查后重新添加！" );
+        }
         
         SysUser currentUser = userRealm.getCurrentUser();
         mntReleaseRec.setDeleteFlag("0");

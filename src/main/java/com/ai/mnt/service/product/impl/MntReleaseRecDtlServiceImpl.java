@@ -8,17 +8,22 @@ import org.springframework.stereotype.Service;
 
 import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
+import com.ai.mnt.exception.MntDataAccessException;
 import com.ai.mnt.model.product.MntReleaseRec;
 import com.ai.mnt.model.product.MntReleaseRecDtl;
 import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.persistence.product.MntReleaseRecDtlMapper;
 import com.ai.mnt.service.product.MntReleaseRecDtlService;
+import com.ai.mnt.service.product.MntReleaseRecService;
 
 @Service
 public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
 
     @Autowired
     MntReleaseRecDtlMapper mntReleaseRecDtlMapper;
+    
+    @Autowired
+    MntReleaseRecService mntReleaseRecService;
     
     @Autowired
     UserRealm userRealm;
@@ -69,6 +74,27 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
 
     @Override
     public void saveRelDtl(MntReleaseRecDtl mntReleaseRecDtl) {
+        
+        
+        MntReleaseRec releaseRec = mntReleaseRecService.findReleaseRecById(mntReleaseRecDtl.getRelId());
+        if(!"BIZBILLING_VER_00000".equals(releaseRec.getRelCode()) && 
+                !"BIZBILLING_VER_11111".equals(releaseRec.getRelCode()) &&
+                !"BIZBILLING_VER_99999".equals(releaseRec.getRelCode())) {
+            //重复验证
+            MntReleaseRecDtl mntReleaseRecDtl2 = new MntReleaseRecDtl();
+            mntReleaseRecDtl2.setRelId(mntReleaseRecDtl.getRelId());
+            mntReleaseRecDtl2.setDtlCode(mntReleaseRecDtl.getDtlCode());
+            MntReleaseRec mntReleaseRec = new MntReleaseRec();
+            mntReleaseRec.setProdId(mntReleaseRecDtl.getProdId());
+            mntReleaseRecDtl2.setMntReleaseRec(mntReleaseRec);
+            List<MntReleaseRecDtl> recDtllist = mntReleaseRecDtlMapper.findRecAndDtlJoinList(mntReleaseRecDtl2);
+            if(recDtllist != null && recDtllist.size() > 0) {
+                throw new MntDataAccessException("该产品的相同版本号下已经存在相同的明细信息，请检查后重新添加！" );
+            }
+        }
+        
+        
+        
         SysUser currentUser = userRealm.getCurrentUser();
         mntReleaseRecDtl.setDeleteFlag("0");
         mntReleaseRecDtl.setCreator(currentUser.getUserName());
@@ -111,6 +137,23 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
     @Override
     public void saveReleaseRecWithBaseIds(MntReleaseRecDtl mntReleaseRecDtl,
             String[] baseIdAry) {
+        
+        MntReleaseRec releaseRec = mntReleaseRecService.findReleaseRecById(mntReleaseRecDtl.getRelId());
+        if(!"BIZBILLING_VER_00000".equals(releaseRec.getRelCode()) && 
+                !"BIZBILLING_VER_11111".equals(releaseRec.getRelCode()) &&
+                !"BIZBILLING_VER_99999".equals(releaseRec.getRelCode())) {
+            //重复验证
+            MntReleaseRecDtl mntReleaseRecDtl2 = new MntReleaseRecDtl();
+            mntReleaseRecDtl2.setRelId(mntReleaseRecDtl.getRelId());
+            mntReleaseRecDtl2.setDtlCode(mntReleaseRecDtl.getDtlCode());
+            MntReleaseRec mntReleaseRec = new MntReleaseRec();
+            mntReleaseRec.setProdId(mntReleaseRecDtl.getProdId());
+            mntReleaseRecDtl2.setMntReleaseRec(mntReleaseRec);
+            List<MntReleaseRecDtl> recDtllist = mntReleaseRecDtlMapper.findRecAndDtlJoinList(mntReleaseRecDtl2);
+            if(recDtllist != null && recDtllist.size() > 0) {
+                throw new MntDataAccessException("该产品的相同版本号下已经存在相同的明细信息，请检查后重新添加！" );
+            }
+        }
         
         SysUser currentUser = userRealm.getCurrentUser();
         mntReleaseRecDtl.setDeleteFlag("0");

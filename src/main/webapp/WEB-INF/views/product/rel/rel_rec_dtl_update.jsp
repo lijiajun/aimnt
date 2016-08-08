@@ -221,12 +221,17 @@ function initSelect() {
     //赋值
     var _verCode = '${releaseRecDtl.mntReleaseRec.verCode}';
     $('#verCode').val(_verCode);
+    
     //加载发布版本select
     loadRelSelect();
     var _relId = '${releaseRecDtl.relId}';
     $('#relId').val(_relId);
     $('#verCode').selectpicker('refresh');
     $('#relId').selectpicker('refresh');
+    
+    var _baseId = '${releaseRecDtl.baseId}';
+    $('#baseId').val(_baseId);
+    $('#baseId').selectpicker('refresh');
 }
 </script>
 </body>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.report.MntTeamMemberStatMapper">
+
+    <resultMap id="MntTeamMemberStatResultMap" type="com.ai.mnt.model.report.MntTeamMemberStat">
+        <id column="id" property="id" />
+        <result column="team_id" property="teamId" />
+        <result column="member_num" property="memberNum" />
+        <result column="member_type" property="memberType" />
+        <result column="cycle" property="cycle" />
+        <result column="cycle_begin_date" property="cycleBeginDate" />
+        <result column="cycle_end_date" property="cycleEndDate" />
+        <result column="remark" property="remark" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="MntTeamMemberStatColumns">
+        id,
+        team_id,
+        member_num,
+        member_type,
+        cycle,
+        cycle_begin_date,
+        cycle_end_date,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into mnt_team_member_stat (
+        team_id,
+        member_num,
+        member_type,
+        cycle,
+        cycle_begin_date,
+        cycle_end_date,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{teamId},
+        #{memberNum},
+        #{memberType},
+        #{cycle},
+        #{cycleBeginDate},
+        #{cycleEndDate},
+        #{remark},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_team_member_stat (
+        team_id,
+        member_num,
+        member_type,
+        cycle,
+        cycle_begin_date,
+        cycle_end_date,
+        remark,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.teamId},
+            #{item.memberNum},
+            #{item.memberType},
+            #{item.cycle},
+            #{item.cycleBeginDate},
+            #{item.cycleEndDate},
+            #{item.remark},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_team_member_stat
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_team_member_stat
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_team_member_stat
+        <set>
+            <if test="teamId != null">
+                team_id = #{teamId},
+            </if>
+            <if test="memberNum != null">
+                member_num = #{memberNum},
+            </if>
+            <if test="memberType != null">
+                member_type = #{memberType},
+            </if>
+            <if test="cycle != null">
+                cycle = #{cycle},
+            </if>
+            <if test="cycleBeginDate != null">
+                cycle_begin_date = #{cycleBeginDate},
+            </if>
+            <if test="cycleEndDate != null">
+                cycle_end_date = #{cycleEndDate},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntTeamMemberStatResultMap">
+        select
+        <include refid="MntTeamMemberStatColumns" />
+        from mnt_team_member_stat
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="MntTeamMemberStatResultMap">
+        select
+        <include refid="MntTeamMemberStatColumns" />
+        from mnt_team_member_stat
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="teamId != null">
+                and team_id = #{teamId}
+            </if>
+            <if test="memberNum != null">
+                and member_num = #{memberNum}
+            </if>
+            <if test="memberType != null and memberType != ''">
+                and member_type = #{memberType}
+            </if>
+            <if test="cycle != null and cycle != ''">
+                and cycle = #{cycle}
+            </if>
+            <if test="cycleBeginDate != null">
+                and cycle_begin_date = #{cycleBeginDate}
+            </if>
+            <if test="cycleEndDate != null">
+                and cycle_end_date = #{cycleEndDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntTeamMemberStatResultMap">
+        select
+        <include refid="MntTeamMemberStatColumns" />
+        from mnt_team_member_stat
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

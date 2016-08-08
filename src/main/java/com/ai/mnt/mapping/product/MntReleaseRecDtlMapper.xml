@@ -214,7 +214,7 @@
         where dtl_id = #{dtlId}
     </select>
 
-    <select id="findList" resultMap="MntReleaseRecDtlResultMap">
+    <select id="findList" resultMap="MntReleaseRecDtlResultMap" useCache="false">
         select
         <include refid="MntReleaseRecDtlColumns" />
         from mnt_release_rec_dtl
@@ -302,13 +302,13 @@
                 t1.prod_id = #{mntReleaseRec.prodId}
             </if>
             <if test="mntReleaseRec.relCode != null and mntReleaseRec.relCode != ''">
-                and t1.rel_code = #{mntReleaseRec.relCode}
+                and t1.rel_code like '%${mntReleaseRec.relCode}%'
             </if>
             <if test="mntReleaseRec.verCode != null and mntReleaseRec.verCode != ''">
                 and t1.ver_code = #{mntReleaseRec.verCode}
             </if>
             <if test="dtlCode != null and dtlCode != ''">
-                and t2.dtl_code = #{dtlCode}
+                and t2.dtl_code like '%${dtlCode}%'
             </if>
             <if test="dtlType != null">
                 and t2.dtl_type = #{dtlType}

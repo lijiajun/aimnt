@@ -223,7 +223,7 @@
                 rel_id = #{relId}
             </if>
             <if test="relCode != null and relCode != ''">
-                and rel_code = #{relCode}
+                and rel_code like '%${relCode}%'
             </if>
             <if test="prodId != null">
                 and prod_id = #{prodId}
