@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.report.MntTeamTypeMapper">
+
+    <resultMap id="MntTeamTypeResultMap" type="com.ai.mnt.model.report.MntTeamType">
+        <id column="team_id" property="teamId" />
+        <result column="team_name_en" property="teamNameEn" />
+        <result column="team_name_cn" property="teamNameCn" />
+    </resultMap>
+
+    <sql id="MntTeamTypeColumns">
+        team_id,
+        team_name_en,
+        team_name_cn
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="teamId">
+        insert into mnt_team_type (
+        team_name_en,
+        team_name_cn
+        )
+        values (
+        #{teamNameEn},
+        #{teamNameCn}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_team_type (
+        team_name_en,
+        team_name_cn
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.teamNameEn},
+            #{item.teamNameCn}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_team_type
+        where
+        team_id = #{teamId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_team_type
+        where team_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_team_type
+        <set>
+            <if test="teamNameEn != null">
+                team_name_en = #{teamNameEn},
+            </if>
+            <if test="teamNameCn != null">
+                team_name_cn = #{teamNameCn}
+            </if>
+        </set>
+        where
+        team_id = #{teamId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntTeamTypeResultMap">
+        select
+        <include refid="MntTeamTypeColumns" />
+        from mnt_team_type
+        where team_id = #{teamId}
+    </select>
+
+    <select id="findList" resultMap="MntTeamTypeResultMap">
+        select
+        <include refid="MntTeamTypeColumns" />
+        from mnt_team_type
+        <where>
+            <if test="teamId != null">
+                team_id = #{teamId}
+            </if>
+            <if test="teamNameEn != null and teamNameEn != ''">
+                and team_name_en = #{teamNameEn}
+            </if>
+            <if test="teamNameCn != null and teamNameCn != ''">
+                and team_name_cn = #{teamNameCn}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntTeamTypeResultMap">
+        select
+        <include refid="MntTeamTypeColumns" />
+        from mnt_team_type
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

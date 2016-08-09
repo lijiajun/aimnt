@@ -67,6 +67,9 @@ public class MntReleaseRecDtl implements Serializable{
     /**安装点，如：省份*/
     private String baseIdTxt;
     
+    /**产品编号*/
+    private Integer prodId;
+    
     public Integer getDtlId() {
         return dtlId;
     }
@@ -193,6 +196,14 @@ public class MntReleaseRecDtl implements Serializable{
 
     public void setBaseIdTxt(String baseIdTxt) {
         this.baseIdTxt = baseIdTxt;
+    }
+
+    public Integer getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(Integer prodId) {
+        this.prodId = prodId;
     }
 
 }

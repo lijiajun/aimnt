@@ -455,7 +455,13 @@ public class GenUtil {
 //         generateCodeFile("mnt_dev", "mnt_article_comment", "article", "comment");
 //         generateCodeFile("mnt", "mnt_lib_relation_ext", "lib", "relation");
 //        generateCodeFile("mnt", "mnt_install_online_info", "inst", "online");
-        generateCodeFile("mnt", "mnt_prod_rel_plan", "rel", "plan");
+//        generateCodeFile("mnt", "mnt_prod_rel_plan", "rel", "plan");
+//        generateCodeFile("mnt", "mnt_team_type", "report", "week");
+//        generateCodeFile("mnt", "mnt_team_member_stat", "report", "week");
+//        generateCodeFile("mnt", "mnt_prod_task_stat", "report", "week");
+//        generateCodeFile("mnt", "mnt_req_track", "inst", "track");
+        generateCodeFile("mnt", "mnt_process_task_fact", "inst", "fact");
+        
         
         System.exit(0);
     }

@@ -281,7 +281,11 @@ function ajaxSubmitForm(surl, form) {
         dataType: "json",
         async: false,
         success: function (data) {
-            showConfirm("添加成功，是否继续添加？");
+        	if(data.status == 0) {
+        		showMsg(data.msg);
+        	} else {
+        		showConfirm("添加成功，是否继续添加？");
+        	}
         },
         error: function() {
             alert("添加失败，请稍后重试！");
@@ -298,11 +302,15 @@ function ajaxSubmitUpdate(surl, form) {
         data: $(form).serialize(),
         async:false,
         success:function (data) {
-            showMsg("修改成功！");
-            window.parent.reloadData();
-            //当你在iframe页面关闭自身时
-            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-            parent.layer.close(index); //再执行关闭 
+        	if(data.status == 0) {
+        		showMsg(data.msg);
+        	} else {
+        		showMsg("修改成功！");
+        		window.parent.reloadData();
+        		//当你在iframe页面关闭自身时
+        		var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        		parent.layer.close(index); //再执行关闭 
+        	}
         },
         error:function() {
             showMsg("修改操作发生错误！");

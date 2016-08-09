@@ -94,9 +94,15 @@ public class MntReleaseRecController {
     @RequestMapping("/rec/add")
     @ResponseBody
     public Map<String, Object> saveRelRec(MntReleaseRec mntReleaseRec) {
-        mntReleaseRecService.saveReleaseRec(mntReleaseRec);
         Map<String, Object> map = new HashMap<>();
-        map.put("status", "1");
+        try {
+            mntReleaseRecService.saveReleaseRec(mntReleaseRec);
+            map.put("status", "1");
+        }catch (Exception e) {
+            e.printStackTrace();
+            map.put("status", "0");
+            map.put("msg", "添加失败!" + e.getMessage());
+        }
         return map;
     }
     
@@ -230,9 +236,15 @@ public class MntReleaseRecController {
     @RequestMapping("/dtl/add1")
     @ResponseBody
     public Map<String, Object> saveRelDtl(MntReleaseRecDtl mntReleaseRecDtl) {
-        mntReleaseRecDtlService.saveRelDtl(mntReleaseRecDtl);
         Map<String, Object> map = new HashMap<>();
-        map.put("status", "1");
+        try {
+            mntReleaseRecDtlService.saveRelDtl(mntReleaseRecDtl);
+            map.put("status", "1");
+        }catch (Exception e) {
+            e.printStackTrace();
+            map.put("status", "0");
+            map.put("msg", "添加失败!" + e.getMessage());
+        }
         return map;
     }
     
@@ -245,11 +257,16 @@ public class MntReleaseRecController {
     @RequestMapping("/dtl/add")
     @ResponseBody
     public Map<String, Object> saveReleaseRecWithBaseIds(HttpServletRequest request, MntReleaseRecDtl mntReleaseRecDtl) {
-        
-        String[] baseIds = request.getParameterValues("baseIds");
-        mntReleaseRecDtlService.saveReleaseRecWithBaseIds(mntReleaseRecDtl, baseIds);
         Map<String, Object> map = new HashMap<>();
-        map.put("status", "1");
+        try {
+            String[] baseIds = request.getParameterValues("baseIds");
+            mntReleaseRecDtlService.saveReleaseRecWithBaseIds(mntReleaseRecDtl, baseIds);
+            map.put("status", "1");
+        }catch (Exception e) {
+            e.printStackTrace();
+            map.put("status", "0");
+            map.put("msg", "添加失败!" + e.getMessage());
+        }
         return map;
     }
     

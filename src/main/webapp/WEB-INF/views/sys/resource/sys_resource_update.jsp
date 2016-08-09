@@ -107,6 +107,10 @@
                                                     <option data-icon="icon-target">icon-target</option>
                                                     <option data-icon="icon-settings">icon-settings</option>
                                                     <option data-icon="icon-social-dropbox">icon-social-dropbox</option>
+                                                    <option data-icon="icon-social-dribbble">icon-social-dribbble</option>
+                                                    <option data-icon="icon-bar-chart">icon-bar-chart</option>
+                                                    <option data-icon="icon-globe">icon-globe</option>
+                                                    <option data-icon="icon-eyeglasses">icon-eyeglasses</option>
                                                 </select>
                                                 <div class="form-control-focus"></div>
                                                 <span class="help-block">请输入资源图标</span>

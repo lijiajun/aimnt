@@ -2,6 +2,7 @@ package com.ai.mnt.service.product;
 
 import java.util.List;
 
+import com.ai.mnt.exception.MntDataAccessException;
 import com.ai.mnt.model.product.MntReleaseRec;
 
 public interface MntReleaseRecService {
@@ -22,7 +23,7 @@ public interface MntReleaseRecService {
      * 保存发布记录
      * @return
      */
-    public void saveReleaseRec(MntReleaseRec mntReleaseRec);
+    public void saveReleaseRec(MntReleaseRec mntReleaseRec) throws MntDataAccessException;
     
     /**
      * 更新发布记录
