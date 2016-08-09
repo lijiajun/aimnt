@@ -452,8 +452,8 @@ public class GenUtil {
 //        generateCodeFile("mnt", "mnt_lib_relation", "product", "lib_relation");
 //        generateCodeFile("mnt_dev", "mnt_article", "article", "posts");
 //        generateCodeFile("mnt_dev", "mnt_article_type", "article", "type");
-//         generateCodeFile("mnt_dev", "mnt_article_comment", "article", "comment");
-//         generateCodeFile("mnt", "mnt_lib_relation_ext", "lib", "relation");
+//        generateCodeFile("mnt_dev", "mnt_article_comment", "article", "comment");
+//        generateCodeFile("mnt", "mnt_lib_relation_ext", "lib", "relation");
 //        generateCodeFile("mnt", "mnt_install_online_info", "inst", "online");
 //        generateCodeFile("mnt", "mnt_prod_rel_plan", "rel", "plan");
 //        generateCodeFile("mnt", "mnt_team_type", "report", "week");
@@ -462,6 +462,7 @@ public class GenUtil {
 //        generateCodeFile("mnt", "mnt_req_track", "inst", "track");
         generateCodeFile("mnt", "mnt_process_task_fact", "inst", "fact");
         
+        generateCodeFile("mnt_dev", "mnt_prod_rel_plan", "rel", "plan");
         
         System.exit(0);
     }

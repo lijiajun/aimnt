@@ -18,7 +18,7 @@ import com.ai.mnt.service.rel.MntProdRelPlanService;
  * @Title: MntProdRelPlanController 
  * @Description: MntProdRelPlanController ControllerPackage
  * @Author: Auto Generate.
- * @Date: 2016-7-25
+ * @Date: 2016-7-28
  */
 
 @Controller

@@ -7,7 +7,7 @@ import java.util.Date;
  * @Title: MntProdRelPlan 
  * @Description: MntProdRelPlan Model
  * @Author: Auto Generate.
- * @Date: 2016-7-25
+ * @Date: 2016-7-28
  */
 public class MntProdRelPlan implements Serializable{
 

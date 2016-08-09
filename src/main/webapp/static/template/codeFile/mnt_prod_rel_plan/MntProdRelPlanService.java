@@ -7,7 +7,7 @@ import com.ai.mnt.model.rel.MntProdRelPlan;
  * @Title: MntProdRelPlanService 
  * @Description: MntProdRelPlanService ServicePackage
  * @Author: Auto Generate.
- * @Date: 2016-7-25
+ * @Date: 2016-7-28
  */
 
 public interface MntProdRelPlanService {

@@ -17,7 +17,7 @@ import com.ai.mnt.service.rel.MntProdRelPlanService;
  * @Title: MntProdRelPlanServiceImpl 
  * @Description: MntProdRelPlanServiceImpl ServiceImplPackage
  * @Author: Auto Generate.
- * @Date: 2016-7-25
+ * @Date: 2016-7-28
  */
 @Service
 public class MntProdRelPlanServiceImpl implements MntProdRelPlanService{
