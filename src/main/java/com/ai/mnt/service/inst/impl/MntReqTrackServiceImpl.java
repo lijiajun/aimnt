@@ -48,7 +48,7 @@ public class MntReqTrackServiceImpl implements MntReqTrackService{
     @Override
     public List<MntReqTrack> findMntReqTrackList(MntReqTrack mntReqTrack) {
         List<MntReqTrack> mntReqTrackList = mntReqTrackMapper.findList(mntReqTrack);
-        cvtContentList(mntReqTrackList);
+        //cvtContentList(mntReqTrackList);
         return mntReqTrackList;
     }
 
@@ -125,5 +125,33 @@ public class MntReqTrackServiceImpl implements MntReqTrackService{
             mntReqTrack.setBizType(BaseDataCache.getDataName("BIZ_TYPE", mntReqTrack.getBizType()));
         }
     }
+
+/*    @Override
+    public List<MntReqTrack> findListStatistics(MntReqTrack mntReqTrack) {
+        List<MntReqTrack> statisticsList = mntReqTrackMapper.findListStatistics(mntReqTrack);
+        return statisticsList;
+    }
+
+    @Override
+    public List<MntReqTrack> findListStatisticsByBaseName(
+            MntReqTrack mntReqTrack) {
+        List<MntReqTrack>statisticsBaseNameList= mntReqTrackMapper.findListStatisticsByBaseName(mntReqTrack);
+        return statisticsBaseNameList;
+    }
+*/
+    @Override
+    public List<MntReqTrack> findListStatisticsByProdName(
+            MntReqTrack mntReqTrack) {
+        List<MntReqTrack>statisticsBaseNameList= mntReqTrackMapper.findListStatisticsByProdName(mntReqTrack);
+        return statisticsBaseNameList;
+    }
+
+    @Override
+    public List<MntReqTrack> getReqSummaryStat() {
+        List<MntReqTrack> MntReqTracks = mntReqTrackMapper.getReqSummaryStat();
+        
+        return MntReqTracks;
+    }
+    
 }
 

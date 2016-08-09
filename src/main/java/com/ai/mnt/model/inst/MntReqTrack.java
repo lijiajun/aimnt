@@ -97,7 +97,8 @@ public class MntReqTrack implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     
-    //需求类型名
+    //统计
+    private Integer count ;
     
 
     public Date getBeginDate() {
@@ -298,6 +299,14 @@ public class MntReqTrack implements Serializable{
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
 

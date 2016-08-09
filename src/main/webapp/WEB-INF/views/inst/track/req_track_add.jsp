@@ -122,12 +122,12 @@
                                             需求类型 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select name="bizType" class="selectpicker form-control" id="bizType">
+                                           <%--  <select name="bizType" class="selectpicker form-control" id="bizType">
                                                 <c:forEach items="${bizEnums}" var="bizEnums">
                                                     <option value="${bizEnums.key}">${bizEnums.value}</option>
                                                 </c:forEach>
-                                            </select>
-                                           <!--  <input type="text" class="form-control" placeholder="" name="bizType" id="bizType"> -->
+                                            </select> --%>
+                                            <input type="text" class="form-control" placeholder="" name="bizType" id="bizType">
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入需求类型</span>
                                         </div>
@@ -139,7 +139,12 @@
                                             需求来源 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="bizSrc" id="bizSrc">
+                                            <select name="bizSrc" class="selectpicker form-control" id="bizSrc">
+                                                <c:forEach items="${bizEnums}" var="bizEnums">
+                                                    <option value="${bizEnums.key}">${bizEnums.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" placeholder="" name="bizSrc" id="bizSrc"> -->
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入需求来源</span>
                                         </div>

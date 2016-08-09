@@ -54,4 +54,15 @@ public interface MntReqTrackService {
      * @param trackId Primary key
      */
     public void deleteMntReqTrackByTrackIds(String trackIds);
+    
+    
+   /* // 统计
+    public List<MntReqTrack> findListStatistics(MntReqTrack mntReqTrack);
+    //统计省份
+    public List<MntReqTrack> findListStatisticsByBaseName(MntReqTrack mntReqTrack);*/
+    //统计部门
+    public List<MntReqTrack> findListStatisticsByProdName(MntReqTrack mntReqTrack);
+   
+    public List<MntReqTrack> getReqSummaryStat();
+    
 }

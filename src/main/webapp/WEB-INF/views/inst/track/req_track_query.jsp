@@ -180,17 +180,16 @@
             var strBeginDate = $("#beginDate").val();
             var strEndDate = $("#endDate").val();
             var strDealDays = $("#dealDays").val();
-            //alert(strDealDays);
+            alert(strBaseId);
             strProdId = strProdId == -1 ? "" : strProdId;      //如果strProdId为-1 那就就让他变成空  这里的设置对于查询条件为全部的时候管用 
             strBaseId = strBaseId == -1 ? "" : strBaseId;
             var sUrl = "inst/track/query?";
-            sUrl += "&prodId=" + strProdId +
+            sUrl += "prodId=" + strProdId +
                 "&baseId=" + strBaseId +
                 "&bizNo=" + strBizNo +
                 "&beginDate=" + strBeginDate +
                 "&dealDays=" + strDealDays +
                 "&endDate=" + strEndDate ;
-            
             tableObj.ajax.url(sUrl).load();
         });
         
@@ -231,7 +230,23 @@
         });
         //统计按钮 
         $('.div_right').on('click','.dt-buttons>#btnStatistics',function(){
-        	showModal(2," ",['1000px','500px'], "inst/track/stats_page", tableObj);
+        	 var strBaseId = $("#baseId").val();
+             var strProdId = $("#prodId").val();
+             var strBizNo = $("#bizNo").val();
+             var strBeginDate = $("#beginDate").val();
+             var strEndDate = $("#endDate").val();
+             var strDealDays = $("#dealDays").val();
+             //alert(strDealDays);
+             strProdId = strProdId == -1 ? "" : strProdId;      //如果strProdId为-1 那就就让他变成空  这里的设置对于查询条件为全部的时候管用 
+             strBaseId = strBaseId == -1 ? "" : strBaseId;
+             var ssUrl = "inst/track/stats_page?";
+             ssUrl += "&prodId=" + strProdId +
+                 "&baseId=" + strBaseId +
+                 "&bizNo=" + strBizNo +
+                 "&beginDate=" + strBeginDate +
+                 "&dealDays=" + strDealDays +
+                 "&endDate=" + strEndDate ;
+        	showModal(2," ",['1000px','500px'],ssUrl , tableObj);
         });
         
         

@@ -1,10 +1,13 @@
 package com.ai.mnt.web.inst;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.ehcache.search.aggregator.Count;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.model.common.EnumObject;
-import com.ai.mnt.model.inst.MntProdRelPlan;
 import com.ai.mnt.model.inst.MntReqTrack;
+import com.ai.mnt.model.inst.ReqSummaryStat;
 import com.ai.mnt.service.inst.MntReqTrackService;
 
 
@@ -67,8 +70,13 @@ public class MntReqTrackController {
     @ResponseBody
     public Map<String, Object> getMntReqTrackList(MntReqTrack mntReqTrack) {
         mntReqTrack.setDeleteFlag("0");
+        System.out.println(mntReqTrack.getDealDays()+"---------------------"+mntReqTrack.getCount());
         List<MntReqTrack> mntReqTrackList = mntReqTrackService.findMntReqTrackList(mntReqTrack);
         Map<String, Object> map = new HashMap<>();
+        for(MntReqTrack mntReqTrack2 :mntReqTrackList){
+            System.out.println(mntReqTrack2.getBaseId()+mntReqTrack2.getBaseName()+
+                    mntReqTrack2.getProdId()+mntReqTrack2.getProdName());
+        }
         map.put("data", mntReqTrackList);
         map.put("status", "1");
         return map;
@@ -89,6 +97,8 @@ public class MntReqTrackController {
 
         List<EnumObject> bizEnums = BaseDataCache.getDataList("BIZ_TYPE");
         model.addAttribute("bizEnums", bizEnums);
+        
+        //List<EnumObject> biz
         return "inst/track/req_track_add";
     }
     
@@ -173,12 +183,144 @@ public class MntReqTrackController {
         }
         return "inst/track/req_track_info";
     }
+    
+   
     //统计 
     @RequestMapping("/track/stats_page")
-   // @ResponseBody
-    public String statsMntReqTrack(Model model){
+    //@ResponseBody         // ajax 取数据的时候
+    public String statsMntReqTrack(Model model,MntReqTrack mntReqTrack){
+        List<MntReqTrack> summaryStat = mntReqTrackService.getReqSummaryStat();
+        List<MntReqTrack> prodCountList = mntReqTrackService.findListStatisticsByProdName(mntReqTrack);
+        Map<String, List<ReqSummaryStat>> statMap = new HashMap<>();
+        int [] countMap = new int[7];
+        buildSummaryData(statMap, summaryStat);
+        calProd(prodCountList, countMap);
+        model.addAttribute("statMap", statMap);
+        model.addAttribute("prodCount", countMap) ;
         
-        return "inst/track/req_track_stats";
+        
+        return "inst/track/req_track_stats" ;
     }
+    
+    private void calProd(List<MntReqTrack>prodCountList,int countMap[]){
+        
+        for (MntReqTrack pcl :prodCountList) {
+          if (pcl.getProdName().contains("账管")) {
+              countMap[6] = pcl.getCount();
+        }else if (pcl.getProdName().contains("帐处")) {
+            countMap[2] = pcl.getCount();
+        }else if (pcl.getProdName().contains("OpenBilling")) {
+            countMap[3] = pcl.getCount();
+        }else if (pcl.getProdName().contains("VB60计费系统")) {
+            countMap[4] = pcl.getCount();
+        }else if (pcl.getProdName().contains("VB60帐务处理")) {
+            countMap[5] = pcl.getCount();
+        }else  {
+            countMap[1] = pcl.getCount();
+        }
+            
+        }
+       for (int i = 1; i < countMap.length; i++) {
+        countMap[0]+=countMap[i];
+    }
+    }
+    
+   /* @RequestMapping("/track/stas")
+    @ResponseBody
+    public Map<String, Object> stasMntReqTrack2(MntReqTrack mntReqTrack) {
+        
+        return null; 
+      
+    }*/
+    
+    /**
+     * 构建汇总数据
+     * @param statMap
+     * @param summaryStat
+     */
+    private void buildSummaryData(Map<String, List<ReqSummaryStat>> statMap,
+            List<MntReqTrack> summaryStat) {
+        
+        Map<String, List<MntReqTrack>> trackMap = new HashMap<>();
+        for(MntReqTrack reqTrack : summaryStat) {
+            List<MntReqTrack> mntReqTracks = trackMap.get(reqTrack.getBaseName());
+            if(mntReqTracks == null) {
+                mntReqTracks = new ArrayList<>();
+                mntReqTracks.add(reqTrack);
+                trackMap.put(reqTrack.getBaseName(), mntReqTracks);
+            }else {
+                mntReqTracks.add(reqTrack);
+            }
+        }
+       
+        for (Map.Entry<String, List<MntReqTrack>> entry : trackMap.entrySet()) {
+            
+            List<MntReqTrack> mntReqTracks = entry.getValue();
+            
+            ReqSummaryStat zgStat = new ReqSummaryStat();
+            zgStat.setProdOrder(1);
+            ReqSummaryStat zcStat = new ReqSummaryStat();
+            zcStat.setProdOrder(2);
+            ReqSummaryStat jfStat = new ReqSummaryStat();
+            jfStat.setProdOrder(3);
+            ReqSummaryStat zfVbStat = new ReqSummaryStat();
+            zfVbStat.setProdOrder(4);
+            ReqSummaryStat zcVbStat = new ReqSummaryStat();
+            zcVbStat.setProdOrder(5);
+            ReqSummaryStat otherStat = new ReqSummaryStat();
+            otherStat.setProdOrder(6);
+            
+            List<ReqSummaryStat> stats = new ArrayList<>();
+            stats.add(zgStat);
+            stats.add(zcStat);
+            stats.add(jfStat);
+            stats.add(zfVbStat);
+            stats.add(zcVbStat);
+            stats.add(otherStat);
+            
+            int count1 = 0;
+            
+            for(MntReqTrack reqTrack : mntReqTracks) {  //对相同省份的list遍历
+                if("帐管".equals(reqTrack.getProdName())) {
+                    setValue(zgStat, reqTrack);
+                }else if("帐处".equals(reqTrack.getProdName())) {
+                    setValue(zcStat, reqTrack);
+                }else if("OpenBilling".equals(reqTrack.getProdName())) {
+                    setValue(jfStat, reqTrack);
+                }else if("VB60计费系统".equals(reqTrack.getProdName())) {
+                    setValue(zfVbStat, reqTrack);
+                }else if("VB60帐务处理".equals(reqTrack.getProdName())) {
+                    setValue(zcVbStat, reqTrack);
+                }else {
+                    setValue(otherStat, reqTrack);
+                }
+                
+                count1 += reqTrack.getCount() ;
+               
+            }
+            for(ReqSummaryStat stat : stats){
+                stat.setBaseTotalCount(count1);
+            }
+            statMap.put(entry.getKey(), stats);
+        }
+        System.out.println(statMap);
+    }
+
+    private void setValue(ReqSummaryStat stat, MntReqTrack reqTrack) {
+        stat.setProdName(reqTrack.getProdName());
+        stat.setBaseName(reqTrack.getBaseName());
+        
+        if("产品部SCCB".equals(reqTrack.getBizSts())) {
+            stat.setSccbCount(stat.getSccbCount() + reqTrack.getCount());
+        }else if("需求分析".equals(reqTrack.getBizSts())) {
+            stat.setReqAnalyCount(stat.getReqAnalyCount() + reqTrack.getCount());
+        }else if("开发".equals(reqTrack.getBizSts())) {
+            stat.setDevCount(stat.getDevCount() + reqTrack.getCount());
+        }else if("测试".equals(reqTrack.getBizSts())) {
+            stat.setQaCount(stat.getQaCount() + reqTrack.getCount());
+        }
+    }
+    
+    
     
 }
