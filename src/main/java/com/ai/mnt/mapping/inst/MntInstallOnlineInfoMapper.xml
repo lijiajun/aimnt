@@ -361,11 +361,11 @@
             END online_date
         from mnt_install_online_info
         <where>
-            <if test="beginDate != null">
-                <![CDATA[(plan_online_date >= #{beginDate} or online_date >= #{beginDate} or delay_online_date >= #{beginDate})]]>
-            </if>
-            <if test="endDate != null">
-                <![CDATA[and (plan_online_date <= #{endDate} or online_date <= #{endDate} or delay_online_date <= #{endDate})]]>
+            <if test="beginDate != null and endDate != null">
+                <![CDATA[and ((plan_online_date >= #{beginDate} and plan_online_date <= #{endDate}) 
+                or (online_date >= #{beginDate} and online_date <= #{endDate})
+                or (delay_online_date >= #{beginDate} and delay_online_date <= #{endDate}))
+                ]]>
             </if>
         </where>
     </select>
@@ -439,11 +439,11 @@
             <if test="isOnlined != null and isOnlined != ''">
                 and is_onlined = #{isOnlined}
             </if>
-            <if test="beginDate != null">
-                <![CDATA[and (plan_online_date >= #{beginDate} or online_date >= #{beginDate} or delay_online_date >= #{beginDate})]]>
-            </if>
-            <if test="endDate != null">
-                <![CDATA[and (plan_online_date <= #{endDate} or online_date <= #{endDate} or delay_online_date <= #{endDate})]]>
+            <if test="beginDate != null and endDate != null">
+                <![CDATA[and ((plan_online_date >= #{beginDate} and plan_online_date <= #{endDate}) 
+                or (online_date >= #{beginDate} and online_date <= #{endDate})
+                or (delay_online_date >= #{beginDate} and delay_online_date <= #{endDate}))
+                ]]>
             </if>
             <if test="deleteFlag != null and deleteFlag != ''">
                 and t1.delete_flag = #{deleteFlag}

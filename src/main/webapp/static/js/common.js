@@ -145,7 +145,7 @@ function renderCalendar(cid, url) {
 //	        alert('Event: ' + calEvent.start);
 //	        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 //	        alert('View: ' + view.name);
-	        $(this).css('background-color', '#00CD00');
+	        //$(this).css('background-color', '#00CD00');
 	        var _date = calEvent.id;
 	        showFullModal(2, [ '1000px', '550px' ], "stat/online/list/" + _date);
     	}

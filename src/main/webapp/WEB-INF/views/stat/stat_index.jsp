@@ -24,8 +24,12 @@
 
 .portlet.cale .fc-event .fc-content {
   border: 0;
-  padding: 2px 2px;
+  padding: 1px 1px;
 }
+
+/* .fc-resizable { */
+/*   width:10px; */
+/* } */
 
 .portlet.cale {
     padding-bottom: 3px;
@@ -142,8 +146,8 @@
                         </div>
                         <div class="col-md-5 select-box">
                             <select name="prodId" class="form-control" id="showType">
-                                <option value="1">按产品统计</option>
                                 <option value="2">按安装点统计</option>
+                                <option value="1">按产品统计</option>
                             </select>
                         </div>
                         <div class="tools hchart">
@@ -215,7 +219,7 @@
     	renderCalendar("calendar", "");
     	
         var moment = $('#calendar').fullCalendar('getDate');
-        var sUrl = "stat/req/prod/1?beginDate=" + moment.format('YYYY-MM-DD');
+        var sUrl = "stat/req/prod/2?beginDate=" + moment.format('YYYY-MM-DD');
     	renderProdCountChart (sUrl);
     	
     	$('.fc-state-default:not(.fc-month-button )').click(function() {

@@ -35,7 +35,7 @@
                                     <thead>
                                         <tr>
                                             <th>序号</th>
-                                            <th>安装点编号</th>
+                                            <th>安装点</th>
                                             <th>上线产品</th>
                                             <th>产品版本</th>
                                             <th>上线版本</th>
@@ -151,9 +151,9 @@
             }, {
                 "data" : "moduleName"
             }, {
-                "data" : "isOnsiteSupport"
+                "data" : "isOnsiteSupportTxt"
             }, {
-                "data" : "isRemoteSupport"
+                "data" : "isRemoteSupportTxt"
             }, {
                 "data" : "planOnlineDate"
             }, {
@@ -161,7 +161,7 @@
             }, {
                 "data" : "onlineDate"
             }, {
-                "data" : "isOnlined"
+                "data" : "isOnlinedTxt"
             }, {
                 "data" : "unOnlineReason"
             }, {
