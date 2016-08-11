@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.inst.MntReqTrack;
 import com.ai.mnt.model.sys.SysUser;
@@ -118,13 +117,13 @@ public class MntReqTrackServiceImpl implements MntReqTrackService{
         }
     }
     
-    private void cvtContentList(List<MntReqTrack> MntReqTrackList) {
-        for(MntReqTrack mntReqTrack : MntReqTrackList) {
-            mntReqTrack.setProdName(BaseDataCache.getDataName("PROD_INFO", mntReqTrack.getProdId()));
-            mntReqTrack.setBaseName(BaseDataCache.getDataName("BASE_NAME_ENUM", mntReqTrack.getBaseId()));
-            mntReqTrack.setBizType(BaseDataCache.getDataName("BIZ_TYPE", mntReqTrack.getBizType()));
-        }
-    }
+//    private void cvtContentList(List<MntReqTrack> MntReqTrackList) {
+//        for(MntReqTrack mntReqTrack : MntReqTrackList) {
+//            mntReqTrack.setProdName(BaseDataCache.getDataName("PROD_INFO", mntReqTrack.getProdId()));
+//            mntReqTrack.setBaseName(BaseDataCache.getDataName("BASE_NAME_ENUM", mntReqTrack.getBaseId()));
+//            mntReqTrack.setBizType(BaseDataCache.getDataName("BIZ_TYPE", mntReqTrack.getBizType()));
+//        }
+//    }
 
 /*    @Override
     public List<MntReqTrack> findListStatistics(MntReqTrack mntReqTrack) {

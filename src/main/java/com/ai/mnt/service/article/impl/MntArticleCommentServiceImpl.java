@@ -1,19 +1,16 @@
 package com.ai.mnt.service.article.impl;
 
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
-import com.ai.mnt.model.article.MntArticle;
 import com.ai.mnt.model.article.MntArticleComment;
 import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.persistence.article.MntArticleCommentMapper;
-import com.ai.mnt.persistence.article.MntArticleMapper;
 import com.ai.mnt.service.article.MntArticleCommentService;
 
 /**
@@ -110,7 +107,7 @@ public class MntArticleCommentServiceImpl implements MntArticleCommentService{
      */
     @Override
     public void updateMntArticleCommentByCommentId(MntArticleComment mntArticleComment) {
-        SysUser currentUser = userRealm.getCurrentUser();
+        //SysUser currentUser = userRealm.getCurrentUser();
        /* mntArticleComment.setModifier(currentUser.getUserName());
         mntArticleComment.setModifyDate(new Date());
         */
@@ -125,7 +122,7 @@ public class MntArticleCommentServiceImpl implements MntArticleCommentService{
      */
     @Override
     public void deleteMntArticleCommentByCommentIds(String commentIds) {
-        SysUser currentUser = userRealm.getCurrentUser();
+        //SysUser currentUser = userRealm.getCurrentUser();
         MntArticleComment mntArticleComment = new MntArticleComment();
        /* mntArticleComment.setDeleteFlag("1");
         mntArticleComment.setModifier(currentUser.getUserName());

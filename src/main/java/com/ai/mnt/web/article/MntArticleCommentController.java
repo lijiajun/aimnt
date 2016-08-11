@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.article.MntArticle;
 import com.ai.mnt.model.article.MntArticleComment;
-import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.service.article.MntArticleCommentService;
 import com.ai.mnt.service.article.MntArticleService;
 
