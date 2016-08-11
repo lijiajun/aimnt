@@ -62,7 +62,10 @@ public interface MntInstallOnlineInfoService {
     public List<MntInstallOnlineInfo> getDistinctOnlineDateList(MntInstallOnlineInfo mntInstallOnlineInfo);
 
 
-    List<MntInstallOnlineInfo> findOnlineInfoListJoinRelDtl(
+    public List<MntInstallOnlineInfo> findOnlineInfoListJoinRelDtl(
+            MntInstallOnlineInfo mntInstallOnlineInfo);
+
+    public List<MntInstallOnlineInfo> findNotOnlineInfoListJoinRelDtl(
             MntInstallOnlineInfo mntInstallOnlineInfo);
 
 

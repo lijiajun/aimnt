@@ -217,6 +217,44 @@ public class MntInstallOnlineInfoController {
         return map;
     }
     
+    
+    /**
+     * 获取安装点未上线信息列表
+     * @param mntInstallOnlineInfo
+     * @return Map<String, Object>
+     */
+    @RequestMapping("/notonline/list/{onlineDate}")
+    @ResponseBody
+    public Map<String, Object> getNotOnlineInfoListByOnlineDate(@PathVariable String onlineDate) {
+        MntInstallOnlineInfo mntInstallOnlineInfo = new MntInstallOnlineInfo();
+        Date _onlineDate = DateUtil.stringToDateShort(onlineDate);
+        mntInstallOnlineInfo.setOnlineDate(_onlineDate);
+        List<MntInstallOnlineInfo> mntInstallNotOnlineInfoList = 
+                mntInstallOnlineInfoService.findNotOnlineInfoListJoinRelDtl(mntInstallOnlineInfo);
+        //过滤出真正的上线时间
+       /* List<MntInstallOnlineInfo> resultList = new ArrayList<>();
+        for(MntInstallOnlineInfo temp : mntInstallOnlineInfoList) {
+            if(temp.getOnlineDate() != null && !temp.getOnlineDate().equals(_onlineDate)) {
+                continue;
+            }
+            if(temp.getOnlineDate() == null && 
+                    temp.getDelayOnlineDate() != null &&
+                    !temp.getDelayOnlineDate().equals(_onlineDate)) {
+                continue;
+            }
+            if(temp.getDelayOnlineDate() == null && 
+                    temp.getOnlineDate() == null &&
+                    temp.getPlanOnlineDate() != null &&
+                    !temp.getPlanOnlineDate().equals(_onlineDate)) {
+                continue;
+            }
+            resultList.add(temp);
+        }*/
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", mntInstallNotOnlineInfoList);
+        map.put("status", "1");
+        return map;
+    }
     /**
      * 上线反馈导入页面
      * 

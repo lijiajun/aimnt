@@ -92,6 +92,20 @@ public class MntInstallOnlineInfoServiceImpl implements MntInstallOnlineInfoServ
         return mntInstallOnlineInfoList;
     }
 
+    
+    /**
+     * 获取安装点未上线信息列表
+     * @param inst
+     * @return List<MntInstallOnlineInfo>
+     */
+    @Override
+    public List<MntInstallOnlineInfo> findNotOnlineInfoListJoinRelDtl(MntInstallOnlineInfo mntInstallOnlineInfo) {
+        List<MntInstallOnlineInfo> mntInstallNotOnlineInfoList = mntInstallOnlineInfoMapper.findNotOnlineInfoListJoinRelDtl(mntInstallOnlineInfo);
+        cvtContentList(mntInstallNotOnlineInfoList);
+        return mntInstallNotOnlineInfoList;
+    }
+    
+    
     /**
      * 通过主键ID获取安装点上线信息
      * @param onlineId Primary key
