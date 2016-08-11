@@ -63,6 +63,6 @@ public interface MntReqTrackService {
     //统计部门
     public List<MntReqTrack> findListStatisticsByProdName(MntReqTrack mntReqTrack);
    
-    public List<MntReqTrack> getReqSummaryStat();
+    public List<MntReqTrack> getReqSummaryStat(MntReqTrack mntReqTrack);
     
 }

@@ -19,13 +19,13 @@ public class MntReqTrack implements Serializable{
     private Integer trackId;
 
     /**安装点*/
-    private Integer baseId;
+    private String baseId;
 
     /**安装点名称*/
     private String baseName;
 
     /**产品编号*/
-    private Integer prodId;
+    private String prodId;
 
     /**产品名称*/
     private String prodName;
@@ -125,11 +125,11 @@ public class MntReqTrack implements Serializable{
         this.trackId = trackId;
     }
 
-    public Integer getBaseId() {
+    public String getBaseId() {
         return baseId;
     }
 
-    public void setBaseId(Integer baseId) {
+    public void setBaseId(String baseId) {
         this.baseId = baseId;
     }
 
@@ -141,11 +141,11 @@ public class MntReqTrack implements Serializable{
         this.baseName = baseName;
     }
 
-    public Integer getProdId() {
+    public String getProdId() {
         return prodId;
     }
 
-    public void setProdId(Integer prodId) {
+    public void setProdId(String prodId) {
         this.prodId = prodId;
     }
 
