@@ -4,15 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <%@include file="../../included/includedStyle.jsp" %> --%>
- <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+<%-- <%@include file="../../included/includedStyle.jsp" %>  --%>
+   <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 </head>
 
 <body class="body-bg">
 
-<div class="table-responsive">
+<div class="container table-responsive ">
    <table id="stas" class="table table-striped table-bordered table-hover table-checkable order-column">
         <thead>
             <tr>
@@ -42,7 +42,7 @@
                     <td>${stat.key}</td>
                     <td>${stat.value[0].baseTotalCount} </td>
                     <c:forEach items = "${stat.value }" var="sVal">
-                        <td >${sVal.sccbCount }</td>
+                        <td>${sVal.sccbCount }</td>
                         <td>${sVal.reqAnalyCount }</td>
                         <td>${sVal.devCount }</td>
                         <td>${sVal.qaCount }</td>
@@ -57,7 +57,7 @@
                     <th>${prod }</th>
                 </c:forEach>
                 <c:forEach items="${prodCount }" var="prod" begin="1" end="6">
-                    <th colspan="4">${prod }</th>
+                    <td colspan="4" class="text-center">${prod }</td>
                 </c:forEach>
             </tr>
         </tfoot>

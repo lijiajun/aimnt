@@ -259,8 +259,100 @@
        <include refid="MntReqTrackColumns" />
         from mnt_req_track
         <where>
+        	    delete_flag='0'
             <if test="trackId != null">
-                track_id = #{trackId}
+                and track_id = #{trackId}
+            </if>
+            <if test="baseId != null">
+                and base_id = #{baseId}
+            </if>
+           <if test="baseName != null and baseName != ''">
+                and base_name = #{baseName}
+            </if>
+            <if test="prodId != null">
+                and prod_id = #{prodId}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                and prod_name = #{prodName} 
+            </if>
+            <if test="bizNo != null and bizNo != ''">
+                and biz_no = #{bizNo}
+            </if>
+            <if test="bizName != null and bizName != ''">
+                and biz_name = #{bizName}
+            </if>
+            <if test="bizType != null and bizType != ''">
+                and biz_type = #{bizType}
+            </if>
+            <if test="bizSrc != null and bizSrc != ''">
+                and biz_src = #{bizSrc}
+            </if>
+            <if test="bizSts != null and bizSts != ''">
+                and biz_sts = #{bizSts}
+            </if>
+            <if test="nodePerson != null and nodePerson != ''">
+                and node_person = #{nodePerson}
+            </if>
+            <if test="priority != null and priority != ''">
+                and priority = #{priority}
+            </if>
+            <if test="urgentLevel != null and urgentLevel != ''">
+                and urgent_level = #{urgentLevel}
+            </if>
+            <if test="submitDate != null">
+                and submit_date = #{submitDate}
+            </if>
+            <if test="dealDays != null">
+                and deal_days >= #{dealDays}
+            </if>
+            <if test="askEndDate != null">
+                and ask_end_date = #{askEndDate}
+            </if>
+            <if test="planReleaseDate != null">
+                and plan_release_date = #{planReleaseDate}
+            </if>
+            <if test="planOnlineDate != null">
+                and plan_online_date = #{planOnlineDate}
+            </if>
+            
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+            <if test="beginDate != null">
+                <![CDATA[and submit_date >= #{beginDate}]]>
+            </if>
+            <if test="endDate != null">
+                <![CDATA[and submit_date <= #{endDate}]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntReqTrackResultMap">
+        select
+        <include refid="MntReqTrackColumns" />
+        from mnt_req_track
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="getReqSummaryStat" resultMap="MntReqTrackResultMap">
+        SELECT 
+        base_name, prod_name, biz_sts, COUNT(1) as count
+        from mnt_req_track 
+        <!--where biz_type='客户需求' and delete_flag='0' -->
+         <where>
+         	 delete_flag='0'
+            <if test="trackId != null">
+               and track_id = #{trackId}
             </if>
             <if test="baseId != null">
                 and base_id = #{baseId}
@@ -313,9 +405,7 @@
             <if test="planOnlineDate != null">
                 and plan_online_date = #{planOnlineDate}
             </if>
-            <if test="deleteFlag != null and deleteFlag != ''">
-                and delete_flag = #{deleteFlag}
-            </if>
+           
             <if test="creator != null and creator != ''">
                 and creator = #{creator}
             </if>
@@ -335,21 +425,6 @@
                 <![CDATA[and submit_date <= #{endDate}]]>
             </if>
         </where>
-    </select>
-
-    <select id="findAll" resultMap="MntReqTrackResultMap">
-        select
-        <include refid="MntReqTrackColumns" />
-        from mnt_req_track
-    </select>
-    
-    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
-    
-    <select id="getReqSummaryStat" resultMap="MntReqTrackResultMap">
-        SELECT 
-        base_name, prod_name, biz_sts, COUNT(1) as count
-        from mnt_req_track 
-        where biz_type='客户需求' and delete_flag='0' 
         GROUP BY base_name, prod_name, biz_sts
     </select>
     
@@ -357,8 +432,9 @@
      <select id="findListStatisticsByBaseName" resultMap="MntReqTrackResultMap">
         select base_name,count(1)as count from mnt_req_track
         <where>
+        	 delete_flag='0'
             <if test="trackId != null">
-                track_id = #{trackId}
+                and track_id = #{trackId}
             </if>
             <if test="baseId != null">
                 and base_id = #{baseId}
@@ -439,6 +515,7 @@
     <select id="findListStatisticsByProdName" resultMap="MntReqTrackResultMap">
     	select prod_name,count(1)as count from mnt_req_track 
     	<where>
+    		delete_flag='0'
             <if test="trackId != null">
                 track_id = #{trackId}
             </if>
@@ -493,9 +570,7 @@
             <if test="planOnlineDate != null">
                 and plan_online_date = #{planOnlineDate}
             </if>
-            <if test="deleteFlag != null and deleteFlag != ''">
-                and delete_flag = #{deleteFlag}
-            </if>
+            
             <if test="creator != null and creator != ''">
                 and creator = #{creator}
             </if>

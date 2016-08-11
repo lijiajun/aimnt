@@ -78,7 +78,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4">处理时长超过(天)</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="dealDays">
+                                        <input type="text" class="form-control" id="dealDays" >
                                     </div>
                                 </div>
                             </div>
@@ -174,18 +174,21 @@
 
         var tableObj = $('#tabMntReqTrack').DataTable(getConfig());
         $('#btnQuery').click(function(e) {
-            var strBaseId = $("#baseId").val();
-            var strProdId = $("#prodId").val();
+           // var strBaseId = $("#baseId").val();
+           // var strProdId = $("#prodId").val();
             var strBizNo = $("#bizNo").val();
             var strBeginDate = $("#beginDate").val();
             var strEndDate = $("#endDate").val();
             var strDealDays = $("#dealDays").val();
-            alert(strBaseId);
-            strProdId = strProdId == -1 ? "" : strProdId;      //如果strProdId为-1 那就就让他变成空  这里的设置对于查询条件为全部的时候管用 
-            strBaseId = strBaseId == -1 ? "" : strBaseId;
+            var strBaseId = $("#baseId").find("option:selected").text();
+            var strProdId = $("#prodId").find("option:selected").text();
+            //alert("33")
+            //alert(strBaseId);
+            strProdId = strProdId == "全部" ? "" : strProdId;      //如果strProdId为-1 那就就让他变成空  这里的设置对于查询条件为全部的时候管用 
+            strBaseId = strBaseId == "全部" ? "" : strBaseId;
             var sUrl = "inst/track/query?";
-            sUrl += "prodId=" + strProdId +
-                "&baseId=" + strBaseId +
+            sUrl += "prodName=" + strProdId +
+                "&baseName=" + strBaseId +
                 "&bizNo=" + strBizNo +
                 "&beginDate=" + strBeginDate +
                 "&dealDays=" + strDealDays +
@@ -230,18 +233,21 @@
         });
         //统计按钮 
         $('.div_right').on('click','.dt-buttons>#btnStatistics',function(){
-        	 var strBaseId = $("#baseId").val();
-             var strProdId = $("#prodId").val();
+        	/*  var strBaseId = $("#baseId").val();
+             var strProdId = $("#prodId").val(); */
+             var strBaseId = $("#baseId").find("option:selected").text();
+             var strProdId = $("#prodId").find("option:selected").text();
              var strBizNo = $("#bizNo").val();
              var strBeginDate = $("#beginDate").val();
              var strEndDate = $("#endDate").val();
              var strDealDays = $("#dealDays").val();
-             //alert(strDealDays);
-             strProdId = strProdId == -1 ? "" : strProdId;      //如果strProdId为-1 那就就让他变成空  这里的设置对于查询条件为全部的时候管用 
-             strBaseId = strBaseId == -1 ? "" : strBaseId;
+             //alert(strBaseId);
+             
+             strProdId = strProdId == "全部" ? "" : strProdId;      //如果strProdId为-1 那就就让他变成空  这里的设置对于查询条件为全部的时候管用 
+             strBaseId = strBaseId == "全部" ? "" : strBaseId;
              var ssUrl = "inst/track/stats_page?";
-             ssUrl += "&prodId=" + strProdId +
-                 "&baseId=" + strBaseId +
+             ssUrl += "prodName=" + strProdId +
+                 "&baseName=" + strBaseId +
                  "&bizNo=" + strBizNo +
                  "&beginDate=" + strBeginDate +
                  "&dealDays=" + strDealDays +

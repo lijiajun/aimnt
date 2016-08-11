@@ -147,8 +147,8 @@ public class MntReqTrackServiceImpl implements MntReqTrackService{
     }
 
     @Override
-    public List<MntReqTrack> getReqSummaryStat() {
-        List<MntReqTrack> MntReqTracks = mntReqTrackMapper.getReqSummaryStat();
+    public List<MntReqTrack> getReqSummaryStat(MntReqTrack mntReqTrack) {
+        List<MntReqTrack> MntReqTracks = mntReqTrackMapper.getReqSummaryStat(mntReqTrack);
         
         return MntReqTracks;
     }
