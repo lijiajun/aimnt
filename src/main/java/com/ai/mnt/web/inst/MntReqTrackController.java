@@ -54,7 +54,7 @@ public class MntReqTrackController {
      */
     @RequestMapping("/track/page")
     public String showMntReqTrackPage(Model model) {
-        List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_INFO");
+        List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_NAME");
         List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
         model.addAttribute("prodEnums", prodEnums);
         model.addAttribute("baseIdEnums", baseIdEnums);
@@ -70,13 +70,8 @@ public class MntReqTrackController {
     @ResponseBody
     public Map<String, Object> getMntReqTrackList(MntReqTrack mntReqTrack) {
         mntReqTrack.setDeleteFlag("0");
-        System.out.println(mntReqTrack.getDealDays()+"---------------------"+mntReqTrack.getCount());
         List<MntReqTrack> mntReqTrackList = mntReqTrackService.findMntReqTrackList(mntReqTrack);
         Map<String, Object> map = new HashMap<>();
-        for(MntReqTrack mntReqTrack2 :mntReqTrackList){
-            System.out.println(mntReqTrack2.getBaseId()+mntReqTrack2.getBaseName()+
-                    mntReqTrack2.getProdId()+mntReqTrack2.getProdName());
-        }
         map.put("data", mntReqTrackList);
         map.put("status", "1");
         return map;
@@ -92,7 +87,7 @@ public class MntReqTrackController {
         List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
         model.addAttribute("baseIdEnums", baseIdEnums);
         
-        List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_INFO");
+        List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_NAME");
         model.addAttribute("prodEnums", prodEnums);
 
         List<EnumObject> bizEnums = BaseDataCache.getDataList("BIZ_TYPE");
@@ -110,7 +105,6 @@ public class MntReqTrackController {
     @RequestMapping("/track/add")
     @ResponseBody
     public Map<String, Object> saveMntReqTrack(MntReqTrack mntReqTrack) {
-        System.out.println(mntReqTrack.getProdName());
         mntReqTrackService.saveMntReqTrack(mntReqTrack);
         Map<String, Object> map = new HashMap<>();
         map.put("status", "1");
@@ -131,7 +125,7 @@ public class MntReqTrackController {
         List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
         model.addAttribute("baseIdEnums", baseIdEnums);
         
-        List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_INFO");
+        List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_NAME");
         model.addAttribute("prodEnums", prodEnums);
         
         List<EnumObject> bizEnums = BaseDataCache.getDataList("BIZ_TYPE");
@@ -189,7 +183,7 @@ public class MntReqTrackController {
     @RequestMapping("/track/stats_page")
     //@ResponseBody         // ajax 取数据的时候
     public String statsMntReqTrack(Model model,MntReqTrack mntReqTrack){
-        List<MntReqTrack> summaryStat = mntReqTrackService.getReqSummaryStat();
+        List<MntReqTrack> summaryStat = mntReqTrackService.getReqSummaryStat(mntReqTrack);
         List<MntReqTrack> prodCountList = mntReqTrackService.findListStatisticsByProdName(mntReqTrack);
         Map<String, List<ReqSummaryStat>> statMap = new HashMap<>();
         int [] countMap = new int[7];
@@ -205,8 +199,8 @@ public class MntReqTrackController {
     private void calProd(List<MntReqTrack>prodCountList,int countMap[]){
         
         for (MntReqTrack pcl :prodCountList) {
-          if (pcl.getProdName().contains("账管")) {
-              countMap[6] = pcl.getCount();
+          if (pcl.getProdName().contains("帐管")) {
+              countMap[1] = pcl.getCount();
         }else if (pcl.getProdName().contains("帐处")) {
             countMap[2] = pcl.getCount();
         }else if (pcl.getProdName().contains("OpenBilling")) {
@@ -216,12 +210,13 @@ public class MntReqTrackController {
         }else if (pcl.getProdName().contains("VB60帐务处理")) {
             countMap[5] = pcl.getCount();
         }else  {
-            countMap[1] = pcl.getCount();
+            countMap[6] = pcl.getCount();
         }
             
         }
        for (int i = 1; i < countMap.length; i++) {
         countMap[0]+=countMap[i];
+        System.out.println(countMap[i]);
     }
     }
     
@@ -255,9 +250,9 @@ public class MntReqTrackController {
        
         for (Map.Entry<String, List<MntReqTrack>> entry : trackMap.entrySet()) {
             
-            List<MntReqTrack> mntReqTracks = entry.getValue();
+            List<MntReqTrack> mntReqTracks = entry.getValue();    //得到相同省份的List表
             
-            ReqSummaryStat zgStat = new ReqSummaryStat();
+            ReqSummaryStat zgStat = new ReqSummaryStat();   //六个对象 帐管 帐处等等
             zgStat.setProdOrder(1);
             ReqSummaryStat zcStat = new ReqSummaryStat();
             zcStat.setProdOrder(2);
@@ -270,7 +265,7 @@ public class MntReqTrackController {
             ReqSummaryStat otherStat = new ReqSummaryStat();
             otherStat.setProdOrder(6);
             
-            List<ReqSummaryStat> stats = new ArrayList<>();
+            List<ReqSummaryStat> stats = new ArrayList<>();   //将六个对象依次放入list中
             stats.add(zgStat);
             stats.add(zcStat);
             stats.add(jfStat);
@@ -279,7 +274,6 @@ public class MntReqTrackController {
             stats.add(otherStat);
             
             int count1 = 0;
-            
             for(MntReqTrack reqTrack : mntReqTracks) {  //对相同省份的list遍历
                 if("帐管".equals(reqTrack.getProdName())) {
                     setValue(zgStat, reqTrack);
@@ -295,7 +289,7 @@ public class MntReqTrackController {
                     setValue(otherStat, reqTrack);
                 }
                 
-                count1 += reqTrack.getCount() ;
+                count1 += reqTrack.getCount() ;   //计算每个省份的需求数量
                
             }
             for(ReqSummaryStat stat : stats){
@@ -303,7 +297,6 @@ public class MntReqTrackController {
             }
             statMap.put(entry.getKey(), stats);
         }
-        System.out.println(statMap);
     }
 
     private void setValue(ReqSummaryStat stat, MntReqTrack reqTrack) {
