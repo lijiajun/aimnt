@@ -406,8 +406,9 @@
         on t1.rel_dtl_id = t2.dtl_id
         join mnt_release_rec t3 on t2.rel_id = t3.rel_id
         <where>
+        	 is_onlined = 1
             <if test="onlineId != null">
-                online_id = #{onlineId}
+                and online_id = #{onlineId}
             </if>
             <if test="baseId != null">
                 and t1.base_id = #{baseId}
@@ -436,14 +437,72 @@
             <if test="isFault != null and isFault != ''">
                 and is_fault = #{isFault}
             </if>
-            <if test="isOnlined != null and isOnlined != ''">
+            <!-- <if test="isOnlined != null and isOnlined != ''">
                 and is_onlined = #{isOnlined}
+            </if> -->
+            <if test="beginDate != null">
+                <![CDATA[and (plan_online_date >= #{beginDate} or online_date >= #{beginDate} or delay_online_date >= #{beginDate})]]>
             </if>
+            <if test="endDate != null">
+                <![CDATA[and (plan_online_date <= #{endDate} or online_date <= #{endDate} or delay_online_date <= #{endDate})]]>
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and t1.delete_flag = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+    
+    <select id="findNotOnlineInfoListJoinRelDtl" resultMap="MntInstallOnlineInfoResultMap2">
+        select
+        <include refid="MntInstallOnlineInfoJoinRelDtl" />,
+        dtl_code,
+        dtl_name,
+        dtl_desc
+        from 
+        mnt_install_online_info t1 join mnt_release_rec_dtl t2
+        on t1.rel_dtl_id = t2.dtl_id
+        <where>
+        	is_onlined = 0
+            <if test="onlineId != null">
+               and online_id = #{onlineId}
+            </if>
+            <if test="baseId != null">
+                and t1.base_id = #{baseId}
+            </if>
+            <if test="prodId != null">
+                and prod_id = #{prodId}
+            </if>
+            <if test="verCode != null and verCode != ''">
+                and ver_code = #{verCode}
+            </if>
+
             <if test="beginDate != null and endDate != null">
                 <![CDATA[and ((plan_online_date >= #{beginDate} and plan_online_date <= #{endDate}) 
                 or (online_date >= #{beginDate} and online_date <= #{endDate})
                 or (delay_online_date >= #{beginDate} and delay_online_date <= #{endDate}))
                 ]]>
+            </if>
+            <if test="relId != null and relId != ''">
+                and rel_id = #{relId}
+            </if>
+            <if test="planOnlineDate != null">
+                and plan_online_date = #{planOnlineDate}
+            </if>
+            <if test="onlineDate != null">
+                and (plan_online_date = #{onlineDate} or online_date = #{onlineDate} or delay_online_date = #{onlineDate})
+            </if>
+            <if test="isFault != null and isFault != ''">
+                and is_fault = #{isFault}
+            </if>
+            <!-- <if test="isOnlined != null and isOnlined != ''">
+                and is_onlined = #{isOnlined}
+            </if> -->
+            <if test="beginDate != null">
+                <![CDATA[and (plan_online_date >= #{beginDate} or online_date >= #{beginDate} or delay_online_date >= #{beginDate})]]>
+            </if>
+            <if test="endDate != null">
+                <![CDATA[and (plan_online_date <= #{endDate} or online_date <= #{endDate} or delay_online_date <= #{endDate})]]>
+>>>>>>> dev
             </if>
             <if test="deleteFlag != null and deleteFlag != ''">
                 and t1.delete_flag = #{deleteFlag}

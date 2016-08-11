@@ -22,4 +22,7 @@ public interface MntInstallOnlineInfoMapper extends CrudMapper<MntInstallOnlineI
     public List<MntInstallOnlineInfo> findOnlineInfoListJoinRelDtl(
             MntInstallOnlineInfo mntInstallOnlineInfo);
     
+    
+    public List<MntInstallOnlineInfo> findNotOnlineInfoListJoinRelDtl(
+            MntInstallOnlineInfo mntInstallOnlineInfo);
 }
