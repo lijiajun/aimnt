@@ -46,7 +46,7 @@
                                 模板下载：
                             </label>
                             <div class="col-md-10 form-group">
-                                <a id="templete" href="javascript:void(0)">上线反馈信息模板</a>
+                                <a id="templete" href="javascript:void(0)">亚信集团研发云资源申请结果</a>
                             </div>
                         </div>
                     </div>

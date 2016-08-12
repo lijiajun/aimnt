@@ -164,7 +164,7 @@ public class ExcelUtil {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Excel WorkBook 读取失败！ " + e.getMessage());
-            throw new Exception("EXCEL 数据读取错误！");
+            throw new Exception("EXCEL 数据读取错误！" + e.getMessage());
         }finally {
             if(wb != null) {
                 try {
