@@ -32,6 +32,8 @@
                 /task/** = user
                 /article/** = user
                 /parser/** = user
+                /report/** = user
+                /cloud/** = user
                 /my_task = user
 <!--                 /prod/**/page = user -->
 <!--                 /prod/**/query/** = user -->

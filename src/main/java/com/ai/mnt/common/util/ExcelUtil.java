@@ -138,6 +138,46 @@ public class ExcelUtil {
         }
         return rowList;
     }
+    
+    /**
+     * 获取sheet 名称对应的数据集
+     * @param is
+     * @param sheetNum
+     * @return
+     * @throws Exception
+     */
+    public static List<List<String>> readExcelToListBySheetIndex(InputStream is, String sheetName) throws Exception {
+        List<List<String>> rowList = new ArrayList<>();
+        Workbook wb = getWorkBook(is);
+        try {
+            Sheet sheet = wb.getSheet(sheetName);
+            if(sheet == null) {
+                throw new Exception(sheetName + " 不存在,请检查导入的EXCEL！");
+            }
+            for (Row row : sheet) {
+                List<String> cellList = new ArrayList<>();
+                for (Cell cell : row) {
+                    cellList.add(getCellValue(cell));
+                }
+                rowList.add(cellList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("Excel WorkBook 读取失败！ " + e.getMessage());
+            throw new Exception("EXCEL 数据读取错误！");
+        }finally {
+            if(wb != null) {
+                try {
+                    wb.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    logger.error("Excel WorkBook 读取失败！ " + e.getMessage());
+                    throw new Exception("EXCEL 数据读取错误！");
+                }
+            }
+        }
+        return rowList;
+    }
 
     /**
      * Cell value

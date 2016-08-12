@@ -100,8 +100,13 @@ public class SysUserController {
         model.addAttribute("sysRoleEnums", sysRoleEnums);
         model.addAttribute("baseNameEnums", baseIdEnums);
         model.addAttribute("sysUser", sysUser);
-        if(list.size() > 0) {
-            model.addAttribute("sysUserRole", list.get(0));
+        if(list != null && list.size() > 0) {
+            String strRoleIds = "";
+            for(int i=0,len=list.size(); i<len; i++) {
+                SysUserRole sysUserRole = list.get(i);
+                strRoleIds += sysUserRole.getRoleId() + ",";
+            }
+            model.addAttribute("roleIds", strRoleIds);
         }
         return "sys/user/sys_user_update";
     }

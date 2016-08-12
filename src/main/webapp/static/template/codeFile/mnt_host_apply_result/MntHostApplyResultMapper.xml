@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.cloud.MntHostApplyResultMapper">
+
+    <resultMap id="MntHostApplyResultResultMap" type="com.ai.mnt.model.cloud.MntHostApplyResult">
+        <id column="id" property="id" />
+        <result column="dept" property="dept" />
+        <result column="applicant" property="applicant" />
+        <result column="applicant_nt" property="applicantNt" />
+        <result column="busi_system" property="busiSystem" />
+        <result column="host_type" property="hostType" />
+        <result column="host_cfg" property="hostCfg" />
+        <result column="disk_size" property="diskSize" />
+        <result column="host_ip" property="hostIp" />
+        <result column="root_passwd" property="rootPasswd" />
+        <result column="puaiuc_passwd" property="puaiucPasswd" />
+        <result column="host_os" property="hostOs" />
+        <result column="remark" property="remark" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="MntHostApplyResultColumns">
+        id,
+        dept,
+        applicant,
+        applicant_nt,
+        busi_system,
+        host_type,
+        host_cfg,
+        disk_size,
+        host_ip,
+        root_passwd,
+        puaiuc_passwd,
+        host_os,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into mnt_host_apply_result (
+        dept,
+        applicant,
+        applicant_nt,
+        busi_system,
+        host_type,
+        host_cfg,
+        disk_size,
+        host_ip,
+        root_passwd,
+        puaiuc_passwd,
+        host_os,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{dept},
+        #{applicant},
+        #{applicantNt},
+        #{busiSystem},
+        #{hostType},
+        #{hostCfg},
+        #{diskSize},
+        #{hostIp},
+        #{rootPasswd},
+        #{puaiucPasswd},
+        #{hostOs},
+        #{remark},
+        #{deleteFlag},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_host_apply_result (
+        dept,
+        applicant,
+        applicant_nt,
+        busi_system,
+        host_type,
+        host_cfg,
+        disk_size,
+        host_ip,
+        root_passwd,
+        puaiuc_passwd,
+        host_os,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.dept},
+            #{item.applicant},
+            #{item.applicantNt},
+            #{item.busiSystem},
+            #{item.hostType},
+            #{item.hostCfg},
+            #{item.diskSize},
+            #{item.hostIp},
+            #{item.rootPasswd},
+            #{item.puaiucPasswd},
+            #{item.hostOs},
+            #{item.remark},
+            #{item.deleteFlag},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_host_apply_result
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_host_apply_result
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_host_apply_result
+        <set>
+            <if test="dept != null">
+                dept = #{dept},
+            </if>
+            <if test="applicant != null">
+                applicant = #{applicant},
+            </if>
+            <if test="applicantNt != null">
+                applicant_nt = #{applicantNt},
+            </if>
+            <if test="busiSystem != null">
+                busi_system = #{busiSystem},
+            </if>
+            <if test="hostType != null">
+                host_type = #{hostType},
+            </if>
+            <if test="hostCfg != null">
+                host_cfg = #{hostCfg},
+            </if>
+            <if test="diskSize != null">
+                disk_size = #{diskSize},
+            </if>
+            <if test="hostIp != null">
+                host_ip = #{hostIp},
+            </if>
+            <if test="rootPasswd != null">
+                root_passwd = #{rootPasswd},
+            </if>
+            <if test="puaiucPasswd != null">
+                puaiuc_passwd = #{puaiucPasswd},
+            </if>
+            <if test="hostOs != null">
+                host_os = #{hostOs},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntHostApplyResultResultMap">
+        select
+        <include refid="MntHostApplyResultColumns" />
+        from mnt_host_apply_result
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="MntHostApplyResultResultMap">
+        select
+        <include refid="MntHostApplyResultColumns" />
+        from mnt_host_apply_result
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="dept != null and dept != ''">
+                and dept = #{dept}
+            </if>
+            <if test="applicant != null and applicant != ''">
+                and applicant = #{applicant}
+            </if>
+            <if test="applicantNt != null and applicantNt != ''">
+                and applicant_nt = #{applicantNt}
+            </if>
+            <if test="busiSystem != null and busiSystem != ''">
+                and busi_system = #{busiSystem}
+            </if>
+            <if test="hostType != null and hostType != ''">
+                and host_type = #{hostType}
+            </if>
+            <if test="hostCfg != null and hostCfg != ''">
+                and host_cfg = #{hostCfg}
+            </if>
+            <if test="diskSize != null and diskSize != ''">
+                and disk_size = #{diskSize}
+            </if>
+            <if test="hostIp != null and hostIp != ''">
+                and host_ip = #{hostIp}
+            </if>
+            <if test="rootPasswd != null and rootPasswd != ''">
+                and root_passwd = #{rootPasswd}
+            </if>
+            <if test="puaiucPasswd != null and puaiucPasswd != ''">
+                and puaiuc_passwd = #{puaiucPasswd}
+            </if>
+            <if test="hostOs != null and hostOs != ''">
+                and host_os = #{hostOs}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntHostApplyResultResultMap">
+        select
+        <include refid="MntHostApplyResultColumns" />
+        from mnt_host_apply_result
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

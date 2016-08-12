@@ -52,7 +52,7 @@
                                             用户角色 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select class="selectpicker form-control" name="roleId"  id="roleId">
+                                            <select class="selectpicker form-control" name="roleIds"  id="roleIds" multiple>
                                                 <c:forEach items="${sysRoleEnums}" var="sysRoleEnum">
                                                     <option value="${sysRoleEnum.key}">${sysRoleEnum.value}</option>
                                                 </c:forEach>
@@ -185,11 +185,11 @@ jQuery(document).ready(function() {
             	required: true,
             	minlength: 8
             },
-            roleSts:"required",
+            roleIds:"required",
             email: "email"
         },
         submitHandler: function(form) {
-        	var strRoleId = $("#roleId").val();
+        	var strRoleId = $("#roleIds").val();
             ajaxSubmitForm('sys/user/add/' + strRoleId, form);
         }
     });

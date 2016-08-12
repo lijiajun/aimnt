@@ -15,7 +15,7 @@
                 <div class="wrapper-content">
                     <div class="portlet-title">
                         <div class="caption font-dark">
-                            <i class=" icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 新增产品版本明细信息 </span>
+                            <i class=" icon-layers font-green"></i> <span class="caption-subject bold uppercase"> 修改发布明细 </span>
                         </div>
                     </div>
                     <div class="portlet-body">

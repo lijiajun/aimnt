@@ -52,14 +52,9 @@
                                             用户角色 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select class="selectpicker form-control" name="roleId"  id="roleId">
+                                            <select class="selectpicker form-control" name="roleIds"  id="roleIds" multiple>
                                                 <c:forEach items="${sysRoleEnums}" var="sysRoleEnum">
-                                                    <c:if test="${sysRoleEnum.key == sysUserRole.roleId}">
-                                                        <option value="${sysRoleEnum.key}" selected>${sysRoleEnum.value}</option>
-                                                    </c:if>
-                                                    <c:if test="${sysRoleEnum.key != sysUserRole.roleId}">
-                                                        <option value="${sysRoleEnum.key}">${sysRoleEnum.value}</option>
-                                                    </c:if>
+                                                    <option value="${sysRoleEnum.key}">${sysRoleEnum.value}</option>
                                                 </c:forEach>
                                             </select>
                                             <div class="form-control-focus"></div>
@@ -201,12 +196,17 @@ jQuery(document).ready(function() {
             email: "email"
         },
         submitHandler: function(form) {
-        	var strRoleId = $("#roleId").val();
+        	var strRoleId = $("#roleIds").val();
         	ajaxSubmitUpdate('sys/user/update/' + strRoleId, form);
         }
     });
     //[2]表单校验初始化
     initFormValidate1('form-user');
+    
+    var strRoleIds = '${roleIds}';
+    var roleIdAry = strRoleIds.split(",");
+    $('#roleIds').val(roleIdAry);
+    $('#roleIds').selectpicker('refresh');
     
 });
 
