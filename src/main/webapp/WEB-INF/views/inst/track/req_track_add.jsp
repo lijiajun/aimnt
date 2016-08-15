@@ -50,7 +50,7 @@
                                                     <option value="${baseIdEnum.key}">${baseIdEnum.value}</option>
                                                 </c:forEach>
                                             </select> --%>
-                                            <input type="text" class="form-control" placeholder="" name="baseName" id="baseName">
+                                            <input type="text" class="form-control" placeholder="" name="baseName" id="baseName" value="江西">
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入安装点名称</span>
                                         </div>
@@ -82,7 +82,7 @@
                                         </label>
                                         <div class="col-md-8">
                                             
-                                             <input type="text" class="form-control" placeholder="" name="prodName" id="prodName">
+                                             <input type="text" class="form-control" placeholder="" name="prodName" id="prodName" value="帐管">
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入产品名称</span>
                                         </div>
@@ -122,7 +122,7 @@
                                             需求类型 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                           <%--  <select name="bizType" class="selectpicker form-control" id="bizType">
+                                            <%-- <select name="bizType" class="selectpicker form-control" id="bizType">
                                                 <c:forEach items="${bizEnums}" var="bizEnums">
                                                     <option value="${bizEnums.key}">${bizEnums.value}</option>
                                                 </c:forEach>
@@ -139,12 +139,12 @@
                                             需求来源 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select name="bizSrc" class="selectpicker form-control" id="bizSrc">
+                                            <%-- <select name="bizSrc" class="selectpicker form-control" id="bizSrc">
                                                 <c:forEach items="${bizEnums}" var="bizEnums">
                                                     <option value="${bizEnums.key}">${bizEnums.value}</option>
                                                 </c:forEach>
-                                            </select>
-                                            <!-- <input type="text" class="form-control" placeholder="" name="bizSrc" id="bizSrc"> -->
+                                            </select> --%>
+                                            <input type="text" class="form-control" placeholder="" name="bizSrc" id="bizSrc">
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入需求来源</span>
                                         </div>
@@ -181,7 +181,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            优先级 <span class="required">*</span>
+                                            优先级
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" name="priority" id="priority">
@@ -193,7 +193,7 @@
                                  <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            紧急程度 <span class="required">*</span>
+                                            紧急程度
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" name="urgentLevel" id="urgentLevel">
@@ -275,9 +275,17 @@
 
 jQuery(document).ready(function() {
     
+	  $('#baseId').change(function(){
+	        $('#baseName').val($("#baseId").find("option:selected").text());
+	    });
+	  $('#prodId').change(function(){
+          $('#prodName').val($("#prodId").find("option:selected").text());
+      });
+	 
+	 
     //[1]自定义校验规则
     var rules = {
-    	   /*  baseId:"required",
+    	    baseId:"required",
             baseName:"required",
             prodId:"required",
             prodName:"required",
@@ -287,13 +295,13 @@ jQuery(document).ready(function() {
             bizSrc:"required",
             bizSts:"required",
             nodePerson:"required",
-            priority:"required",
-            urgentLevel:"required",  */
-            /* submitDate:"required",
+           // priority:"required",
+            //urgentLevel:"required",  
+            submitDate:"required",
             dealDays:"required",
             askEndDate:"required",
             planReleaseDate:"required",
-            planOnlineDate:"required", */
+            planOnlineDate:"required", 
            
     };
     //[2]表单校验初始化

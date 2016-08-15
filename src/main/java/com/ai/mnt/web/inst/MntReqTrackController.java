@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ObjectUtils.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -186,6 +187,7 @@ public class MntReqTrackController {
         Map<String, List<ReqSummaryStat>> statMap = new HashMap<>();
         int [] countMap = new int[7];
         buildSummaryData(statMap, summaryStat);
+        
         calProd(prodCountList, countMap);
         model.addAttribute("statMap", statMap);
         model.addAttribute("prodCount", countMap) ;
@@ -303,7 +305,10 @@ public class MntReqTrackController {
         
         if("产品部SCCB".equals(reqTrack.getBizSts())) {
             stat.setSccbCount(stat.getSccbCount() + reqTrack.getCount());
-        }else if("需求分析".equals(reqTrack.getBizSts())) {
+           /* if (stat.getSccbCount() == 0) {
+                stat.setSccbCount(null);
+            }
+*/        }else if("需求分析".equals(reqTrack.getBizSts())) {
             stat.setReqAnalyCount(stat.getReqAnalyCount() + reqTrack.getCount());
         }else if("开发".equals(reqTrack.getBizSts())) {
             stat.setDevCount(stat.getDevCount() + reqTrack.getCount());

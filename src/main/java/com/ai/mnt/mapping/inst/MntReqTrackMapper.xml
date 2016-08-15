@@ -276,7 +276,7 @@
                 and prod_name = #{prodName} 
             </if>
             <if test="bizNo != null and bizNo != ''">
-                and biz_no = #{bizNo}
+                and biz_no  LIKE  CONCAT('%',#{bizNo},'%')  OR biz_name LIKE  CONCAT('%',#{bizNo},'%')
             </if>
             <if test="bizName != null and bizName != ''">
                 and biz_name = #{bizName}
@@ -367,7 +367,7 @@
                 and prod_name = #{prodName}
             </if>
             <if test="bizNo != null and bizNo != ''">
-                and biz_no = #{bizNo}
+                 and biz_no  LIKE  CONCAT('%',#{bizNo},'%')  OR biz_name LIKE  CONCAT('%',#{bizNo},'%')
             </if>
             <if test="bizName != null and bizName != ''">
                 and biz_name = #{bizName}

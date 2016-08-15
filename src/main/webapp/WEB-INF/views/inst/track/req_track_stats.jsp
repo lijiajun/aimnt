@@ -41,11 +41,48 @@
                 <tr>
                     <td>${stat.key}</td>
                     <td>${stat.value[0].baseTotalCount} </td>
-                    <c:forEach items = "${stat.value }" var="sVal">
-                        <td>${sVal.sccbCount }</td>
+                    <c:forEach items = "${stat.value }" var="sVal" >
+                    
+                    <c:choose>
+                      <c:when test="${sVal.sccbCount != 0 }">
+                      <td style ="background-color:yellow">${sVal.sccbCount }</td>
+                      </c:when>
+                      <c:otherwise>
+                      <td></td>
+                      </c:otherwise>
+                     </c:choose> 
+                     
+                     <c:choose>
+                      <c:when test="${sVal.reqAnalyCount !=0 }">
+                      <td style="background-color:yellow">${sVal.reqAnalyCount }</td>
+                      </c:when>
+                      <c:otherwise>
+                        <td></td>
+                      </c:otherwise>
+                      </c:choose>
+                      
+                      <c:choose>
+                      <c:when test="${sVal.devCount !=0 }">
+                      <td style="background-color:yellow">${sVal.devCount }</td>
+                      </c:when>
+                      <c:otherwise>
+                       <td></td>
+                     </c:otherwise>
+                      </c:choose>
+                      
+                      <c:choose>
+                      <c:when test="${sVal.qaCount !=0 }">
+                      <td style="background-color:yellow">${sVal.qaCount }</td>
+                      </c:when>
+                     <c:otherwise>
+                      <td></td>
+                      </c:otherwise>
+                   </c:choose>
+                    
+                        <%-- <td>${sVal.sccbCount }</td>
                         <td>${sVal.reqAnalyCount }</td>
                         <td>${sVal.devCount }</td>
-                        <td>${sVal.qaCount }</td>
+                        <td>${sVal.qaCount }</td> --%>
                     </c:forEach>
                 </tr>
            </c:forEach>
