@@ -96,6 +96,12 @@ public class MntReleaseRecController {
     public Map<String, Object> saveRelRec(MntReleaseRec mntReleaseRec) {
         Map<String, Object> map = new HashMap<>();
         try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        try {
             mntReleaseRecService.saveReleaseRec(mntReleaseRec);
             map.put("status", "1");
         }catch (Exception e) {
@@ -134,6 +140,15 @@ public class MntReleaseRecController {
     @RequestMapping("/rec/update")
     @ResponseBody
     public Map<String, Object> updateRelRec(MntReleaseRec mntReleaseRec) {
+        
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        
+        
         mntReleaseRecService.updateReleaseRec(mntReleaseRec);
         Map<String, Object> map = new HashMap<>();
         map.put("status", "1");

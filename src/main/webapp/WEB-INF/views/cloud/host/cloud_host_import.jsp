@@ -73,16 +73,18 @@ jQuery(document).ready(function() {
             showMsg("请选择需要导入的excel文件！");
             return;
         }
+        var indexLoad = layer.load(0, {shade: [0.1,'#fff']});
         var formData = new FormData($("#form-upload")[0]);
         $.ajax({
             url: 'cloud/host/import',
             type: 'POST',
             dataType: "json",
             data: formData,
-            processData: false,  
+            processData: false,
             contentType: false,
-            async:false,
+            //async:false,
             success:function (data) {
+            	layer.close(indexLoad);
                 if(data.status == 0) {
                     showMsg(data.error);
                 }else {
@@ -90,6 +92,7 @@ jQuery(document).ready(function() {
                 }
             },
             error:function() {
+            	layer.close(indexLoad);
                 showMsg("上传操作发生错误！");
             }
         });

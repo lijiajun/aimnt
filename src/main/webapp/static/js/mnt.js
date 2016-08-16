@@ -166,8 +166,8 @@ function showConfirm(_content, _callBack) {
 		btn: ['是','否'] //按钮
 	}, function(index){
 //		reloadData();
-		console.log(_callBack);
-		console.log(typeof(_callBack));
+//		console.log(_callBack);
+//		console.log(typeof(_callBack));
 		if(typeof(_callBack) === "function") {
 			_callBack();
 		}

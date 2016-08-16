@@ -148,6 +148,11 @@ function renderCalendar(cid, url) {
 	        //$(this).css('background-color', '#00CD00');
 	        var _date = calEvent.id;
 	        showFullModal(2, [ '1000px', '550px' ], "stat/online/list/" + _date);
+    	},
+    	eventMouseover: function( event, jsEvent, view ) {
+			$(this).attr('title', event.title);
+			$(this).css('font-weight', 'normal');
+			alert('View: ' + view.name);
     	}
 //    	eventResizeStop: function( event, jsEvent, ui, view ) {
 //    		alert(22222222222211);
@@ -274,13 +279,15 @@ function initFormValidate(formId, rules, submitUrl, opType) {
 
 //新增提交
 function ajaxSubmitForm(surl, form) {
+	var index = layer.load(0, {shade: [0.1,'#fff']});
     $.ajax({
         type: 'post',
         url: surl,
         data: $(form).serialize(),
         dataType: "json",
-        async: false,
+        //async: false,
         success: function (data) {
+        	layer.close(index);
         	if(data.status == 0) {
         		showMsg(data.msg);
         	} else {
@@ -288,6 +295,7 @@ function ajaxSubmitForm(surl, form) {
         	}
         },
         error: function() {
+        	layer.close(index);
             alert("添加失败，请稍后重试！");
         }
     });
@@ -295,13 +303,15 @@ function ajaxSubmitForm(surl, form) {
 
 //更新提交
 function ajaxSubmitUpdate(surl, form) {
+	var indexLoad = layer.load(0, {shade: [0.1,'#fff']});
     $.ajax({
         url:surl,
         type: 'POST',
         dataType: "json",
         data: $(form).serialize(),
-        async:false,
+        //async:false,
         success:function (data) {
+        	layer.close(indexLoad);
         	if(data.status == 0) {
         		showMsg(data.msg);
         	} else {
@@ -313,6 +323,7 @@ function ajaxSubmitUpdate(surl, form) {
         	}
         },
         error:function() {
+        	layer.close(indexLoad);
             showMsg("修改操作发生错误！");
         }
     });
