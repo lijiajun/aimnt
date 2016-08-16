@@ -58,4 +58,7 @@ public interface MntReleaseRecDtlService {
      */
     public List<MntReleaseRecDtl> getStatResForBaseId(MntReleaseRecDtl mntReleaseRecDtl);
     
+    //导入
+    public void importRelData(List<List<String>> excelData) throws Exception;
+    
 }

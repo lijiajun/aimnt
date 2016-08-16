@@ -1,5 +1,6 @@
 package com.ai.mnt.service.product.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,11 +9,22 @@ import org.springframework.stereotype.Service;
 
 import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
+import com.ai.mnt.common.util.DateUtil;
 import com.ai.mnt.exception.MntDataAccessException;
+import com.ai.mnt.model.cloud.MntHostApplyResult;
+import com.ai.mnt.model.inst.MntInstallBaseInfo;
+import com.ai.mnt.model.product.MntProd;
+import com.ai.mnt.model.product.MntProdVersion;
 import com.ai.mnt.model.product.MntReleaseRec;
 import com.ai.mnt.model.product.MntReleaseRecDtl;
+import com.ai.mnt.model.sys.SysDict;
 import com.ai.mnt.model.sys.SysUser;
+import com.ai.mnt.persistence.inst.MntInstallBaseInfoMapper;
+import com.ai.mnt.persistence.product.MntProdMapper;
+import com.ai.mnt.persistence.product.MntProdVersionMapper;
 import com.ai.mnt.persistence.product.MntReleaseRecDtlMapper;
+import com.ai.mnt.persistence.product.MntReleaseRecMapper;
+import com.ai.mnt.persistence.sys.SysDictMapper;
 import com.ai.mnt.service.product.MntReleaseRecDtlService;
 import com.ai.mnt.service.product.MntReleaseRecService;
 
@@ -27,6 +39,21 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
     
     @Autowired
     UserRealm userRealm;
+    
+    @Autowired
+    MntProdMapper mntProdMapper;
+    
+    @Autowired
+    MntProdVersionMapper mntProdVersionMapper;
+    
+    @Autowired
+    MntReleaseRecMapper mntReleaseRecMapper;
+    
+    @Autowired
+    MntInstallBaseInfoMapper mntInstallBaseInfoMapper;
+    
+    @Autowired
+    SysDictMapper sysDictMapper;
     
     /**
      * 获取发布明细
@@ -166,6 +193,91 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
             mntReleaseRecDtl.setBaseId(Integer.parseInt(baseId));
             mntReleaseRecDtlMapper.save(mntReleaseRecDtl);
         }
+        
+    }
+
+    @Override
+    public void importRelData(List<List<String>> excelData) throws MntDataAccessException {
+        List<MntReleaseRecDtl> releaseResults = new ArrayList<>();
+        int index = 0;
+        SysUser currentUser = userRealm.getCurrentUser();
+        for(List<String> rowList : excelData) {
+            if(index == 0) {
+                index++;
+                continue;
+            }
+            MntReleaseRecDtl mntReleaseRecDtl = new MntReleaseRecDtl();
+            
+            MntReleaseRec mntReleaseRec = new MntReleaseRec();
+            
+            //1.系统
+            String prodName = rowList.get(0);
+            MntProd mntProd = new MntProd();
+            mntProd.setProdName(prodName);
+            mntProd.setDeleteFlag("0");
+            List<MntProd> prodList = mntProdMapper.findList(mntProd);
+            if(prodList == null || prodList.size() == 0) {
+                throw new MntDataAccessException("第" + (index+1) + "行该系统名称不存在，请检查后重新导入！" );
+            }
+            Integer prodId = prodList.get(0).getProdId();
+            
+          //2.版本
+            String verCode = rowList.get(1);
+            String relCode = rowList.get(2);
+            mntReleaseRec.setRelCode(relCode);
+            mntReleaseRec.setVerCode(verCode);
+            mntReleaseRec.setProdId(prodId);
+            mntReleaseRec.setDeleteFlag("0");
+            List<MntReleaseRec> verList = mntReleaseRecMapper.findList(mntReleaseRec);
+            if (verList == null || verList.size() == 0) {
+                throw new MntDataAccessException("第" + (index+1) + "行该系统下系统版本名称不存在，请检查后重新导入！" );
+            }
+            Integer relId = verList.get(0).getRelId();
+            
+            //3.省份
+            MntInstallBaseInfo mntInstallBaseInfo = new MntInstallBaseInfo();
+            mntInstallBaseInfo.setBaseName(rowList.get(3));
+            mntInstallBaseInfo.setDeleteFlag("0");
+            List<MntInstallBaseInfo> insts = mntInstallBaseInfoMapper.findList(mntInstallBaseInfo);
+            if(insts == null || insts.size() == 0) {
+                throw new MntDataAccessException("第" + (index+1) + "行该发布省份不存在，请检查后重新导入！" );
+            }
+            //4.发布类型 需求、故障、bug
+            
+            int dtlType =0 ;
+            if ("需求".equals(rowList.get(4))){
+                dtlType = 1 ;
+            }else if ("bug".equals(rowList.get(4))) {
+               dtlType = 2;
+            }else if("故障".equals(rowList.get(4))){
+                dtlType = 3 ;
+            }else {
+                throw new MntDataAccessException("第" + (index+1) + "行该发布类型不存在，请检查后重新导入！" );
+            }
+            
+            mntReleaseRecDtl.setRelId(relId);
+            mntReleaseRecDtl.setBaseId(insts.get(0).getBaseId());
+            mntReleaseRecDtl.setDtlType(dtlType);
+            mntReleaseRecDtl.setDtlCode(rowList.get(5));
+            mntReleaseRecDtl.setDtlName(rowList.get(6));
+            mntReleaseRecDtl.setDtlDesc(rowList.get(7));
+            
+           
+            mntReleaseRecDtl.setDeleteFlag("0");
+            mntReleaseRecDtl.setCreator(currentUser.getUserName());
+            mntReleaseRecDtl.setModifier(currentUser.getUserName());
+            mntReleaseRecDtl.setCreateDate(DateUtil.getCurrDate());
+            mntReleaseRecDtl.setModifyDate(DateUtil.getCurrDate());
+            
+            releaseResults.add(mntReleaseRecDtl);
+            index++;
+        }
+        
+        if(releaseResults.size() > 0) {
+           // mntReleaseRecDtlMapper.saveAll(releaseResults);
+            mntReleaseRecDtlMapper.saveAll(releaseResults);
+        }
+        
         
     }
 

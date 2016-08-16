@@ -19,7 +19,7 @@
                 </div>
                 <div class="tools">
                     <a href="" class="collapse"></a>
-                    <a href="" class="reload"></a>
+                    <a href="" class="reload" id="reload" onclick = "reload()"></a>
                 </div>
             </div>
             <div class="portlet-body form">
@@ -196,13 +196,13 @@
             tableObj.ajax.url(sUrl).load();
         });
         
-        $('.reload').on('click', function() {
-        	//alert($('#baseId').val());
+         $('.reload').on('click', function() {
+        	alert($('#baseId').val());
         	// $('#baseId').get(0).options[0].text = "全部 ";
         	//  $('#baseId').attr('value','全部 ');
         	// $("#baseId").get(0).selectedIndex = -1;
         	//  $("#baseId option[text='-1']").attr("selected", "selected");
-        	$('#baseId').val("-1");
+        	$('#baseId').value = -1 ;
             $('#prodId').val(-1);
             $('#bizNo').val('');
             $('#endDate').val('');
@@ -210,6 +210,8 @@
             $('#dealDays').val('');
             tableObj.ajax.url('inst/track/query?trackId=-1').load();
         });
+         
+       
         
         //修改按钮
         $('.div_right').on('click', '.dt-buttons>#btnUpdate',function() {
@@ -413,6 +415,7 @@
             }
         };
     }
+ 
 </script>
 </body>
 </html>
