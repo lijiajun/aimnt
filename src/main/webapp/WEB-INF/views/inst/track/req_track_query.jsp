@@ -19,7 +19,7 @@
                 </div>
                 <div class="tools">
                     <a href="" class="collapse"></a>
-                    <a href="" class="reload"></a>
+                    <a href="" class="reload" id="reload" onclick = "reload()"></a>
                 </div>
             </div>
             <div class="portlet-body form">
@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                             </div>
-                           <div class="col-md-4">
+                          <%--  <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label col-md-4">所属产品</label>
                                     <div class="col-md-8">
@@ -51,10 +51,10 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --%>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">需求编号</label>
+                                    <label class="control-label col-md-4">需求编号或名称</label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" id="bizNo">
                                     </div>
@@ -126,11 +126,11 @@
                                     <th>期望发布日期</th>
                                     <th>计划发布日期</th>
                                     <th>计划上线日期</th>
-                                    <th>删除标识</th>
+                                    <!-- <th>删除标识</th> -->
                                     <th>创建人</th>
                                     <th>创建时间</th>
-                                    <th>修改人</th>
-                                    <th>修改时间</th>
+                                    <!-- <th>修改人</th>
+                                    <th>修改时间</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -196,14 +196,22 @@
             tableObj.ajax.url(sUrl).load();
         });
         
-        $('.reload').on('click', function() {
-        	
-            $('#baseId').val('');
-            $('#prodId').val('');
+         $('.reload').on('click', function() {
+        	alert($('#baseId').val());
+        	// $('#baseId').get(0).options[0].text = "全部 ";
+        	//  $('#baseId').attr('value','全部 ');
+        	// $("#baseId").get(0).selectedIndex = -1;
+        	//  $("#baseId option[text='-1']").attr("selected", "selected");
+        	$('#baseId').value = -1 ;
+            $('#prodId').val(-1);
             $('#bizNo').val('');
-            $('#submitDate').val('');
+            $('#endDate').val('');
+            $('#beginDate').val('');
+            $('#dealDays').val('');
             tableObj.ajax.url('inst/track/query?trackId=-1').load();
         });
+         
+       
         
         //修改按钮
         $('.div_right').on('click', '.dt-buttons>#btnUpdate',function() {
@@ -306,17 +314,17 @@
                 "data" : "planReleaseDate"
             }, {
                 "data" : "planOnlineDate"
-            }, {
+            },/*  {
                 "data" : "deleteFlag"
-            }, {
+            }, */ {
                 "data" : "creator"
             }, {
                 "data" : "createDate"
-            }, {
+            }/* , {
                 "data" : "modifier"
             }, {
                 "data" : "modifyDate"
-            }],
+            } */],
             "columnDefs": [{
                 "orderable" : false,
                 "searchable" : false,
@@ -367,7 +375,7 @@
                  }
             },
             {
-                "targets": [20],
+                "targets": [19],
                 "data": "createDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -375,7 +383,7 @@
                     }
                     return new Date(data).format("yyyy-MM-dd");
                  }
-            },
+            }/* ,
             {
                 "targets": [22],
                 "data": "modifyDate",
@@ -385,7 +393,7 @@
                     }
                     return new Date(data).format("yyyy-MM-dd");
                  }
-            }
+            } */
             ],
             "sScrollX": "2000px",
             "dom" : '<"top"l<"div_right">>rt<"bottom"ip><"clear">',
@@ -407,6 +415,7 @@
             }
         };
     }
+ 
 </script>
 </body>
 </html>

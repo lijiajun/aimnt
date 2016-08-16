@@ -119,13 +119,13 @@
                                             需求类型 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select name="bizType" class="selectpicker form-control" id="bizType">
+                                            <%-- <select name="bizType" class="selectpicker form-control" id="bizType">
 <!--                                                 <option value="" selected>--请选择--</option> -->
                                                 <c:forEach items="${bizEnums}" var="bizEnum">
                                                     <option value="${bizEnum.key}">${bizEnum.value}</option>
                                                 </c:forEach>
-                                            </select>
-                                            <%-- <input type="text" class="form-control" placeholder="" value="${mntReqTrack.bizType}" name="bizType" id="bizType"> --%>
+                                            </select> --%>
+                                            <input type="text" class="form-control" placeholder="" value="${mntReqTrack.bizType}" name="bizType" id="bizType">
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入需求类型</span>
                                         </div>
@@ -174,7 +174,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            优先级 <span class="required">*</span>
+                                            优先级 
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntReqTrack.priority}" name="priority" id="priority">
@@ -186,7 +186,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            紧急程度 <span class="required">*</span>
+                                            紧急程度
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntReqTrack.urgentLevel}" name="urgentLevel" id="urgentLevel">
@@ -288,6 +288,13 @@ jQuery(document).ready(function() {
 	 var _bizType = '${mntReqTrack.bizType}';
 	    $('#bizType').val(_bizType);
 	    $('#bizType').selectpicker('refresh');
+	    
+	    $('#baseId').change(function(){
+            $('#baseName').val($("#baseId").find("option:selected").text());
+        });
+      $('#prodId').change(function(){
+          $('#prodName').val($("#prodId").find("option:selected").text());
+      });
     //表单校验提交
     //[1]自定义校验规则
     var rules = {
@@ -302,8 +309,8 @@ jQuery(document).ready(function() {
             bizSrc:"required",
             bizSts:"required",
             nodePerson:"required",
-            priority:"required",
-            urgentLevel:"required",
+           // priority:"required",
+            //urgentLevel:"required",
             submitDate:"required",
             dealDays:"required",
             askEndDate:"required",

@@ -50,6 +50,7 @@ public class MntHostApplyResultController {
     @RequestMapping("/host/query")
     @ResponseBody
     public Map<String, Object> getMntHostApplyResultList(MntHostApplyResult mntHostApplyResult) {
+        mntHostApplyResult.setDeleteFlag("0");
         List<MntHostApplyResult> mntHostApplyResultList = mntHostApplyResultService.findMntHostApplyResultList(mntHostApplyResult);
         Map<String, Object> map = new HashMap<>();
         map.put("data", mntHostApplyResultList);

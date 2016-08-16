@@ -23,19 +23,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            编号 <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.id}" name="id" id="id">
-                                            <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入编号</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        <label class="col-md-4 control-label" for="form_control_1">
-                                            事业部 <span class="required">*</span>
+                                            事业部 <!-- <span class="required">*</span> -->  <!-- 必填标志的那个小红星 -->
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.dept}" name="dept" id="dept">
@@ -44,12 +32,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            申请人 <span class="required">*</span>
+                                            申请人 <!-- <span class="required">*</span> -->
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.applicant}" name="applicant" id="applicant">
@@ -58,10 +44,24 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            申请人NT账号 <span class="required">*</span>
+                                            业务系统 
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.busiSystem}" name="busiSystem" id="busiSystem">
+                                            <div class="form-control-focus"></div>
+                                            <span class="help-block">请输入业务系统</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input">
+                                        <label class="col-md-4 control-label" for="form_control_1">
+                                            申请人NT账号
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.applicantNt}" name="applicantNt" id="applicantNt">
@@ -75,19 +75,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            业务系统 <span class="required">*</span>
+                                            主机配置 
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.busiSystem}" name="busiSystem" id="busiSystem">
+                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.hostCfg}" name="hostCfg" id="hostCfg">
                                             <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入业务系统</span>
+                                            <span class="help-block">请输入主机配置</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            主机类型 <span class="required">*</span>
+                                            主机类型
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.hostType}" name="hostType" id="hostType">
@@ -101,19 +101,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            主机配置 <span class="required">*</span>
+                                            主机IP 
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.hostCfg}" name="hostCfg" id="hostCfg">
+                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.hostIp}" name="hostIp" id="hostIp">
                                             <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入主机配置</span>
+                                            <span class="help-block">请输入主机IP</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            数据盘(G) <span class="required">*</span>
+                                            数据盘(G) 
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.diskSize}" name="diskSize" id="diskSize">
@@ -127,19 +127,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            主机IP <span class="required">*</span>
+                                            puaiuc密码 
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.hostIp}" name="hostIp" id="hostIp">
+                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.puaiucPasswd}" name="puaiucPasswd" id="puaiucPasswd">
                                             <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入主机IP</span>
+                                            <span class="help-block">请输入puaiuc密码</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            root密码 <span class="required">*</span>
+                                            root密码 
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.rootPasswd}" name="rootPasswd" id="rootPasswd">
@@ -153,19 +153,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            puaiuc密码 <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.puaiucPasswd}" name="puaiucPasswd" id="puaiucPasswd">
-                                            <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入puaiuc密码</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        <label class="col-md-4 control-label" for="form_control_1">
-                                            主机系统 <span class="required">*</span>
+                                            主机系统 
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.hostOs}" name="hostOs" id="hostOs">
@@ -174,83 +162,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input">
                                         <label class="col-md-4 control-label" for="form_control_1">
-                                            备注 <span class="required">*</span>
+                                            备注
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.remark}" name="remark" id="remark">
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入备注</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        <label class="col-md-4 control-label" for="form_control_1">
-                                            删除标识，1删除，0未删除 <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.deleteFlag}" name="deleteFlag" id="deleteFlag">
-                                            <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入删除标识，1删除，0未删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        <label class="col-md-4 control-label" for="form_control_1">
-                                            创建人 <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.creator}" name="creator" id="creator">
-                                            <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入创建人</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        <label class="col-md-4 control-label" for="form_control_1">
-                                            创建时间 <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="date-picker form-control" readonly data-date-format="yyyy-mm-dd" 
-                                                value="<fmt:formatDate value="${mntHostApplyResult.createDate}" pattern="yyyy-MM-dd"/>" name="createDate" id="createDate">
-                                            <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入创建时间</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        <label class="col-md-4 control-label" for="form_control_1">
-                                            修改人 <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntHostApplyResult.modifier}" name="modifier" id="modifier">
-                                            <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入修改人</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input">
-                                        <label class="col-md-4 control-label" for="form_control_1">
-                                            修改时间 <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="date-picker form-control" readonly data-date-format="yyyy-mm-dd" 
-                                                value="<fmt:formatDate value="${mntHostApplyResult.modifyDate}" pattern="yyyy-MM-dd"/>" name="modifyDate" id="modifyDate">
-                                            <div class="form-control-focus"></div>
-                                            <span class="help-block">请输入修改时间</span>
                                         </div>
                                     </div>
                                 </div>
@@ -285,7 +205,7 @@ jQuery(document).ready(function() {
     //表单校验提交
     //[1]自定义校验规则
     var rules = {
-            id:"required",
+            /* id:"required",
             dept:"required",
             applicant:"required",
             applicantNt:"required",
@@ -302,7 +222,7 @@ jQuery(document).ready(function() {
             creator:"required",
             createDate:"required",
             modifier:"required",
-            modifyDate:"required"
+            modifyDate:"required" */
     };
     //[2]表单校验初始化
     initFormValidate('form-update', rules, 'cloud/host/update', 'update');
