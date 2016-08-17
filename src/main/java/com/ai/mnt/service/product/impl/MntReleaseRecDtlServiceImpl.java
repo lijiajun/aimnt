@@ -210,6 +210,10 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
             
             MntReleaseRec mntReleaseRec = new MntReleaseRec();
             
+            
+            
+            
+            
             //1.系统
             String prodName = rowList.get(0);
             MntProd mntProd = new MntProd();
@@ -221,7 +225,7 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
             }
             Integer prodId = prodList.get(0).getProdId();
             
-          //2.版本
+            //2.版本
             String verCode = rowList.get(1);
             String relCode = rowList.get(2);
             mntReleaseRec.setRelCode(relCode);
@@ -255,6 +259,26 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
                 throw new MntDataAccessException("第" + (index+1) + "行该发布类型不存在，请检查后重新导入！" );
             }
             
+            
+          //判断 是否重复 有三个版本号是可以重复的
+            if(!"BIZBILLING_VER_00000".equals(rowList.get(2)) && 
+                    !"BIZBILLING_VER_11111".equals(rowList.get(2)) &&
+                    !"BIZBILLING_VER_99999".equals(rowList.get(2))) {
+                //重复验证
+                MntReleaseRecDtl mntReleaseRecDtl2 = new MntReleaseRecDtl();
+                mntReleaseRecDtl2.setRelId(relId);
+                mntReleaseRecDtl2.setDtlCode(rowList.get(5));
+                MntReleaseRec mntReleaseRec2 = new MntReleaseRec();
+                mntReleaseRec2.setProdId(prodId);
+                mntReleaseRecDtl2.setMntReleaseRec(mntReleaseRec2);
+                List<MntReleaseRecDtl> recDtllist = mntReleaseRecDtlMapper.findRecAndDtlJoinList(mntReleaseRecDtl2);
+                if(recDtllist != null && recDtllist.size() > 0) {
+                    throw new MntDataAccessException("该产品的相同版本号下已经存在相同的明细信息，请检查后重新添加！" );
+                }
+            }
+            
+            
+            
             mntReleaseRecDtl.setRelId(relId);
             mntReleaseRecDtl.setBaseId(insts.get(0).getBaseId());
             mntReleaseRecDtl.setDtlType(dtlType);
@@ -262,7 +286,6 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
             mntReleaseRecDtl.setDtlName(rowList.get(6));
             mntReleaseRecDtl.setDtlDesc(rowList.get(7));
             
-           
             mntReleaseRecDtl.setDeleteFlag("0");
             mntReleaseRecDtl.setCreator(currentUser.getUserName());
             mntReleaseRecDtl.setModifier(currentUser.getUserName());

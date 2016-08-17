@@ -57,6 +57,52 @@ public class MntReleaseRecController {
     }
     
     /**
+     * 发布信息导入页面 （不是明细）
+     * 
+     * @param model
+     * @return
+     */
+    @RequiresPermissions("prod:operate")
+    @RequestMapping("/rec/import_page")
+    public String releaseImport(Model model) {
+        return "product/rel/rel_rec_import";
+    }
+    
+    
+    /**
+     * 产品发布批量导入Excel (不是明细)
+     * 
+     * @param model
+     * @return
+     */
+    @RequestMapping("/rec/import")
+    @ResponseBody
+    public Map<String, Object> releaseImport(@RequestParam("file") MultipartFile file) {
+        Map<String, Object> map = new HashMap<>();
+        if (!file.isEmpty()) {
+            try {
+                //String fileName = file.getOriginalFilename();
+                InputStream inputStream = file.getInputStream();
+                List<List<String>> excelData = ExcelUtil.readExcelToListBySheetIndex(inputStream, 0);
+                
+                mntReleaseRecService.importRelData(excelData);
+                map.put("status", "1");
+                map.put("info", "文件上传解析成功！");
+            } catch (Exception e) {
+                e.printStackTrace();
+                map.put("status", "0");
+                map.put("error", "文件上传失败！" + e.getMessage());
+            }
+        }else {
+            map.put("status", "0");
+            map.put("error", "请选择需要上传的文件！");
+        }
+        return map;
+    }
+
+    
+    
+    /**
      * 发布信息查询 
      * @param mntReleaseRec
      * @return
@@ -368,14 +414,14 @@ public class MntReleaseRecController {
     }
     
     /**
-     * 产品发布导入页面
+     * 发布明细导入页面
      * 
      * @param model
      * @return
      */
     @RequiresPermissions("prod:operate")
     @RequestMapping("/dtl/import_page")
-    public String batchImportHost(Model model) {
+    public String batchImportRelease(Model model) {
         return "product/rel/rel_rec_dtl_import";
     }
     

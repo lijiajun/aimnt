@@ -127,6 +127,11 @@
     <div style="display:none" id="btn-data-tools">
         <shiro:hasPermission name="prod:operate">
         <span class="dt-buttons">
+            <a class="dt-button btn purple btn-outline btn-mnt" id="btnImport" >
+                <span>导入</span>
+            </a>
+        </span>
+        <span class="dt-buttons">
             <a class="dt-button btn red btn-outline btn-mnt" id="btnDelete" >
                 <span>删除</span>
             </a>
@@ -236,6 +241,11 @@
 //                     showMsg("删除操作发生错误！");
 //                 }
 //             });
+        });
+        
+      //导入
+        $('.div_right').on('click', '.dt-buttons>#btnImport', function() {
+            showModal(2, " ", [ '1000px', '400px' ], "rel/rec/import_page", tableObj);
         });
         
     });
