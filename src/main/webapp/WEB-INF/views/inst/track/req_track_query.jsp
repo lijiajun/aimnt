@@ -60,6 +60,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">需求类型</label>
+                                    <div class="col-md-8">
+                                        <select name="bizType" class="form-control select2" id="bizType">
+                                            <option selected="selected" value="-1">全部</option>
+                                            <option value="0">测试缺陷</option>
+                                            <option value="1">客户需求</option>
+                                            <option value="2">故障管理</option>
+                                        </select>
+                                       <!--  <input type="text" class="form-control" id="bizType"> -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                            <div class="col-md-4">
@@ -109,9 +123,9 @@
                             <thead>
                                 <tr>
                                     <th class="checkbox-datatables"><input type="checkbox" id="tab-th-chk" /></th>
-                                    <th>安装点</th>
+                                   <!--  <th>安装点</th> -->
                                     <th>安装点名称</th>
-                                    <th>所属产品</th>           
+                                   <!--  <th>所属产品</th>     -->       
                                     <th>产品名称</th>
                                     <th>需求编号</th>
                                     <th>需求名称</th>
@@ -182,22 +196,26 @@
             var strDealDays = $("#dealDays").val();
             var strBaseId = $("#baseId").find("option:selected").text();
             var strProdId = $("#prodId").find("option:selected").text();
-            //alert("33")
-            //alert(strBaseId);
+            var strBizType = $("#bizType").find("option:selected").text();
+            //alert($("#bizType").val())
+            //alert(strBizType);
             strProdId = strProdId == "全部" ? "" : strProdId;      //如果strProdId为-1 那就就让他变成空  这里的设置对于查询条件为全部的时候管用 
             strBaseId = strBaseId == "全部" ? "" : strBaseId;
+            strBizType = strBizType == "全部" ? "" :strBizType;
+            
             var sUrl = "inst/track/query?";
             sUrl += "prodName=" + strProdId +
                 "&baseName=" + strBaseId +
                 "&bizNo=" + strBizNo +
                 "&beginDate=" + strBeginDate +
                 "&dealDays=" + strDealDays +
+                "&bizType=" + strBizType +
                 "&endDate=" + strEndDate ;
             tableObj.ajax.url(sUrl).load();
         });
         
          $('.reload').on('click', function() {
-        	alert($('#baseId').val());
+        	//alert($('#baseId').val());
         	// $('#baseId').get(0).options[0].text = "全部 ";
         	//  $('#baseId').attr('value','全部 ');
         	// $("#baseId").get(0).selectedIndex = -1;
@@ -208,6 +226,7 @@
             $('#endDate').val('');
             $('#beginDate').val('');
             $('#dealDays').val('');
+           // $('#bizType').value = "1" ;
             tableObj.ajax.url('inst/track/query?trackId=-1').load();
         });
          
@@ -280,13 +299,13 @@
             },
             "columns" : [ {
                 "data" : "trackId"
-            }, {
+            }, /* {
                 "data" : "baseName"                   //这里显示数据，id  name 转换  
-            }, {
+            }, */ {
                 "data" : "baseName"
-            }, {
+            }, /* {
                 "data" : "prodName"
-            }, {
+            }, */ {
                 "data" : "prodName"
             }, {
                 "data" : "bizNo"
@@ -335,7 +354,7 @@
                  }
             },
             {
-                "targets": [13],  
+                "targets": [11],  
                 "data": "submitDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -345,7 +364,7 @@
                  }
             },
             {
-                "targets": [15],
+                "targets": [13],
                 "data": "askEndDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -355,7 +374,7 @@
                  }
             },
             {
-                "targets": [16],
+                "targets": [14],
                 "data": "planReleaseDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -365,7 +384,7 @@
                  }
             },
             {
-                "targets": [17],
+                "targets": [15],
                 "data": "planOnlineDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -375,7 +394,7 @@
                  }
             },
             {
-                "targets": [19],
+                "targets": [17],
                 "data": "createDate",
                 "render": function (data, type, full) {
                     if(data == null || data == "") {
@@ -405,7 +424,7 @@
                 "processing" : "努力加载数据中...",
                 "lengthMenu" : "_MENU_ 条记录每页",
                 "zeroRecords" : "没有查询到数据",
-                "info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+                "info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 _MAX_ 条记录 )",
                 "infoEmpty" : "无记录",
                 "infoFiltered" : "(从 _MAX_ 条记录过滤)",
                 "paginate" : {

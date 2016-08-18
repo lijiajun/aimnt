@@ -55,6 +55,7 @@ public class MntReqTrackController {
     public String showMntReqTrackPage(Model model) {
         List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_NAME");
         List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
+        
         model.addAttribute("prodEnums", prodEnums);
         model.addAttribute("baseIdEnums", baseIdEnums);
         return "inst/track/req_track_query";
