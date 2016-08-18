@@ -2,7 +2,6 @@ package com.ai.mnt.service.cloud;
 
 import java.util.List;
 
-import com.ai.mnt.exception.MntDataAccessException;
 import com.ai.mnt.model.cloud.MntHostApplyResult;
 
 /**

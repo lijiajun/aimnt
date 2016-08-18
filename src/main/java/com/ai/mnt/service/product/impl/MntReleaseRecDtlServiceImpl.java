@@ -11,13 +11,10 @@ import com.ai.mnt.common.cache.BaseDataCache;
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.common.util.DateUtil;
 import com.ai.mnt.exception.MntDataAccessException;
-import com.ai.mnt.model.cloud.MntHostApplyResult;
 import com.ai.mnt.model.inst.MntInstallBaseInfo;
 import com.ai.mnt.model.product.MntProd;
-import com.ai.mnt.model.product.MntProdVersion;
 import com.ai.mnt.model.product.MntReleaseRec;
 import com.ai.mnt.model.product.MntReleaseRecDtl;
-import com.ai.mnt.model.sys.SysDict;
 import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.persistence.inst.MntInstallBaseInfoMapper;
 import com.ai.mnt.persistence.product.MntProdMapper;
@@ -210,10 +207,6 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
             
             MntReleaseRec mntReleaseRec = new MntReleaseRec();
             
-            
-            
-            
-            
             //1.系统
             String prodName = rowList.get(0);
             MntProd mntProd = new MntProd();
@@ -246,8 +239,8 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
             if(insts == null || insts.size() == 0) {
                 throw new MntDataAccessException("第" + (index+1) + "行该发布省份不存在，请检查后重新导入！" );
             }
-            //4.发布类型 需求、故障、bug
             
+            //4.发布类型 需求、故障、bug
             int dtlType =0 ;
             if ("需求".equals(rowList.get(4))){
                 dtlType = 1 ;
@@ -259,8 +252,7 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
                 throw new MntDataAccessException("第" + (index+1) + "行该发布类型不存在，请检查后重新导入！" );
             }
             
-            
-          //判断 是否重复 有三个版本号是可以重复的
+            //判断 是否重复 有三个版本号是可以重复的
             if(!"BIZBILLING_VER_00000".equals(rowList.get(2)) && 
                     !"BIZBILLING_VER_11111".equals(rowList.get(2)) &&
                     !"BIZBILLING_VER_99999".equals(rowList.get(2))) {
@@ -276,8 +268,6 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
                     throw new MntDataAccessException("该产品的相同版本号下已经存在相同的明细信息，请检查后重新添加！" );
                 }
             }
-            
-            
             
             mntReleaseRecDtl.setRelId(relId);
             mntReleaseRecDtl.setBaseId(insts.get(0).getBaseId());
