@@ -145,12 +145,7 @@ public class MntReleaseRecController {
     @ResponseBody
     public Map<String, Object> saveRelRec(MntReleaseRec mntReleaseRec) {
         Map<String, Object> map = new HashMap<>();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+       
         try {
             mntReleaseRecService.saveReleaseRec(mntReleaseRec);
             map.put("status", "1");

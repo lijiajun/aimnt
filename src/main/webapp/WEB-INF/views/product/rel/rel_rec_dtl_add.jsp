@@ -149,9 +149,14 @@
                             </div>
                             <div class="form-actions">
                                 <div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn green">提 交</button>
-                                    </div>
+                                    <div class="row">
+                                     <span class="dt-buttons">
+                                            <button type="reset" class="btn green">重 置</button>
+                                    </span>
+                                     <span class="dt-buttons">
+                                            <button type="submit" class="btn green">提 交</button>
+                                     </span>
+                                </div>
                                 </div>
                             </div>
                         </form>

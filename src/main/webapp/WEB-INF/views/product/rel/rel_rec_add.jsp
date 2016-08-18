@@ -113,9 +113,16 @@
                             </div>
                             <div class="form-actions">
                                 <div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn green">提 交</button>
-                                    </div>
+                                     <span class="dt-buttons">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type="reset" class="btn green">重 置</button>
+                                        </div>
+                                     </span>
+                                     <span class="dt-buttons">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type="submit" class="btn green">提 交</button>
+                                        </div>
+                                     </span>
                                 </div>
                             </div>
                         </form>
@@ -147,6 +154,7 @@ jQuery(document).ready(function() {
         };
     //[2]表单校验初始化
     initFormValidate('form-rel', rules, 'rel/rec/add', 'add');
+    
 });
 
 </script>
