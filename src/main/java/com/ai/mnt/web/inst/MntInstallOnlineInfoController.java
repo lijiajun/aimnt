@@ -21,8 +21,10 @@ import com.ai.mnt.common.util.DateUtil;
 import com.ai.mnt.common.util.ExcelUtil;
 import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.inst.MntInstallOnlineInfo;
+import com.ai.mnt.model.product.MntReleaseRec;
 import com.ai.mnt.model.product.MntReleaseRecDtl;
 import com.ai.mnt.service.inst.MntInstallOnlineInfoService;
+import com.ai.mnt.service.product.MntReleaseRecService;
 
 /**
  * @Title: MntInstallOnlineInfoController 
@@ -37,6 +39,9 @@ public class MntInstallOnlineInfoController {
 
     @Autowired
     MntInstallOnlineInfoService mntInstallOnlineInfoService;
+    
+    @Autowired
+    MntReleaseRecService mntReleaseRecService;
     
     /**
      * 安装点上线信息界面跳转
@@ -301,6 +306,28 @@ public class MntInstallOnlineInfoController {
             map.put("error", "请选择需要上传的文件！");
         }
         return map;
+    }
+    
+    
+    /**
+     * 上线版本明细--弹出
+     * @param model
+     * @return
+     */
+    @RequestMapping("/online /{relCode}/pagedtl")     //   /{relCode}
+    public String findRelByRelCode(@PathVariable String relCode, Model model) {
+       /* MntReleaseRecDtl mntReleaseRecDtl = new MntReleaseRecDtl();
+        mntReleaseRecDtl.setRelId(Integer.parseInt(relId));
+        List<MntReleaseRecDtl> relDtlList = mntReleaseRecDtlService.findRelDtlList(mntReleaseRecDtl);
+        String relCode = BaseDataCache.getDataName("REL_CODE", Integer.parseInt(relId));
+        model.addAttribute("relCode", relCode);
+        model.addAttribute("relDtlList", relDtlList);*/
+        System.out.println(relCode);
+        MntReleaseRec mntReleaseRec = new MntReleaseRec();
+        mntReleaseRec.setRelCode(relCode);
+        List<MntReleaseRec> relList = mntReleaseRecService.findReleaseRecByRelCode(relCode);
+        model.addAttribute("relList", relList);
+        return "inst/online/inst_online_dtl_list";
     }
     
 }

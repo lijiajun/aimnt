@@ -30,5 +30,7 @@ public interface MntReleaseRecMapper extends CrudMapper<MntReleaseRec, Integer>{
      * @return
      */
     public List<MntReleaseRec> getStatResForProdId(MntReleaseRec mntReleaseRec);
+
+    public List<MntReleaseRec> findByRelCode(String relCode);
     
 }

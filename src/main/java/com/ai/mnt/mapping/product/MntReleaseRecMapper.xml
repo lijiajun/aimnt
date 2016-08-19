@@ -270,6 +270,13 @@
         from mnt_release_rec
     </select>
     
+    <select id="findByRelCode" resultMap="MntReleaseRecResultMap">
+        select
+        <include refid="MntReleaseRecColumns" />
+        from mnt_release_rec
+        where rel_code = #{relCode}
+    </select>
+    
     <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
     
 </mapper>

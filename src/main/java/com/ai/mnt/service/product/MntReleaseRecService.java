@@ -49,5 +49,7 @@ public interface MntReleaseRecService {
 
     //导入
     public void importRelData(List<List<String>> excelData) throws Exception;
+    //详细信息
+    public List<MntReleaseRec> findReleaseRecByRelCode(String relCode);
     
 }

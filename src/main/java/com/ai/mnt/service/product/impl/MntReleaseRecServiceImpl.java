@@ -30,6 +30,15 @@ public class MntReleaseRecServiceImpl implements MntReleaseRecService {
     @Autowired
     MntProdMapper mntProdMapper;
     
+    
+    //弹出 版本明细信息
+    @Override
+    public List<MntReleaseRec> findReleaseRecByRelCode(String  relCode) {
+        List<MntReleaseRec> relRecCodelist = mntReleaseRecMapper.findByRelCode(relCode);
+        return relRecCodelist;
+    }
+    
+    
     /**
      * 获取全部发布记录
      */

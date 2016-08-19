@@ -340,6 +340,13 @@
                  }
             },
             {
+            	"targets": [4],
+                "data": "relCode",
+                "render": function (data, type, full) {
+                    return '<a href="javascript:;" onclick="showRelDetail(' + data + ')" >'+data+'</a>';
+                 }
+            },
+            {
                 "targets": [10],
                 "data": "planOnlineDate",
                 "render": function (data, type, full) {
@@ -409,6 +416,10 @@
                 }
             }
         };
+    }
+    
+    function showRelDetail(relCode) {       ///" + relCode + "
+        showModal(2, ' ', [ '1000px', '600px' ], "inst/online/" + relCode + "/pagedtl");
     }
 </script>
 </body>
