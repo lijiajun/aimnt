@@ -195,6 +195,12 @@
         </foreach>
     </delete>
 
+    <update id="updateRelIdByDtlId">
+    	update mnt_install_online_info
+    	set rel_id = #{relId}
+    	where online_id = #{onlineId}
+    </update>
+
     <update id="updateByPrimaryKey">
         update mnt_install_online_info
         <set>

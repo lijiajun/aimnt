@@ -12,11 +12,13 @@ import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.common.util.DateUtil;
 import com.ai.mnt.exception.MntDataAccessException;
 import com.ai.mnt.model.inst.MntInstallBaseInfo;
+import com.ai.mnt.model.inst.MntInstallOnlineInfo;
 import com.ai.mnt.model.product.MntProd;
 import com.ai.mnt.model.product.MntReleaseRec;
 import com.ai.mnt.model.product.MntReleaseRecDtl;
 import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.persistence.inst.MntInstallBaseInfoMapper;
+import com.ai.mnt.persistence.inst.MntInstallOnlineInfoMapper;
 import com.ai.mnt.persistence.product.MntProdMapper;
 import com.ai.mnt.persistence.product.MntProdVersionMapper;
 import com.ai.mnt.persistence.product.MntReleaseRecDtlMapper;
@@ -51,6 +53,9 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
     
     @Autowired
     SysDictMapper sysDictMapper;
+    
+    @Autowired
+    MntInstallOnlineInfoMapper mntInstallOnlineInfoMapper;
     
     /**
      * 获取发布明细
@@ -136,6 +141,33 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
         mntReleaseRecDtl.setModifier(currentUser.getUserName());
         mntReleaseRecDtl.setModifyDate(new Date());
         mntReleaseRecDtlMapper.updateByPrimaryKey(mntReleaseRecDtl);
+        
+        int dtlId = mntReleaseRecDtl.getDtlId();
+        int relId = mntReleaseRecDtl.getRelId();
+        int baseId = mntReleaseRecDtl.getBaseId();
+        //String verCode = mntReleaseRecDtl.getMntReleaseRec().getVerCode();
+        System.out.println(dtlId);
+        System.out.println(baseId);
+        MntInstallOnlineInfo mntInstallOnlineInfo = new MntInstallOnlineInfo();
+        mntInstallOnlineInfo.setRelDtlId(dtlId);
+        // mntInstallOnlineInfo.setRelId(relId);
+        mntInstallOnlineInfo.setBaseId(baseId);
+        //mntInstallOnlineInfo.setProdId(prodId);
+        //mntInstallOnlineInfo.setVerCode(verCode);
+       List<MntInstallOnlineInfo> mntInstallBaseInfos = mntInstallOnlineInfoMapper.findList(mntInstallOnlineInfo);
+        if (mntInstallBaseInfos != null && mntInstallBaseInfos.size() > 0 ) {
+            System.out.println(mntInstallBaseInfos.size()+"===========");
+            int onlineId = mntInstallBaseInfos.get(0).getOnlineId();
+            MntInstallOnlineInfo mntInstallOnlineInfo1 = new MntInstallOnlineInfo();
+            mntInstallOnlineInfo1.setOnlineId(onlineId);
+            System.out.println("onlineId: "+onlineId);
+            mntInstallOnlineInfo1.setRelId(relId);
+            System.out.println("relid: "+relId);
+            mntInstallOnlineInfoMapper.updateRelIdByDtlId(mntInstallOnlineInfo1);
+        }
+        
+       
+        
     }
 
     @Override
@@ -265,7 +297,7 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
                 mntReleaseRecDtl2.setMntReleaseRec(mntReleaseRec2);
                 List<MntReleaseRecDtl> recDtllist = mntReleaseRecDtlMapper.findRecAndDtlJoinList(mntReleaseRecDtl2);
                 if(recDtllist != null && recDtllist.size() > 0) {
-                    throw new MntDataAccessException("该产品的相同版本号下已经存在相同的明细信息，请检查后重新添加！" );
+                    throw new MntDataAccessException("第" + (index+1) + "行该产品的相同版本号下已经存在相同的明细信息，请检查后重新添加！" );
                 }
             }
             

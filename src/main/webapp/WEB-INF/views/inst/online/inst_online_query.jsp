@@ -419,6 +419,7 @@
     }
     
     function showRelDetail(relCode) {       ///" + relCode + "
+    	//alert(relCode);
         showModal(2, ' ', [ '1000px', '600px' ], "inst/online/" + relCode + "/pagedtl");
     }
 </script>

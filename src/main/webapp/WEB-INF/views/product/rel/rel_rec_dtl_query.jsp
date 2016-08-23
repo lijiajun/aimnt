@@ -201,6 +201,7 @@
         
         var tableObj = $('#tabRelDtl').DataTable(getConfig());
         $('#btnQuery').click(function(e) {
+        	
             var strProdId = $("#prodId").val();
             var strRelCode = $("#relCode").val();
             var strVerCode = $("#verCode").val();

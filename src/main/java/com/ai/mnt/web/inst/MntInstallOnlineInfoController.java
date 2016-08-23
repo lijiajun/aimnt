@@ -316,17 +316,19 @@ public class MntInstallOnlineInfoController {
      */
     @RequestMapping("/online /{relCode}/pagedtl")     //   /{relCode}
     public String findRelByRelCode(@PathVariable String relCode, Model model) {
-       /* MntReleaseRecDtl mntReleaseRecDtl = new MntReleaseRecDtl();
-        mntReleaseRecDtl.setRelId(Integer.parseInt(relId));
-        List<MntReleaseRecDtl> relDtlList = mntReleaseRecDtlService.findRelDtlList(mntReleaseRecDtl);
-        String relCode = BaseDataCache.getDataName("REL_CODE", Integer.parseInt(relId));
-        model.addAttribute("relCode", relCode);
-        model.addAttribute("relDtlList", relDtlList);*/
+     
         System.out.println(relCode);
         MntReleaseRec mntReleaseRec = new MntReleaseRec();
         mntReleaseRec.setRelCode(relCode);
         List<MntReleaseRec> relList = mntReleaseRecService.findReleaseRecByRelCode(relCode);
-        model.addAttribute("relList", relList);
+        if(relList != null && relList.size() > 0) {
+            model.addAttribute("relList", relList.get(0));
+        }
+        Integer relType = relList.get(0).getRelType();
+        String relTypeTxt = BaseDataCache.getDataName("REL_TYPE", relType);
+        //model.addAttribute("relList", relList);
+        //System.out.println(relTypeTxt);
+        model.addAttribute("relTypeTxt", relTypeTxt);
         return "inst/online/inst_online_dtl_list";
     }
     
