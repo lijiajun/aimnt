@@ -150,9 +150,9 @@ function renderCalendar(cid, url) {
 	        showFullModal(2, [ '1000px', '550px' ], "stat/online/list/" + _date);
     	},
     	eventMouseover: function( event, jsEvent, view ) {
-			$(this).attr('title', event.title);
-			$(this).css('font-weight', 'normal');
-			alert('View: ' + view.name);
+//			$(this).attr('title', event.title);
+//			$(this).css('font-weight', 'normal');
+//			alert('View: ' + view.name);
     	}
 //    	eventResizeStop: function( event, jsEvent, ui, view ) {
 //    		alert(22222222222211);
@@ -686,4 +686,12 @@ jQuery(document).ready(function() {
     
     javascript:window.history.forward(1);
     window.onbeforeunload=function (){}
+    
+    //Enter
+    document.onkeydown = function(e){ 
+        var ev = document.all ? window.event : e;
+        if(ev.keyCode==13 && $("#btnQuery").length>0) {
+        	$("#btnQuery").trigger("click");
+        }
+    }
 });
