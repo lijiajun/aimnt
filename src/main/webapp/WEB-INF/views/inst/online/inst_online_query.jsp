@@ -342,9 +342,14 @@
             {
             	"targets": [4],
                 "data": "relCode",
-                "render": function (data, type, full) {
+                "createdCell": function (td, cellData, rowData, row, col) {
+                	var htmlTxt = "";
+                	htmlTxt = '<a href="javascript:;" onclick="showRelDetail('+rowData.relId+')" >'+rowData.relCode+'</a>';
+                	$(td).html(htmlTxt);
+                }
+                /* "render": function (data, type, full) {
                     return '<a href="javascript:;" onclick="showRelDetail(' + data + ')" >'+data+'</a>';
-                 }
+                 } */
             },
             {
                 "targets": [10],
@@ -418,9 +423,8 @@
         };
     }
     
-    function showRelDetail(relCode) {       ///" + relCode + "
-    	//alert(relCode);
-        showModal(2, ' ', [ '1000px', '600px' ], "inst/online/" + relCode + "/pagedtl");
+    function showRelDetail(relId) {       ///" + relCode + "
+        showModal(2, ' ', [ '1000px', '600px' ], "inst/online/" + relId + "/pagedtl");
     }
 </script>
 </body>

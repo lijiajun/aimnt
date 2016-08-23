@@ -314,21 +314,29 @@ public class MntInstallOnlineInfoController {
      * @param model
      * @return
      */
-    @RequestMapping("/online /{relCode}/pagedtl")     //   /{relCode}
-    public String findRelByRelCode(@PathVariable String relCode, Model model) {
+    @RequestMapping("/online /{relId}/pagedtl")   
+    public String findRelByRelCode(@PathVariable Integer relId, Model model) {
      
-        System.out.println(relCode);
-        MntReleaseRec mntReleaseRec = new MntReleaseRec();
-        mntReleaseRec.setRelCode(relCode);
-        List<MntReleaseRec> relList = mntReleaseRecService.findReleaseRecByRelCode(relCode);
-        if(relList != null && relList.size() > 0) {
+        //MntReleaseRec mntReleaseRec = new MntReleaseRec();
+       // mntReleaseRec.setRelId(relId);
+       // List<MntReleaseRec> relList = mntReleaseRecService.findReleaseRecByRelCode(relCode);
+        MntReleaseRec mntReleaseRec = mntReleaseRecService.findReleaseRecById(relId);
+        model.addAttribute("mntReleaseRec", mntReleaseRec);
+        String prodIdTxt = BaseDataCache.getDataName("PROD_INFO", mntReleaseRec.getProdId());
+        model.addAttribute("prodIdTxt", prodIdTxt);
+        String relTypeTxt = BaseDataCache.getDataName("REL_TYPE", mntReleaseRec.getRelType());
+        model.addAttribute("relTypeTxt", relTypeTxt);
+        /* if(relList != null && relList.size() > 0) {
             model.addAttribute("relList", relList.get(0));
         }
         Integer relType = relList.get(0).getRelType();
+        Integer prodId = relList.get(0).getProdId();
         String relTypeTxt = BaseDataCache.getDataName("REL_TYPE", relType);
-        //model.addAttribute("relList", relList);
-        //System.out.println(relTypeTxt);
+        String prodIdTxt = BaseDataCache.getDataName("PROD_INFO", prodId);
+        
         model.addAttribute("relTypeTxt", relTypeTxt);
+        model.addAttribute("prodIdTxt", prodIdTxt);*/
+        
         return "inst/online/inst_online_dtl_list";
     }
     
