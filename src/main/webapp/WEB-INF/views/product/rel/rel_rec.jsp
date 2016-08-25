@@ -255,7 +255,7 @@
             "processing" : true,
             "pageLength" : 5,
             "lengthMenu" : [ [ 5, 10, 20, -1 ], [ 5, 10, 20, "All" ] ],
-            "order" : [ [ 7, "desc" ] ],
+            "order" : [ [ 7, "desc" ] ],  //默认第八列的排序
             "serverSide" : false,
             "ajax" : {
                 "url" : "rel/rec/query?relCode=-1",

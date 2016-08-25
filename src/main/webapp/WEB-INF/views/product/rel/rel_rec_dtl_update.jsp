@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>新增产品版本明细信息</title>
+<title>修改产品版本明细信息</title>
 <%@include file="../../included/includedStyle.jsp" %>
 </head>
 

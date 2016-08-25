@@ -342,14 +342,14 @@
             {
             	"targets": [4],
                 "data": "relCode",
-                "createdCell": function (td, cellData, rowData, row, col) {
+               /*  "createdCell": function (td, cellData, rowData, row, col) {
                 	var htmlTxt = "";
                 	htmlTxt = '<a href="javascript:;" onclick="showRelDetail('+rowData.relId+')" >'+rowData.relCode+'</a>';
                 	$(td).html(htmlTxt);
-                }
-                /* "render": function (data, type, full) {
-                    return '<a href="javascript:;" onclick="showRelDetail(' + data + ')" >'+data+'</a>';
-                 } */
+                } */
+                 "render": function (data, type, row, meta) {
+                    return '<a href="javascript:;" onclick="showRelDetail(' + row.relId + ')" >'+row.relCode+'</a>';
+                 } 
             },
             {
                 "targets": [10],

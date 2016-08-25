@@ -27,11 +27,12 @@
                                             产品类型 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select name="prodId" class="selectpicker form-control" id="prodId">
+                                            <%-- <select name="prodId" class="selectpicker form-control" id="prodId">
                                                 <c:forEach items="${prodEnums}" var="prodEnum">
                                                     <option value="${prodEnum.key}">${prodEnum.value}</option>
                                                 </c:forEach>
-                                            </select>
+                                            </select> --%>
+                                            <p class="form-control-static"> ${prodName} </p>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请选择产品类型</span>
                                         </div>
@@ -43,11 +44,12 @@
                                             产品版本 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select name="verCode" class="selectpicker form-control" id="verCode">
+                                            <%-- <select name="verCode" class="selectpicker form-control" id="verCode">
                                                 <c:forEach items="${verEnums}" var="verEnum">
                                                     <option value="${verEnum.key}">${verEnum.value}</option>
                                                 </c:forEach>
-                                            </select>
+                                            </select> --%>
+                                             <p class="form-control-static"> ${mntReleaseRec.verCode} </p>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请选择产品版本</span>
                                         </div>
@@ -61,11 +63,11 @@
                                             发布版本号 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select name="relId" class="selectpicker form-control" data-live-search="true" id="relId">
-<%--                                                 <c:forEach items="${relCodeEnums}" var="relCodeEnum"> --%>
-<%--                                                     <option value="${relCodeEnum.key}">${relCodeEnum.value}</option> --%>
-<%--                                                 </c:forEach> --%>
-                                            </select>
+                                            <div class="col-md-10" style="display:none;">
+                                                <input type="text" class="form-control" placeholder="" name="relId" id="relId" name="relId" value="${mntReleaseRec.relId }">
+                                            </div>
+                                            <%-- <p style="display:none;" class="form-control-static" name="relId" id="relId"> ${mntReleaseRec.relId} </p> --%>
+                                            <p  class="form-control-static" > ${mntReleaseRec.relCode} </p>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请选择产品发布版本号</span>
                                         </div>
@@ -77,7 +79,7 @@
                                             明细类型 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <select name="dtlType" class="selectpicker form-control" id="dtlType">
+                                             <select name="dtlType" class="selectpicker form-control" id="dtlType">
                                                 <c:forEach items="${dtlTypeEnums}" var="dtlTypeEnum">
                                                     <option value="${dtlTypeEnum.key}">${dtlTypeEnum.value}</option>
                                                 </c:forEach>
@@ -146,6 +148,12 @@
                                         </div>
                                     </div>
                                 </div>
+                              <%--   <div style="display:none;">
+                                    <p id="prodId" name="prodId"> ${mntReleaseRec.prodId }</p>
+                                   
+                                    
+                                    <p  id="relId" name = "relId">${mntReleaseRec.relId }</p>
+                                </div> --%>
                             </div>
                             <div class="form-actions">
                                 <div class="row">
@@ -171,18 +179,6 @@
 
 jQuery(document).ready(function() {
     
-    loadVerCodeSelect();
-    loadRelSelect();
-    $('#prodId').change(function(){
-        loadVerCodeSelect();
-        loadRelSelect();
-    });
-    
-    $('#verCode').change(function(){
-    	loadRelSelect();
-    });
-    
-    
     //表单校验提交
     //[1]自定义校验规则
     var rules = {
@@ -204,7 +200,7 @@ function initSelect() {
 //     alert(_prodId);
     
     //获取该产品下的产品版本
-    $.ajax({
+   /*  $.ajax({
         url: "load/select/ver/" + _prodId,
         dataType: "json",
         data: {"prodId": _prodId},
@@ -222,7 +218,7 @@ function initSelect() {
         error:function() {
             showMsg("加载下拉框出现错误！");
         }
-    });
+    }); */
     
     
 }

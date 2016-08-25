@@ -285,7 +285,7 @@
 //                 async:false,
 //                 success:function (data) {
 //                     showMsg("删除成功！");
-//                     tableObj.ajax.reload(null,false);
+//                      tableObj.ajax.reload(null,false);
 //                 },
 //                 error:function() {
 //                     showMsg("删除操作发生错误！");

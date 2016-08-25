@@ -145,24 +145,15 @@ public class MntReleaseRecDtlServiceImpl implements MntReleaseRecDtlService{
         int dtlId = mntReleaseRecDtl.getDtlId();
         int relId = mntReleaseRecDtl.getRelId();
         int baseId = mntReleaseRecDtl.getBaseId();
-        //String verCode = mntReleaseRecDtl.getMntReleaseRec().getVerCode();
-        System.out.println(dtlId);
-        System.out.println(baseId);
         MntInstallOnlineInfo mntInstallOnlineInfo = new MntInstallOnlineInfo();
         mntInstallOnlineInfo.setRelDtlId(dtlId);
-        // mntInstallOnlineInfo.setRelId(relId);
         mntInstallOnlineInfo.setBaseId(baseId);
-        //mntInstallOnlineInfo.setProdId(prodId);
-        //mntInstallOnlineInfo.setVerCode(verCode);
        List<MntInstallOnlineInfo> mntInstallBaseInfos = mntInstallOnlineInfoMapper.findList(mntInstallOnlineInfo);
         if (mntInstallBaseInfos != null && mntInstallBaseInfos.size() > 0 ) {
-            System.out.println(mntInstallBaseInfos.size()+"===========");
             int onlineId = mntInstallBaseInfos.get(0).getOnlineId();
             MntInstallOnlineInfo mntInstallOnlineInfo1 = new MntInstallOnlineInfo();
             mntInstallOnlineInfo1.setOnlineId(onlineId);
-            System.out.println("onlineId: "+onlineId);
             mntInstallOnlineInfo1.setRelId(relId);
-            System.out.println("relid: "+relId);
             mntInstallOnlineInfoMapper.updateRelIdByDtlId(mntInstallOnlineInfo1);
         }
         

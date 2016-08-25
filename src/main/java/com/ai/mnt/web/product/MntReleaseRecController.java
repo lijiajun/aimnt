@@ -177,6 +177,36 @@ public class MntReleaseRecController {
     }
     
     /**
+     * 产品发布版本 -》发布信息-》发布明细按钮-》修改按钮的页面 
+     * @param model
+     * @return
+     */
+    @RequiresPermissions("prod:operate")
+    @RequestMapping("/rec/page_update_1/{dtlId}")
+    public String showReleaseUpdateDtlPage(Model model, @PathVariable String dtlId) {
+        MntReleaseRecDtl mntReleaseRecDtl = new MntReleaseRecDtl();
+        mntReleaseRecDtl.setDeleteFlag("0");
+        mntReleaseRecDtl.setDtlId(Integer.parseInt(dtlId));
+        List<MntReleaseRecDtl> releaseRecDtlList = mntReleaseRecDtlService.findRecAndDtlJoinList(mntReleaseRecDtl);
+        
+        List<EnumObject> prodEnums = BaseDataCache.getDataList("PROD_INFO");
+        List<EnumObject> verEnums = BaseDataCache.getDataList("PROD_VER");
+        List<EnumObject> dtlTypeEnums = BaseDataCache.getDataList("REL_DTL_TYPE");
+        List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
+        List<EnumObject> relCodeEnums = BaseDataCache.getDataList("REL_CODE");
+        model.addAttribute("relCodeEnums", relCodeEnums);
+        model.addAttribute("prodEnums", prodEnums);
+        model.addAttribute("verEnums", verEnums);
+        model.addAttribute("dtlTypeEnums", dtlTypeEnums);
+        model.addAttribute("baseIdEnums", baseIdEnums);
+        if(releaseRecDtlList != null && releaseRecDtlList.size() > 0) {
+            model.addAttribute("releaseRecDtl", releaseRecDtlList.get(0));
+        }
+        return "product/rel/rel_rec_dtl_update";
+    }
+    
+    
+    /**
      * 更新发布信息
      * @param mntReleaseRec
      * @return
@@ -224,10 +254,15 @@ public class MntReleaseRecController {
     public String findRelDtlByRelId(@PathVariable String relId, Model model) {
         MntReleaseRecDtl mntReleaseRecDtl = new MntReleaseRecDtl();
         mntReleaseRecDtl.setRelId(Integer.parseInt(relId));
+        mntReleaseRecDtl.setDeleteFlag("0");
         List<MntReleaseRecDtl> relDtlList = mntReleaseRecDtlService.findRelDtlList(mntReleaseRecDtl);
         String relCode = BaseDataCache.getDataName("REL_CODE", Integer.parseInt(relId));
         model.addAttribute("relCode", relCode);
         model.addAttribute("relDtlList", relDtlList);
+        model.addAttribute("data", relDtlList);
+        model.addAttribute("relId", relId);
+        
+        
         return "product/rel/rel_dtl_list";
     }
     
@@ -265,6 +300,28 @@ public class MntReleaseRecController {
         map.put("status", "1");
         return map;
     }
+    
+    /**
+     * 产品发布版本明细新增页面
+     * 产品发布版本->发布信息-》发布明细-》新增页面
+     * @param model
+     * @return
+     */
+    @RequiresPermissions("prod:operate")
+    @RequestMapping("/rec/dtl/page_add/{relId}")
+    public String showRelAddDtlPage(@PathVariable String relId,Model model) {
+        MntReleaseRec mntReleaseRec = mntReleaseRecService.findReleaseRecById(Integer.parseInt(relId));
+        model.addAttribute("mntReleaseRec", mntReleaseRec);
+        
+        List<EnumObject> dtlTypeEnums = BaseDataCache.getDataList("REL_DTL_TYPE");
+        List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
+        String prodName = BaseDataCache.getDataName("PROD_INFO", mntReleaseRec.getProdId());
+        model.addAttribute("prodName", prodName);
+        model.addAttribute("dtlTypeEnums", dtlTypeEnums);
+        model.addAttribute("baseIdEnums", baseIdEnums);
+        return "product/rel/rel_rec_add_dtl";
+    }
+    
     
     /**
      * 产品发布版本明细新增页面
@@ -316,7 +373,7 @@ public class MntReleaseRecController {
     @RequiresPermissions("prod:operate")
     @RequestMapping("/dtl/add")
     @ResponseBody
-    public Map<String, Object> saveReleaseRecWithBaseIds(HttpServletRequest request, MntReleaseRecDtl mntReleaseRecDtl) {
+    public Map<String, Object> saveReleaseRecWithBaseIds(HttpServletRequest request, MntReleaseRecDtl mntReleaseRecDtl  ) {
         Map<String, Object> map = new HashMap<>();
         try {
             String[] baseIds = request.getParameterValues("baseIds");

@@ -149,6 +149,7 @@
         
         //修改按钮
         $('#btnUpdate').on('click',function() {
+        	console.log(tableObj.row('.selected').data());
             var checkedBox = $("#tabBase tbody tr td .checked");
             var checkedLength = checkedBox.length;
             if(checkedLength == 0) {

@@ -241,7 +241,7 @@
                 and dtl_desc = #{dtlDesc}
             </if>
             <if test="deleteFlag != null">
-                and delete_flag = #{deleteFlag}
+                and delete_flag = 0
             </if>
             <if test="creator != null">
                 and creator = #{creator}
