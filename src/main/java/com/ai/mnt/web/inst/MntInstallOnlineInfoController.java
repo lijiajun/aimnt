@@ -1,6 +1,9 @@
 package com.ai.mnt.web.inst;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,6 +24,7 @@ import com.ai.mnt.common.util.DateUtil;
 import com.ai.mnt.common.util.ExcelUtil;
 import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.inst.MntInstallOnlineInfo;
+import com.ai.mnt.model.inst.MntProdRelPlan;
 import com.ai.mnt.model.product.MntReleaseRec;
 import com.ai.mnt.model.product.MntReleaseRecDtl;
 import com.ai.mnt.service.inst.MntInstallOnlineInfoService;
@@ -339,5 +343,77 @@ public class MntInstallOnlineInfoController {
         
         return "inst/online/inst_online_dtl_list";
     }
+   
+    /**
+     * daochu发布计划列表
+     * @param mntProdRelPlan
+     * @throws IOException 
+     * @throws FileNotFoundException 
+     */
+    @RequestMapping("/online/output")
+    @ResponseBody
+    public void outputMntProdOnlineInfoList(MntInstallOnlineInfo mntInstallOnlineInfo ,
+            MntReleaseRecDtl mntReleaseRecDtl) throws FileNotFoundException, IOException {
+       System.out.println("我是一条可爱的分界线======================");
+        mntInstallOnlineInfo.setDeleteFlag("0");
+        mntInstallOnlineInfo.setMntReleaseRecDtl(mntReleaseRecDtl);
+        List<MntInstallOnlineInfo> mntInstallOnlineInfoList = 
+                mntInstallOnlineInfoService.findOnlineInfoListJoinRelDtl(mntInstallOnlineInfo);
+        
+        
+        String[] sheetName={"上线反馈（现场）"};
+        String[] title1={"计划上线时间","上线系统","系统版本","是否需申请R&D现场支持","是否需申请R&D远程支持","上线模块","上线发布版本号",
+                "上线需求或缺陷ID","上线需求或缺陷描述","延期上线日期","实际上线日期","是否出现故障",
+                "未上线原因","备注"};
+        List<String[]> titles=new ArrayList<String[]>();
+        titles.add(title1);
+        
+        
+        List<String[]> data=new ArrayList<String[]>();
+        for (MntInstallOnlineInfo mntOnline : mntInstallOnlineInfoList) {
+            String strPlanOnlineDate = new SimpleDateFormat("yyyy-MM-dd").format(mntOnline.getPlanOnlineDate()); 
+           
+            //延期上线日期判断是否为空
+            String strDelayOnlineDate; 
+            if (mntOnline.getDelayOnlineDate() == null) {
+                strDelayOnlineDate = " ";
+            } else {
+                strDelayOnlineDate =  new SimpleDateFormat("yyyy-MM-dd").format(mntOnline.getDelayOnlineDate()); 
+            }
+            
+            //判断上线日期是否为空
+            String strOnlineDate ;
+            if (mntOnline.getOnlineDate() == null) {
+                strOnlineDate = "";
+            } else {
+                strOnlineDate = new SimpleDateFormat("yyyy-MM-dd").format(mntOnline.getOnlineDate());
+            }
+            //备注判断
+            String remark;
+            if (mntOnline.getOnlineRemark() == null ) {
+                 remark = " ";
+            }else {
+                remark = mntOnline.getOnlineRemark();
+            }
+            //为上线原因判断
+            String unonlineReason ;
+            if (mntOnline.getUnOnlineReason() == null) {
+                unonlineReason = " ";
+            } else {
+                unonlineReason = mntOnline.getUnOnlineReason();
+            }
+            String [] data1 = {strPlanOnlineDate,mntOnline.getProdName(),mntOnline.getVerCode(),
+                    mntOnline.getIsOnsiteSupportTxt(),mntOnline.getIsRemoteSupportTxt(),
+                    mntOnline.getModuleName(),mntOnline.getRelCode(),mntOnline.getMntReleaseRecDtl().getDtlCode(),
+                    mntOnline.getMntReleaseRecDtl().getDtlName(),strDelayOnlineDate,strOnlineDate,
+                    mntOnline.getIsFaultTxt(),unonlineReason,remark};
+            data.add(data1);
+        }
+        List<List<String[]>> data_=new ArrayList<List<String[]>>();
+        data_.add(data);
+        
+        ExcelUtil.writeToFile("D:\\上线反馈导出表.xls", sheetName, titles, data_);
+    }
+    
     
 }

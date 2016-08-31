@@ -188,6 +188,7 @@ public class MntInstallOnlineInfoServiceImpl implements MntInstallOnlineInfoServ
             mntInstallOnlineInfo.setIsOnlinedTxt(BaseDataCache.getDataName("IS_ONLINED", mntInstallOnlineInfo.getIsOnlined()));
             mntInstallOnlineInfo.setIsRemoteSupportTxt(BaseDataCache.getDataName("IS_REMOTE_SUPPORT", mntInstallOnlineInfo.getIsRemoteSupport()));
             mntInstallOnlineInfo.setIsOnsiteSupportTxt(BaseDataCache.getDataName("IS_ONSITE_SUPPORT", mntInstallOnlineInfo.getIsOnsiteSupport()));
+            mntInstallOnlineInfo.setIsFaultTxt(BaseDataCache.getDataName("IS_FAULT", mntInstallOnlineInfo.getIsFault()));
         }
     }
 

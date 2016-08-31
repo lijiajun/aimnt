@@ -146,7 +146,7 @@ function showFullModal(_type, _title, _area, _content, isFull) {
         shade: 0.8,
         maxmin: true,
         scrollbar: false,
-        content: _content,
+        content: _content
     });
     if(isFull) {
         layer.full(index);
@@ -203,7 +203,7 @@ function showLayer(_type, _title, _area, _content, _tableObj, isFull) {
         //shift: 1,
         maxmin: true, //开启最大化最小化按钮
         scrollbar: false,
-        content: _content,
+        content: _content
         //btn: [''],
 //        yes: function(index, layero){
 //            //layer.close(index); //如果设定了yes回调，需进行手工关闭

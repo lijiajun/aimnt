@@ -1,6 +1,10 @@
 package com.ai.mnt.web.inst;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -200,5 +204,43 @@ public class MntProdRelPlanController {
         return map;
     }
    
+    /**
+     * daochu发布计划列表
+     * @param mntProdRelPlan
+     * @throws IOException 
+     * @throws FileNotFoundException 
+     */
+    @RequestMapping("/plan/output")
+    @ResponseBody
+    public void outputMntProdRelPlanList(MntProdRelPlan mntProdRelPlan) throws FileNotFoundException, IOException {
+        mntProdRelPlan.setDeleteFlag("0");
+        List<MntProdRelPlan> mntProdRelPlanList = mntProdRelPlanService.findMntProdRelPlanList(mntProdRelPlan);
+        System.out.println(mntProdRelPlanList);
+        
+        String[] sheetName={"发布计划（开发）"};
+        String[] title1={"安装点（省份）","计划发布时间","所属产品","产品版本","发布模块","需求（故障）编号","需求（故障）名称","备注"};
+        List<String[]> titles=new ArrayList<String[]>();
+        titles.add(title1);
+        List<String[]> data=new ArrayList<String[]>();
+        for (MntProdRelPlan mPlan : mntProdRelPlanList) {
+            String strDate = new SimpleDateFormat("yyyy-MM-dd").format(mPlan.getPlanDate()); 
+            String remark ;
+            if (mPlan.getRemark() == null) {
+                remark = "";
+            } else {
+                remark = mPlan.getRemark();
+            }
+            String [] data1 = {mPlan.getBaseName(),strDate,mPlan.getProdName(),mPlan.getVerCode(),mPlan.getModuleName(),
+                    mPlan.getReqNo(),mPlan.getReqName(),remark};
+            data.add(data1);
+        }
+        
+        List<List<String[]>> data_=new ArrayList<List<String[]>>();
+        data_.add(data);
+        
+        ExcelUtil.writeToFile("D:\\发布计划导出表.xls", sheetName, titles, data_);
+    }
+    
+    
     
 }

@@ -154,7 +154,6 @@
 
 <script>
     $(function() {
-    	
 //     	$.fn.select2.defaults.set("theme", "bootstrap");
     
         $('#prodId').change(function(){
@@ -201,8 +200,8 @@
                 showMsg("只能选择一条数据进行修改操作！");
                 return;
             }
-            console.log(checkedBox.find('input:checkbox'));
-            console.log(checkedBox.find('input:checkbox').val());
+            //console.log(checkedBox.find('input:checkbox'));
+            //console.log(checkedBox.find('input:checkbox').val());
             var strRelId = checkedBox.find('input:checkbox').val();
             showModal(2, "修改发布信息", [ '1000px', '450px' ], "rel/rec/page_update/" + strRelId, tableObj);
         });
@@ -247,7 +246,15 @@
         $('.div_right').on('click', '.dt-buttons>#btnImport', function() {
             showModal(2, " ", [ '1000px', '400px' ], "rel/rec/import_page", tableObj);
         });
-        
+       
+        $('#tabRelease tbody').on( 'click', 'tr', function () {
+            //$(this).toggleClass('selected');
+            //alert("dd")
+            console.log( tableObj.row('.selected').data());
+           
+        } );
+      
+      
     });
 
     function getConfig() {
@@ -331,6 +338,25 @@
     function showRelDetail(relId) {
         showModal(2, ' ', [ '1000px', '600px' ], "rel/dtl/" + relId + "/page");
     }
+    //console.log($("#tabRelease tbody tr td .checked"));
+    //console.log($("#tabRelease tr").slice(1).each());
+    //console.log(this);
+    $("#tabRelease tbody tr").slice(1).each(function(g){
+        var p = this;
+        $(this).children().slice(1).click(function(){
+            $($(p).children()[0]).children().each(function(){
+                if(this.type=="checkbox"){
+                    if(!this.checked){
+                        this.checked = true;
+                    }else{
+                        this.checked = false;
+                    }
+                }
+            });
+        });
+    });
+    
+    
     
 </script>
 </body>
