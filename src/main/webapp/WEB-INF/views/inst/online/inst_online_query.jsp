@@ -170,12 +170,12 @@
         </div>
     </div>
     <div style="display:none" id="btn-data-tools">
-        <shiro:hasPermission name="inst:operate">
-        <span class="dt-buttons">
-            <a class="dt-button btn green btn-outline btn-mnt" id="btnOutput" >
-                <span>导出</span>
-            </a>
-        </span>
+        <shiro:hasPermission name="prod:online:operate">
+<!--         <span class="dt-buttons"> -->
+<!--             <a class="dt-button btn green btn-outline btn-mnt" id="btnOutput" > -->
+<!--                 <span>导出</span> -->
+<!--             </a> -->
+<!--         </span> -->
         <span class="dt-buttons">
             <a class="dt-button btn purple btn-outline btn-mnt" id="btnImport" >
                 <span>导入</span>

@@ -313,6 +313,9 @@
             <if test="mntReleaseRec.endDate != null">
                 <![CDATA[and t4.rel_date <= #{mntReleaseRec.endDate}]]>
             </if>
+            <if test="md5Val != null and md5Val !=''">
+                and t1.md5_val = #{md5Val}
+            </if>
             <if test="deleteFlag != null and deleteFlag !=''">
                 and t1.delete_flag = #{deleteFlag}
             </if>

@@ -70,14 +70,14 @@
                                     </div>
                                 </div>
                             </div>
-<!--                             <div class="col-md-4"> -->
-<!--                                 <div class="form-group"> -->
-<!--                                     <label class="control-label col-md-4">MD5值</label> -->
-<!--                                     <div class="col-md-8"> -->
-<!--                                         <input type="text" class="form-control" id="md5Val"> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">MD5值</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="md5Val">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label col-md-4">发布时间</label>
@@ -90,6 +90,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8"></div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label col-md-4"></label>
@@ -175,6 +178,7 @@
             var strModuleName = $("#moduleName").val();
             var strBeginDate = $("#beginDate").val();
             var strEndDate = $("#endDate").val();
+            var strMd5Val = $("#md5Val").val();
             strProdId = strProdId == -1 ? "" : strProdId;
             strVerCode = strVerCode == -1 ? "" : strVerCode;
             var sUrl = "prod/lib/rel_his/query?";
@@ -184,7 +188,8 @@
                 "&libName=" + strLibName +
                 "&moduleName=" + strModuleName +
                 "&beginDate=" + strBeginDate +
-                "&endDate=" + strEndDate;
+                "&endDate=" + strEndDate +
+                "&md5Val=" + strMd5Val;
             tableObj.ajax.url(sUrl).load();
         });
         

@@ -24,7 +24,6 @@ import com.ai.mnt.common.util.DateUtil;
 import com.ai.mnt.common.util.ExcelUtil;
 import com.ai.mnt.model.common.EnumObject;
 import com.ai.mnt.model.inst.MntInstallOnlineInfo;
-import com.ai.mnt.model.inst.MntProdRelPlan;
 import com.ai.mnt.model.product.MntReleaseRec;
 import com.ai.mnt.model.product.MntReleaseRecDtl;
 import com.ai.mnt.service.inst.MntInstallOnlineInfoService;
@@ -202,6 +201,7 @@ public class MntInstallOnlineInfoController {
         MntInstallOnlineInfo mntInstallOnlineInfo = new MntInstallOnlineInfo();
         Date _onlineDate = DateUtil.stringToDateShort(onlineDate);
         mntInstallOnlineInfo.setOnlineDate(_onlineDate);
+        mntInstallOnlineInfo.setIsOnlined("1");
         List<MntInstallOnlineInfo> mntInstallOnlineInfoList = 
                 mntInstallOnlineInfoService.findOnlineInfoListJoinRelDtl(mntInstallOnlineInfo);
         //过滤出真正的上线时间
