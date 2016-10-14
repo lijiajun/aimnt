@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.inst.MntJfDataResourceMapper">
+
+    <resultMap id="MntJfDataResourceResultMap" type="com.ai.mnt.model.inst.MntJfDataResource">
+        <id column="id" property="id" />
+        <result column="base_id" property="baseId" />
+        <result column="busi_name" property="busiName" />
+        <result column="decode_template" property="decodeTemplate" />
+        <result column="analysis_template" property="analysisTemplate" />
+        <result column="xdr_type" property="xdrType" />
+        <result column="service_id" property="serviceId" />
+        <result column="dr_type" property="drType" />
+        <result column="is_offline" property="isOffline" />
+        <result column="is_to_jf" property="isToJf" />
+        <result column="is_need_deal" property="isNeedDeal" />
+        <result column="file_name" property="fileName" />
+        <result column="remark" property="remark" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="MntJfDataResourceColumns">
+        id,
+        base_id,
+        busi_name,
+        decode_template,
+        analysis_template,
+        xdr_type,
+        service_id,
+        dr_type,
+        is_offline,
+        is_to_jf,
+        is_need_deal,
+        file_name,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into mnt_jf_data_resource (
+        base_id,
+        busi_name,
+        decode_template,
+        analysis_template,
+        xdr_type,
+        service_id,
+        dr_type,
+        is_offline,
+        is_to_jf,
+        is_need_deal,
+        file_name,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{baseId},
+        #{busiName},
+        #{decodeTemplate},
+        #{analysisTemplate},
+        #{xdrType},
+        #{serviceId},
+        #{drType},
+        #{isOffline},
+        #{isToJf},
+        #{isNeedDeal},
+        #{fileName},
+        #{remark},
+        #{deleteFlag},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into mnt_jf_data_resource (
+        base_id,
+        busi_name,
+        decode_template,
+        analysis_template,
+        xdr_type,
+        service_id,
+        dr_type,
+        is_offline,
+        is_to_jf,
+        is_need_deal,
+        file_name,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.baseId},
+            #{item.busiName},
+            #{item.decodeTemplate},
+            #{item.analysisTemplate},
+            #{item.xdrType},
+            #{item.serviceId},
+            #{item.drType},
+            #{item.isOffline},
+            #{item.isToJf},
+            #{item.isNeedDeal},
+            #{item.fileName},
+            #{item.remark},
+            #{item.deleteFlag},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from mnt_jf_data_resource
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from mnt_jf_data_resource
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update mnt_jf_data_resource
+        <set>
+            <if test="baseId != null">
+                base_id = #{baseId},
+            </if>
+            <if test="busiName != null">
+                busi_name = #{busiName},
+            </if>
+            <if test="decodeTemplate != null">
+                decode_template = #{decodeTemplate},
+            </if>
+            <if test="analysisTemplate != null">
+                analysis_template = #{analysisTemplate},
+            </if>
+            <if test="xdrType != null">
+                xdr_type = #{xdrType},
+            </if>
+            <if test="serviceId != null">
+                service_id = #{serviceId},
+            </if>
+            <if test="drType != null">
+                dr_type = #{drType},
+            </if>
+            <if test="isOffline != null">
+                is_offline = #{isOffline},
+            </if>
+            <if test="isToJf != null">
+                is_to_jf = #{isToJf},
+            </if>
+            <if test="isNeedDeal != null">
+                is_need_deal = #{isNeedDeal},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="MntJfDataResourceResultMap">
+        select
+        <include refid="MntJfDataResourceColumns" />
+        from mnt_jf_data_resource
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="MntJfDataResourceResultMap">
+        select
+        <include refid="MntJfDataResourceColumns" />
+        from mnt_jf_data_resource
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="baseId != null">
+                and base_id = #{baseId}
+            </if>
+            <if test="busiName != null and busiName != ''">
+                and busi_name = #{busiName}
+            </if>
+            <if test="decodeTemplate != null and decodeTemplate != ''">
+                and decode_template = #{decodeTemplate}
+            </if>
+            <if test="analysisTemplate != null and analysisTemplate != ''">
+                and analysis_template = #{analysisTemplate}
+            </if>
+            <if test="xdrType != null and xdrType != ''">
+                and xdr_type = #{xdrType}
+            </if>
+            <if test="serviceId != null and serviceId != ''">
+                and service_id = #{serviceId}
+            </if>
+            <if test="drType != null and drType != ''">
+                and dr_type = #{drType}
+            </if>
+            <if test="isOffline != null and isOffline != ''">
+                and is_offline = #{isOffline}
+            </if>
+            <if test="isToJf != null and isToJf != ''">
+                and is_to_jf = #{isToJf}
+            </if>
+            <if test="isNeedDeal != null and isNeedDeal != ''">
+                and is_need_deal = #{isNeedDeal}
+            </if>
+            <if test="fileName != null and fileName != ''">
+                and file_name = #{fileName}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="MntJfDataResourceResultMap">
+        select
+        <include refid="MntJfDataResourceColumns" />
+        from mnt_jf_data_resource
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

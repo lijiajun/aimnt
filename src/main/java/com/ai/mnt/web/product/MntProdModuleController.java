@@ -443,7 +443,7 @@ public class MntProdModuleController {
      * @param model
      * @return
      */
-    @RequiresPermissions("prod:operate")
+    //@RequiresPermissions("prod:operate")
     @RequestMapping("/module/down/{filename}")
     public void downLoadModuleTemplete(@PathVariable String filename,
             HttpSession session, HttpServletResponse response) {

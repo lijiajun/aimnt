@@ -462,7 +462,9 @@ public class GenUtil {
 //        generateCodeFile("mnt", "mnt_req_track", "inst", "track");
 //        generateCodeFile("mnt", "mnt_process_task_fact", "inst", "fact");
 //        generateCodeFile("mnt_dev", "mnt_prod_rel_plan", "rel", "plan");
-        generateCodeFile("mnt", "mnt_host_apply_result", "cloud", "host");
+//        generateCodeFile("mnt", "mnt_host_apply_result", "cloud", "host");
+//        generateCodeFile("mnt_bak", "mnt_prod_base_rel", "inst", "prodbase");
+        generateCodeFile("mnt", "mnt_jf_data_resource", "inst", "jf_ds");
         
         System.exit(0);
     }
