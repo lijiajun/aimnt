@@ -26,7 +26,16 @@
                                             安装点 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" value="${mntJfDataResource.baseId}" name="baseId" id="baseId">
+                                            <select name="baseId" class="selectpicker form-control" id="baseId">
+                                                <c:forEach items="${baseIdEnums}" var="baseIdEnum">
+                                                    <c:if test="${baseIdEnum.key == mntJfDataResource.baseId}">
+                                                        <option value="${baseIdEnum.key}" selected>${baseIdEnum.value}</option>
+                                                    </c:if>
+                                                    <c:if test="${baseIdEnum.key != mntJfDataResource.baseId}">
+                                                        <option value="${baseIdEnum.key}">${baseIdEnum.value}</option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入安装点</span>
                                         </div>
@@ -237,21 +246,16 @@ jQuery(document).ready(function() {
             id:"required",
             baseId:"required",
             busiName:"required",
-            decodeTemplate:"required",
-            analysisTemplate:"required",
-            xdrType:"required",
-            serviceId:"required",
-            drType:"required",
-            isOffline:"required",
-            isToJf:"required",
-            isNeedDeal:"required",
-            fileName:"required",
-            remark:"required",
-            deleteFlag:"required",
-            creator:"required",
-            createDate:"required",
-            modifier:"required",
-            modifyDate:"required"
+//             decodeTemplate:"required",
+//             analysisTemplate:"required",
+//             xdrType:"required",
+//             serviceId:"required",
+//             drType:"required",
+//             isOffline:"required",
+//             isToJf:"required",
+//             isNeedDeal:"required",
+//             fileName:"required",
+//             remark:"required",
     };
     //[2]表单校验初始化
     initFormValidate('form-update', rules, 'inst/jf_ds/update', 'update');

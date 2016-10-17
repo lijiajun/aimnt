@@ -67,6 +67,10 @@ public class MntJfDataResourceController {
      */
     @RequestMapping("/jf_ds/add_page")
     public String showMntJfDataResourceAddPage(Model model) {
+        
+        List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
+        model.addAttribute("baseIdEnums", baseIdEnums);
+        
         List<EnumObject> isFaultEnums = BaseDataCache.getDataList("IS_FAULT");
         model.addAttribute("isFaultEnums", isFaultEnums);
         return "inst/jf_ds/inst_jf_ds_add";
@@ -95,9 +99,11 @@ public class MntJfDataResourceController {
     @RequestMapping("/jf_ds/update_page/{id}")
     public String showMntJfDataResourceUpdatePage(Model model, @PathVariable String id) {
         MntJfDataResource mntJfDataResource = mntJfDataResourceService.findMntJfDataResourceById(Integer.parseInt(id));
+        model.addAttribute("mntJfDataResource", mntJfDataResource);
         List<EnumObject> isFaultEnums = BaseDataCache.getDataList("IS_FAULT");
         model.addAttribute("isFaultEnums", isFaultEnums);
-        model.addAttribute("mntJfDataResource", mntJfDataResource);
+        List<EnumObject> baseIdEnums = BaseDataCache.getDataList("BASE_NAME_ENUM");
+        model.addAttribute("baseIdEnums", baseIdEnums);
         return "inst/jf_ds/inst_jf_ds_update";
     }
     

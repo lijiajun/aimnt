@@ -26,7 +26,11 @@
                                             安装点 <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" placeholder="" name="baseId" id="baseId">
+                                            <select name="baseId" class="selectpicker form-control" id="baseId">
+                                                <c:forEach items="${baseIdEnums}" var="baseIdEnum">
+                                                    <option value="${baseIdEnum.key}">${baseIdEnum.value}</option>
+                                                </c:forEach>
+                                            </select>
                                             <div class="form-control-focus"></div>
                                             <span class="help-block">请输入安装点</span>
                                         </div>
@@ -212,24 +216,18 @@ jQuery(document).ready(function() {
     //表单校验提交
     //[1]自定义校验规则
     var rules = {
-            id:"required",
             baseId:"required",
             busiName:"required",
-            decodeTemplate:"required",
-            analysisTemplate:"required",
-            xdrType:"required",
-            serviceId:"required",
-            drType:"required",
-            isOffline:"required",
-            isToJf:"required",
-            isNeedDeal:"required",
-            fileName:"required",
-            remark:"required",
-            deleteFlag:"required",
-            creator:"required",
-            createDate:"required",
-            modifier:"required",
-            modifyDate:"required"
+//             decodeTemplate:"required",
+//             analysisTemplate:"required",
+//             xdrType:"required",
+//             serviceId:"required",
+//             drType:"required",
+//             isOffline:"required",
+//             isToJf:"required",
+//             isNeedDeal:"required",
+//             fileName:"required",
+//             remark:"required",
     };
     //[2]表单校验初始化
     initFormValidate('form-add', rules, 'inst/jf_ds/add', 'add');

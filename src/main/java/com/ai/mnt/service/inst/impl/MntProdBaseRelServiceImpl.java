@@ -2,14 +2,12 @@ package com.ai.mnt.service.inst.impl;
 
 
 import java.util.List;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.model.inst.MntProdBaseRel;
-import com.ai.mnt.model.sys.SysUser;
 import com.ai.mnt.persistence.inst.MntProdBaseRelMapper;
 import com.ai.mnt.service.inst.MntProdBaseRelService;
 
@@ -68,7 +66,6 @@ public class MntProdBaseRelServiceImpl implements MntProdBaseRelService{
      */
     @Override
     public void saveMntProdBaseRel(MntProdBaseRel mntProdBaseRel) {
-        SysUser currentUser = userRealm.getCurrentUser();
         mntProdBaseRelMapper.save(mntProdBaseRel);
         
     }
@@ -80,7 +77,6 @@ public class MntProdBaseRelServiceImpl implements MntProdBaseRelService{
      */
     @Override
     public void updateMntProdBaseRelById(MntProdBaseRel mntProdBaseRel) {
-        SysUser currentUser = userRealm.getCurrentUser();
         mntProdBaseRelMapper.updateByPrimaryKey(mntProdBaseRel);
         
     }
@@ -92,7 +88,6 @@ public class MntProdBaseRelServiceImpl implements MntProdBaseRelService{
      */
     @Override
     public void deleteMntProdBaseRelByIds(String ids) {
-        SysUser currentUser = userRealm.getCurrentUser();
         MntProdBaseRel mntProdBaseRel = new MntProdBaseRel();
         String[] idAry = ids.split(",");
         for(String id : idAry) {
