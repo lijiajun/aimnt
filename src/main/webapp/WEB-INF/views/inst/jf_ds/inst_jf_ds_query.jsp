@@ -186,7 +186,7 @@
         </div>
     </div>
     <div style="display:none" id="btn-data-tools">
-        <shiro:hasPermission name="prod:delete">
+        <shiro:hasPermission name="jf:ds:operate">
         <span class="dt-buttons">
             <a class="dt-button btn purple btn-outline btn-mnt" id="btnImport" >
                 <span>导入</span>
