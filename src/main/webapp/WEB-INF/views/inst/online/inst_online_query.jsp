@@ -279,14 +279,32 @@
         
         //
         $('.reload').on('click', function() {
+        	
             $('#baseId').val(-1);
             $('#prodId').val(-1);
+            $('#prodId').select2({
+                minimumResultsForSearch: Infinity
+            });
+            loadVerCodeSelect(2);
             $('#verCode').val(-1);
+            $('#verCode').select2({
+                minimumResultsForSearch: Infinity
+            });
             $('#relCode').val('');
             $('#dtlCode').val('');
             $('#beginDate').val('');
             $('#endDate').val('');
             $('#isOnlined').val(-1);
+            
+
+            $('#baseId').select2({
+                minimumResultsForSearch: Infinity
+            });
+
+            $('#isOnlined').select2({
+                minimumResultsForSearch: Infinity
+            });
+            
             tableObj.ajax.url('inst/online/query?onlineId=-1').load();
         });
         

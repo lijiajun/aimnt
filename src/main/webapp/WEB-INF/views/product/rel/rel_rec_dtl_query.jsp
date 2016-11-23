@@ -236,8 +236,24 @@
             $('#dtlName').val('');
             $('#baseId').val(-1);
             $('#dtlType').val(-1);
-            $('#verCode').val(-1);
+            $('#baseId').select2({
+                minimumResultsForSearch: Infinity
+            });
+            $('#dtlType').select2({
+                minimumResultsForSearch: Infinity
+            });
+            $('#prodId').select2({
+                minimumResultsForSearch: Infinity
+            });
             $('#prodId').val(-1);
+            $('#prodId').select2({
+                minimumResultsForSearch: Infinity
+            });
+            loadVerCodeSelect(2);
+            $('#verCode').val(-1);
+            $('#verCode').select2({
+                minimumResultsForSearch: Infinity
+            });
             tableObj.ajax.url('rel/dtl/query?relId=-1').load();
         });
         
