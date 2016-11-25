@@ -143,7 +143,7 @@ public class DateUtil {
      *            结束时间
      * @return 起始时间
      */
-    public String getBeginDate(String granularity, String statisticDate) {
+    public static String getBeginDate(String granularity, String statisticDate) {
         String beginDate = "";
         Date date = DateUtil.stringToDateShort(statisticDate);
         Date beginDateTemp = null;
@@ -151,23 +151,23 @@ public class DateUtil {
             beginDateTemp = date;
         }
         if (granularity.equals("2")) {// 周
-            beginDateTemp = this.getWeekBegin(date);
+            beginDateTemp = getWeekBegin(date);
         }
         if (granularity.equals("3")) {// 旬
-            beginDateTemp = this.getPeriodBegin(date);
+            beginDateTemp = getPeriodBegin(date);
         } else if (granularity.equals("4")) {// 月
             beginDateTemp = getMonthBegin(date);
         } else if (granularity.equals("5")) {// 季
-            beginDateTemp = this.getSeasonBegin(date);
+            beginDateTemp = getSeasonBegin(date);
         } else if (granularity.equals("6")) {// 半年
-            beginDateTemp = this.getHalfYearBegin(date);
+            beginDateTemp = getHalfYearBegin(date);
         } else if (granularity.equals("7")) {// 年
-            beginDateTemp = this.getYearBegin(date);
+            beginDateTemp = getYearBegin(date);
         }
         beginDate = DateUtil.dateToStringShort(beginDateTemp);
         return beginDate;
     }
-
+    
     /**
      * 取得日以上粒度起始时间
      * 
@@ -177,7 +177,7 @@ public class DateUtil {
      *            结束时间
      * @return 起始时间
      */
-    public String getEndDate(String granularity, String statisticDate) {
+    public static String getEndDate(String granularity, String statisticDate) {
         String beginDate = "";
         Date date = DateUtil.stringToDateShort(statisticDate);
         Date beginDateTemp = null;
@@ -186,16 +186,16 @@ public class DateUtil {
             beginDateTemp = date;
         }
         if (granularity.equals("2")) {// 周
-            beginDateTemp = this.getWeekEnd(date);
+            beginDateTemp = getWeekEnd(date);
         }
         if (granularity.equals("3")) {// 旬
-            beginDateTemp = this.getPeriodEnd(date);
+            beginDateTemp = getPeriodEnd(date);
         } else if (granularity.equals("4")) {// 月
             beginDateTemp = getMonthEnd(date);
         } else if (granularity.equals("5")) {// 季
             beginDateTemp = getSeasonEnd(date);
         } else if (granularity.equals("6")) {// 半年
-            beginDateTemp = this.getHalfYearEnd(date);
+            beginDateTemp = getHalfYearEnd(date);
         } else if (granularity.equals("7")) {// 年
             beginDateTemp = getYearEnd(date);
         }
@@ -584,7 +584,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public Date getSeasonBegin(Date date) {
+    public static Date getSeasonBegin(Date date) {
         // int year = Integer.parseInt( FormatDate(date, "yyyy"));
         int month = Integer.parseInt(FormatDate(date, "MM"));
         String newDateStr = FormatDate(date, "yyyy") + "-";
@@ -606,7 +606,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public Date getHalfYearBegin(Date date) {
+    public static Date getHalfYearBegin(Date date) {
         // int year = Integer.parseInt(FormatDate(date, "yyyy"));
         int month = Integer.parseInt(FormatDate(date, "MM"));
         String newDateStr = FormatDate(date, "yyyy") + "-";
@@ -624,7 +624,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public Date getPeriodBegin(Date date) {
+    public static Date getPeriodBegin(Date date) {
         int days = Integer.parseInt(FormatDate(date, "dd"));
         String newDateStr = FormatDate(date, "yyyy-MM") + "-";
         if (days <= 10) {
@@ -643,7 +643,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public Date getWeekBegin(Date date) {
+    public static Date getWeekBegin(Date date) {
 
         int year = Integer.parseInt(FormatDate(date, "yyyy"));
         int month = Integer.parseInt(FormatDate(date, "MM"));
@@ -670,7 +670,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public Date getWeekEnd(Date date) {
+    public static Date getWeekEnd(Date date) {
 
         int year = Integer.parseInt(FormatDate(date, "yyyy"));
         int month = Integer.parseInt(FormatDate(date, "MM"));
@@ -696,7 +696,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public Date getPeriodEnd(Date date) {
+    public static Date getPeriodEnd(Date date) {
         int days = Integer.parseInt(FormatDate(date, "dd"));
         String newDateStr = FormatDate(date, "yyyy-MM") + "-";
         if (days <= 10) {
@@ -715,7 +715,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public Date getHalfYearEnd(Date date) {
+    public static Date getHalfYearEnd(Date date) {
         // int year = Integer.parseInt(FormatDate(date, "yyyy"));
         int month = Integer.parseInt(FormatDate(date, "MM"));
         String newDateStr = FormatDate(date, "yyyy") + "-";
@@ -756,7 +756,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public Date getYearBegin(Date date) {
+    public static Date getYearBegin(Date date) {
         String newDateStr = FormatDate(date, "yyyy") + "-01-01";
         return stringToDateShort(newDateStr);
     }
@@ -1119,6 +1119,36 @@ public class DateUtil {
         return yearMap;
     }
 
+    public static Date getWeekStartDate(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); 
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        return cal.getTime();
+    }
+    
+    public static Date getWeekEndDate(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY); 
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        return DateUtil.addDay(cal.getTime(), 1);
+    }
+    
+    public static Date addDay(Date date, int day) {
+        if (date == null) {
+            return null;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, day);
+        return calendar.getTime();
+    }
+    
     /**
      * 主函数
      * 
