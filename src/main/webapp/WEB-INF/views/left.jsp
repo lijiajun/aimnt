@@ -23,13 +23,13 @@
 <!-- 					</div> -->
 <!-- 				</form> -->
 <!-- 			</li> -->
-			<li class="nav-item start active open">
-				<a href="stat/index" class="nav-link nav-toggle" id="menu_999999001">
-					<i class="icon-home"></i>
-					<span class="title">主页</span>
-					<span class="selected"></span>
-				</a>
-			</li>
+<!-- 			<li class="nav-item start active open"> -->
+<!-- 				<a href="stat/index" class="nav-link nav-toggle" id="menu_999999001"> -->
+<!-- 					<i class="icon-home"></i> -->
+<!-- 					<span class="title">主页</span> -->
+<!-- 					<span class="selected"></span> -->
+<!-- 				</a> -->
+<!-- 			</li> -->
 			<li class="heading2">
 <!-- 				<h3 class="uppercase">Menu</h3> -->
 			</li>

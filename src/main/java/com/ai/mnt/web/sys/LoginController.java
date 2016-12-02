@@ -65,6 +65,11 @@ public class LoginController {
         return "index";
     }
     
+    @RequestMapping("/welcome")
+    public String welcomePage(Model model) {
+        return "welcome";
+    }
+    
     @RequestMapping("/menu")
     @ResponseBody
     public List<SysResource> getMenuTreeList() {

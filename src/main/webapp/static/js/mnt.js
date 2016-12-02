@@ -82,32 +82,33 @@ function createMenu(data) {
 
 function createSubMenu(data) {
 	var subList = data.sysResourceList;
-	menuHtml += "<ul class='sub-menu'>";
-	for(var index in subList) {
-		
-		var isEmptyUrl = isEmptyResUrl(subList[index].resUrl);
-		var menuUrl = isEmptyUrl ? "javascript:;" : subList[index].resUrl;
-		var toggle  = subList[index].sysResourceList.length != 0 ? "nav-toggle" : "";
-		
-		menuHtml += "<li class='nav-item'>";
-		menuHtml += "<a href='" + menuUrl + "' class='nav-link " + toggle + "' id='menu_" + subList[index].resId + "'>";
-		menuHtml += "<span class='title'> " + subList[index].resName + "</span>";
-		
-		if(subList[index].sysResourceList.length != 0) {
-			menuHtml += "<span class='arrow'></span>";
+	if(subList.length > 0) {
+		menuHtml += "<ul class='sub-menu'>";
+		for(var index in subList) {
+			
+			var isEmptyUrl = isEmptyResUrl(subList[index].resUrl);
+			var menuUrl = isEmptyUrl ? "javascript:;" : subList[index].resUrl;
+			var toggle  = subList[index].sysResourceList.length != 0 ? "nav-toggle" : "";
+			
+			menuHtml += "<li class='nav-item'>";
+			menuHtml += "<a href='" + menuUrl + "' class='nav-link " + toggle + "' id='menu_" + subList[index].resId + "'>";
+			menuHtml += "<span class='title'> " + subList[index].resName + "</span>";
+			
+			if(subList[index].sysResourceList.length != 0) {
+				menuHtml += "<span class='arrow'></span>";
+			}
+			
+			menuHtml += "</a>";
+			
+			if(subList[index].sysResourceList.length != 0) {
+				createSubMenu(subList[index]);
+			}else {
+				createMenu(subList[index].sysResourceList);
+			}
+			menuHtml += "</li>";
 		}
-		
-		menuHtml += "</a>";
-		
-		if(subList[index].sysResourceList.length != 0) {
-			createSubMenu(subList[index]);
-		}else {
-			createMenu(subList[index].sysResourceList);
-		}
-		menuHtml += "</li>";
+		menuHtml += "</ul>";
 	}
-	menuHtml += "</ul>";
-	
 }
 
 function isEmptyResUrl(resURL) {
@@ -117,6 +118,24 @@ function isEmptyResUrl(resURL) {
 function genMenu() {
 	getMenuHtml();
 	$(".heading2").after(menuHtml);
+	$(".nav-item").each(function(){
+		if($(this).find("a").attr("href") != "javascript:;") {
+			$(this).find("a").click();
+			return false;
+		}else {
+			var isFind = false;
+			$(this).find(".nav-item").find("a").each(function(){
+				if($(this).attr("href") != undefined && $(this).attr("href") != "javascript:;") {
+					$(this).click();
+					isFind = true;
+					return false;
+				}
+			});
+			if(isFind) {
+				return false;
+			}
+		}
+	});
 }
 
 function showModal(_type, _title, _area, _content) {

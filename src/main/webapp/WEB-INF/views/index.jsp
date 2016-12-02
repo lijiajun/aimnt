@@ -47,7 +47,7 @@ response.setDateHeader("Expires", -1);
                 <div class="page-bar">
                     <ul class="page-breadcrumb">
                         <li><span>当前位置：</span></li>
-                        <li><span id="title-txt">主页</span></li>
+                        <li><span id="title-txt"></span></li>
                     </ul>
 <!--                     <div class="page-toolbar"> -->
 <!--                         <div class="btn-group pull-right"> -->
@@ -73,7 +73,7 @@ response.setDateHeader("Expires", -1);
                 <div class="page-content-body">
 <!--                     <div class="row"> -->
                         <iframe id="page-content-frame" name="page-content-frame" target="page-content-frame" 
-                        runat="server" src="stat/index" width="100%"
+                        runat="server" src="welcome" width="100%"
                         noresize marginwidth="0" marginheight="0" scrolling="yes" 
                         width=100% frameborder="no" height="500px" border="0" marginwidth="0"></iframe>
 <!--                     </div> -->
