@@ -16,4 +16,5 @@ import com.ai.mnt.persistence.base.CrudMapper;
 public interface SysUserRoleMapper extends CrudMapper<SysUserRole, Integer>{
     
     public void deleteSysUserRole(SysUserRole sysUserRole);
+
 }

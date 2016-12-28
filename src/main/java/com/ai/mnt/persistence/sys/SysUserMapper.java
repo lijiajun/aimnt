@@ -17,5 +17,10 @@ import com.ai.mnt.persistence.base.CrudMapper;
 public interface SysUserMapper extends CrudMapper<SysUser, Integer>{
     
     public SysUser findUserByUserName(String userName);
+
+    public SysUser findActiveUserByUserName(String userName);
+    
+
+    public void updateUserStsByUserName(SysUser sysUser);
     
 }

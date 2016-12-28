@@ -61,7 +61,7 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken token) throws AuthenticationException {
         String userName = (String) token.getPrincipal();
-        SysUser sysUser = sysUserService.findUserByUserName(userName);
+        SysUser sysUser = sysUserService.findActiveUserByUserName(userName);
         if (sysUser == null) {
             return null;
         }

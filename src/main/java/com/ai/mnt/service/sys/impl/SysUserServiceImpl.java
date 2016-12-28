@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ai.mnt.common.cache.BaseDataCache;
+import com.ai.mnt.common.shiro.RetryLimitCredentialsMatcher;
 import com.ai.mnt.common.shiro.UserRealm;
 import com.ai.mnt.common.util.MntConstant;
 import com.ai.mnt.model.sys.SysUser;
@@ -30,12 +33,21 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     UserRealm userRealm;
     
+    @Autowired
+    RetryLimitCredentialsMatcher credentialsMatcher;
+    
     @Override
     public SysUser findUserByUserName(String userName) {
         SysUser sysUser = sysUserMapper.findUserByUserName(userName);
         return sysUser;
     }
 
+    @Override
+    public SysUser findActiveUserByUserName(String userName) {
+        SysUser sysUser = sysUserMapper.findActiveUserByUserName(userName);
+        return sysUser;
+    }
+    
     @Override
     public SysUser findUserByUserId(Integer userId) {
         SysUser sysUser = sysUserMapper.findByPrimaryKey(userId);
@@ -96,6 +108,11 @@ public class SysUserServiceImpl implements SysUserService {
         if(sysUser.getPassword() != null && !"".equals(sysUser.getPassword())) {
             encryptUserPasswd(sysUser);
         }
+        
+        if("1".equals(sysUser.getUserSts())) {
+            credentialsMatcher.unlockUser(sysUser.getUserName());
+        }
+        
         
         //更新用户信息
         sysUserMapper.updateByPrimaryKey(sysUser);
@@ -170,6 +187,12 @@ public class SysUserServiceImpl implements SysUserService {
                 salt1 + salt2, MntConstant.HASH_ITERATIONS);
         sysUser.setSalt(salt2);
         sysUser.setPassword(hash.toHex());
+    }
+
+    @Override
+    public void updateUserStsByUserName(SysUser sysUser) {
+        sysUserMapper.updateUserStsByUserName(sysUser);
+        System.out.println(sysUser);
     }
     
 }

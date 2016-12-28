@@ -271,10 +271,25 @@
         from sys_user where user_name = #{userName}
     </select>
     
+    <select id="findActiveUserByUserName" resultMap="SysUserResultMap">
+        select
+        <include refid="SysUserColumns" />
+        from sys_user 
+        where user_name = #{userName}
+        and user_sts = 1
+    </select>
+    
+    
     <select id="findAll" resultMap="SysUserResultMap">
         select
         <include refid="SysUserColumns" />
         from sys_user
     </select>
     
+    <update id="updateUserStsByUserName">
+        update sys_user
+        set user_sts = #{userSts}
+        where
+        user_name = #{userName}
+    </update>
 </mapper>

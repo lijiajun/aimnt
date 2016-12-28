@@ -62,6 +62,10 @@ public interface SysUserService {
      * @return
      */
     public List<SysUserRole> findUserRoleByUserId(String userId);
+
+    public void updateUserStsByUserName(SysUser sysUser);
+
+    public SysUser findActiveUserByUserName(String userName);
     
     
 }

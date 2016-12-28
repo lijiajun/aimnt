@@ -10,17 +10,30 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ai.mnt.common.util.MntConstant;
+import com.ai.mnt.model.sys.SysUser;
+import com.ai.mnt.service.sys.SysUserService;
 
+@Service
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 
     private Cache passwdRetryCache;
 
+    @Autowired
+    SysUserService sysUserService;
+    
+    public RetryLimitCredentialsMatcher() {}
+    
     public RetryLimitCredentialsMatcher(CacheManager cacheManager) {
 //        Collection<String> cacheNames = springCacheManager.getCacheNames();
         passwdRetryCache = cacheManager.getCache("passwdRetryLimitCache");
     }
+    
+    
+    
     
     /**
      * 重写验证，次数校验
@@ -37,13 +50,29 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
         }
         AtomicInteger retryCount = (AtomicInteger)element.getObjectValue(); 
         if(retryCount.incrementAndGet() > MntConstant.PASSWD_RETRY_COUNT) {
+            //锁定用户
+            SysUser user = new SysUser();
+            user.setUserSts("2");
+            user.setUserName(username);
+            sysUserService.updateUserStsByUserName(user);
+            
             throw new ExcessiveAttemptsException();
         }
         boolean matches = super.doCredentialsMatch(token, info);  
         if(matches) {  
             passwdRetryCache.remove(username);  
         }  
-        return matches;  
+        return matches;
     }
+    
+    public void unlockUser(String username) {
+        //解锁用户
+        Element element = passwdRetryCache.get(username);
+        if(null != element) {
+            passwdRetryCache.remove(username);
+        }
+    }
+    
+    
     
 }
